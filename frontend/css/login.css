@@ -1,31 +1,9 @@
-html {
-    height: 100%
-}
-
-body {
-    background-color: GainsBoro;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    font-family: Helvetica, sans-serif;
-}
-
-header {
-    background-color: Black;
-    color: white;
-    text-align: center;
-    width: 100%;
-    height: 7.5%;
-}
-
-#page {
+div.form {
     position: relative;
-    width: 960px;
-    height: 100%;
-    margin: 0 auto;
+    top: 20%;
 }
 
-form {
+div.form>form {
     position: relative;
     margin: 0 auto;
     width: 50%;
@@ -35,7 +13,7 @@ form {
     margin: -100px 0 0 -25%;
 }
 
-fieldset {
+div.form>form>fieldset {
     position: relative;
     background-color: white;
     height: 100%;
@@ -43,31 +21,26 @@ fieldset {
     border-radius: 5px;
 }
 
-div.boxcontent {
+div.form>form>fieldset>div.title {
+    margin-bottom: 0.5em;
+}
+
+div.form>form>fieldset>div.boxcontent {
     position: relative;
     width: 75%;
     left: 12.5%;
 }
 
-div.title {
-    margin-bottom: 0.5em;
-}
-
-div.textbox {
+div.form>form>fieldset>div.boxcontent>div.textbox {
     margin-bottom: 1em;
 }
 
-div.form {
-    position: relative;
-    top: 20%;
-}
-
-input[type="text"],[type="password"] {
+div.form>form>fieldset>div.boxcontent input[type="text"],[type="password"] {
     box-sizing: border-box;
     width: 100%;
 }
 
-div.form input[type="submit"] {
+div.form>form>fieldset>div.boxcontent>input[type="submit"] {
     position: absolute;
     width: 40%;
     height: 25%;
@@ -75,7 +48,7 @@ div.form input[type="submit"] {
     font-size: 100%
 }
 
-div.form a:hover {
+div.form>form>fieldset>div.boxcontent>input>a:hover {
     color: purple;
 }
 
@@ -85,7 +58,7 @@ div.create {
     text-align: center;
 }
 
-div.create a {
+div.create>a {
     background-color: Black;
     font-size: 200%;
     border: 1px solid DarkSlateGrey;
@@ -95,7 +68,7 @@ div.create a {
     border-radius: 5px;
 }
 
-div.create a:hover {
+div.create>a:hover {
     background-color: hsl(0, 0%, 15%);
     border: 1px solid black;
 }

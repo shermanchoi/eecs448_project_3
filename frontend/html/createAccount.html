@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+	<title>Doug's Book Account Creation</title>
+	<link href="../css/createAccount.css" type="text/css" rel="stylesheet" />
+	<link href="../css/page_layout.css" type="text/css" rel="stylesheet" />
+	<script src="../js/createAccount.js" type="application/javascript"></script>
+    </head>
+    <body>
+	<header>
+	    Insert Logo Here
+	</header>
+	<div id="page">
+	    <form action="tbi.php(?)" method="post" onsubmit="formValidate()">
+		<fieldset>
+		    <div class="formheading">
+			Create Account
+		    </div>
+		    <div class="formsubheading">
+			Personal Information
+		    </div>
+		    <div class="formcontent">
+			<div class="textbox">
+			    <label>First Name</label><br />
+			    <input type="text" name="fname"/>
+			</div>
+			<div class="textbox">
+			    <label>Last Name</label><br />
+			    <input type="text" name="lname"/>
+			</div>
+			<div class="dropdowns">
+			    <label>Date of Birth</label> <br />
+			    <select name="Month" onchange="generateDates()">
+				<option value="01">January</option>
+				<option value="02">February</option>
+				<option value="03">March</option>
+				<option value="04">April</option>
+				<option value="05">May</option>
+				<option value="06">June</option>
+				<option value="07">July</option>
+				<option value="08">August</option>
+				<option value="09">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			    </select>
+			    <select name="Date">
+				<option value="01">1</option>
+			    </select>
+			    <select name="Year">
+				<option value="2018">2018</option>
+			    </select>
+			</div>
+		    </div>
+		    <div class="formsubheading">
+			Account Information
+		    </div>
+		    <div class="formcontent">
+			<div class="textbox">
+			    <label>Username</label> <br />
+			    <input type="text" name="uname">
+			</div>
+			<div class="textbox">
+			    <label>Password <span style="font-size: 75%;">(8 character minimum)</span></label> <br />
+			    <input type="password" name="pword">
+			</div>
+			<div class="textbox">
+			    <label>Confirm Password <span style="font-size: 75%;">(8 character minimum)</span></label> <br />
+			    <input type="password" name="cpword">
+			</div>
+		    </div>
+		    <button type="submit" formaction="login.html">Cancel</button>
+		    <input type="submit" value="Create">
+		</fieldset>
+	    </form>
+	</div>
+    </body>
+</html>
+
