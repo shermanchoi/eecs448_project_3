@@ -79,7 +79,9 @@ public class Database {
 	}
   }
   /**
-   * This is an account creation method
+   * This is an account creation method.
+   * @pre There is a connection to the database.
+   * @post The account is created.
    * @param username The username of the new account.
    * @param password The password of the new account.
    * @return true if the account was created successfully, false otherwise (boolean)
@@ -87,9 +89,16 @@ public class Database {
   public static boolean createAccount(String username, String password){
 	return querySQLSet("INSERT INTO Accounts (username,password) VALUE " + "(\"" + username + "\",\"" + password + "\");");
   }
-  
-  public static boolean createPost(String author, String content){
-	return querySQLSet("???");
+  /**
+   * This is an post creation method.
+   * @pre There is a connection to the database.
+   * @post The post is created.
+   * @param author The author of the message indicated by username.
+   * @param message The message's contents.
+   * @return true if the post was created successfully, false otherwise (boolean)
+   */
+  public static boolean createPost(String author, String message){
+	return querySQLSet("INSERT INTO Posts (author,message) VALUE " + "(\"" + author + "\",\"" + message + "\");");
   }
   
   public static void disconnect(){
