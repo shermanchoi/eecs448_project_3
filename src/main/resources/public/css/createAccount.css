@@ -1,0 +1,74 @@
+div.form {
+    position: relative;
+    top: 5%;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+fieldset {
+    background-color: white;
+    border: 2px solid DarkGrey;
+    border-radius: 5px;
+}
+
+div.formheading {
+    position: relative;
+    left: 0;
+    font-weight: bold;
+}
+
+div.formsubheading {
+    position: relative;
+    left: 1em;
+}
+
+div.formcontent {
+    position: relative;
+    margin: 0 2em auto;
+    margin-bottom: 1em;
+}
+
+div.textbox {
+    margin-bottom: 0.2em;
+}
+
+div.dropdowns {
+    margin-bottom: 0.2em;
+}
+
+input[type="text"],input[type="password"] {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+select {
+    width: 30%;
+}
+
+button {
+    position: relative;
+    left: 0;
+    width: 40%;
+    height: 50px;
+}
+
+input[type="submit"] {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    width: 40%;
+    height: 50px;
+    background-color: black;
+    font-size: 100%;
+    color: white;
+    border: 1px solid DarkSlateGrey;
+}
+
+input[type="submit"]:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+
