@@ -24,15 +24,17 @@
 			<div class="formcontent">
 			    <div class="textbox">
 				<label>First Name</label><br />
-				<input type="text" name="fname"/>
+				<input type="text" name="fname"/><br />
+				<span id="tb0alert" class="alert">Field cannot be left empty</span>
 			    </div>
 			    <div class="textbox">
 				<label>Last Name</label><br />
-				<input type="text" name="lname"/>
+				<input type="text" name="lname"/><br />
+				<span id="tb1alert" class="alert">Field cannot be left empty</span>
 			    </div>
 			    <div class="dropdowns">
-				<label>Date of Birth</label> <br />
-				<select name="Month" onchange="generateDates()">
+				<label>Date of Birth</label><br />
+				<select id="Month" name="Month">
 				    <option value="01">January</option>
 				    <option value="02">February</option>
 				    <option value="03">March</option>
@@ -46,12 +48,13 @@
 				    <option value="11">November</option>
 				    <option value="12">December</option>
 				</select>
-				<script>generateDates();</script>
 				<select id="Date" name="Date">
 				</select>
-				<select name="Year">
-				    <option value="2018">2018</option>
+				<select id="Year" name="Year">
 				</select>
+				<script>generateDates();</script>
+				<br />
+				<span id="datealert" class="alert">Invalid Date</span>
 			    </div>
 			</div>
 			<hr />
@@ -60,16 +63,19 @@
 			</div>
 			<div class="formcontent">
 			    <div class="textbox">
-				<label>Username</label> <br />
-				<input type="text" name="uname">
+				<label>Username</label><br />
+				<input type="text" name="uname"><br />
+				<span id="tb2alert" class="alert">Field cannot be left empty</span>
 			    </div>
 			    <div class="textbox">
 				<label>Password <span style="font-size: 75%;">(8 character minimum)</span></label> <br />
-				<input type="password" name="pword">
+				<input type="password" name="pword"><br />
+				<span id="pwordalert" class="alert">Insufficient complexity</span>
 			    </div>
 			    <div class="textbox">
 				<label>Confirm Password <span style="font-size: 75%;">(8 character minimum)</span></label> <br />
-				<input type="password" name="cpword">
+				<input type="password" name="cpword"><br />
+				<span id="cpwordalert" class="alert">Passwords do not match</span>
 			    </div>
 			</div>
 			<hr />
@@ -78,8 +84,8 @@
 			</div>
 			<div class="formcontent">
 			    <div class="securityquestions">
-				Security Question 1: <br />
-				<select name="sq1">
+				Security Question 1: <span name="sqalert" class="alert">Questions must be distinct</span><br />
+				<select id="sq1" name="sq1">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
 				    <option value="q3">What is your favorite movie?</option>
@@ -90,11 +96,12 @@
 				<div class="textbox">
 				    <label>Answer 1</label> <br />
 				    <input type="text" name="sa1"> <br />
+				    <span id="tb3alert" class="alert">Field cannot be left empty</span>
 				</div>
 			    </div>
 			    <hr />
 			    <div class="securityquestions">
-				Security Question 2: <br />
+				Security Question 2: <span name="sqalert" class="alert">Questions must be distinct</span><br />
 				<select name="sq1">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
@@ -106,11 +113,12 @@
 				<div class="textbox">
 				    <label>Answer 2</label> <br />
 				    <input type="text" name="sa2"> <br />
+				    <span id="tb4alert" class="alert">Field cannot be left empty</span>
 				</div>
 			    </div>
 			    <hr />
 			    <div class="securityquestions">
-				Security Question 3: <br />
+				Security Question 3: <span name="sqalert" class="alert">Questions must be distinct</span><br />
 				<select name="sq1">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
@@ -122,6 +130,7 @@
 				<div class="textbox">
 				    <label>Answer 3</label> <br />
 				    <input type="text" name="sa3"> <br />
+				    <span id="tb5alert" class="alert">Field cannot be left empty</span>
 				</div>		    
 			    </div>
 			</div>

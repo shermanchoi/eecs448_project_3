@@ -27,11 +27,20 @@ div.formcontent {
 }
 
 div.textbox {
-    margin-bottom: 0.2em;
+    margin-bottom: 1em;
 }
 
 div.dropdowns {
-    margin-bottom: 0.2em;
+    margin-bottom: 1em;
+}
+
+span.alert {
+    position: absolute;
+    right: 0;
+    font-size: 75%;
+    color: red;
+    font-style: italic;
+    display: none;
 }
 
 input[type="text"],input[type="password"] {
