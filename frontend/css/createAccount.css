@@ -1,8 +1,3 @@
-div.form {
-    position: relative;
-    top: 5%;
-}
-
 form {
     width: 50%;
     margin: 0 auto;
@@ -46,6 +41,15 @@ input[type="text"],input[type="password"] {
 
 select {
     width: 30%;
+}
+
+div.securityquestions {
+    margin-bottom: 0.5em;
+}
+
+div.securityquestions select {
+    width: 100%;
+    margin-bottom: 0.2em;
 }
 
 button {

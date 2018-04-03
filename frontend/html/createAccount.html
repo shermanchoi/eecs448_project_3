@@ -5,7 +5,7 @@
 	<title>Doug's Book Account Creation</title>
 	<link href="../css/createAccount.css" type="text/css" rel="stylesheet" />
 	<link href="../css/page_layout.css" type="text/css" rel="stylesheet" />
-	<script src="../js/createAccount.js" type="application/javascript"></script>
+	<script type="text/javascript" src="../js/createAccount.js"></script>
     </head>
     <body>
 	<header>
@@ -46,14 +46,15 @@
 				    <option value="11">November</option>
 				    <option value="12">December</option>
 				</select>
-				<select name="Date">
-				    <option value="01">1</option>
+				<script>generateDates();</script>
+				<select id="Date" name="Date">
 				</select>
 				<select name="Year">
 				    <option value="2018">2018</option>
 				</select>
 			    </div>
 			</div>
+			<hr />
 			<div class="formsubheading">
 			    Account Information
 			</div>
@@ -71,6 +72,60 @@
 				<input type="password" name="cpword">
 			    </div>
 			</div>
+			<hr />
+			<div class="formsubheading">
+			    Security Questions <span style="font-size: 75%;">(Password recovery)</span>
+			</div>
+			<div class="formcontent">
+			    <div class="securityquestions">
+				Security Question 1: <br />
+				<select name="sq1">
+				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
+				    <option value="q2">What high school did you attend?</option>
+				    <option value="q3">What is your favorite movie?</option>
+				    <option value="q4">What was the name of your first pet?</option>
+				    <option value="q5">Which phone number do you remember most from your
+				    childhood?</option>
+				</select>
+				<div class="textbox">
+				    <label>Answer 1</label> <br />
+				    <input type="text" name="sa1"> <br />
+				</div>
+			    </div>
+			    <hr />
+			    <div class="securityquestions">
+				Security Question 2: <br />
+				<select name="sq1">
+				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
+				    <option value="q2">What high school did you attend?</option>
+				    <option value="q3">What is your favorite movie?</option>
+				    <option value="q4">What was the name of your first pet?</option>
+				    <option value="q5">Which phone number do you remember most from your
+				    childhood?</option>
+				</select>
+				<div class="textbox">
+				    <label>Answer 2</label> <br />
+				    <input type="text" name="sa2"> <br />
+				</div>
+			    </div>
+			    <hr />
+			    <div class="securityquestions">
+				Security Question 3: <br />
+				<select name="sq1">
+				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
+				    <option value="q2">What high school did you attend?</option>
+				    <option value="q3">What is your favorite movie?</option>
+				    <option value="q4">What was the name of your first pet?</option>
+				    <option value="q5">Which phone number do you remember most from your
+				    childhood?</option>
+				</select>
+				<div class="textbox">
+				    <label>Answer 3</label> <br />
+				    <input type="text" name="sa3"> <br />
+				</div>		    
+			    </div>
+			</div>
+			<hr />
 			<div class="formcontent" style="margin-bottom: 0;">
 			    <button type="submit" formaction="login.html">Cancel</button>
 			    <input type="submit" value="Create">
