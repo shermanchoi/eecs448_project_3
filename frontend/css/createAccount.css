@@ -61,11 +61,15 @@ div.securityquestions select {
     margin-bottom: 0.2em;
 }
 
-button {
+div.buttons {
     position: relative;
-    left: 0;
-    width: 40%;
+    margin: 0 2em auto;
     height: 50px;
+}
+
+a {
+    position: relative;
+    top: 15px;
 }
 
 input[type="submit"] {

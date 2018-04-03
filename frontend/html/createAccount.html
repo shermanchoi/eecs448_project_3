@@ -84,7 +84,7 @@
 			</div>
 			<div class="formcontent">
 			    <div class="securityquestions">
-				Security Question 1: <span name="sqalert" class="alert">Questions must be distinct</span><br />
+				Security Question 1: <span id="sq1alert" class="alert">Questions must be distinct</span><br />
 				<select id="sq1" name="sq1">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
@@ -101,8 +101,8 @@
 			    </div>
 			    <hr />
 			    <div class="securityquestions">
-				Security Question 2: <span name="sqalert" class="alert">Questions must be distinct</span><br />
-				<select name="sq1">
+				Security Question 2: <span id="sq2alert" class="alert">Questions must be distinct</span><br />
+				<select id="sq2" name="sq2">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
 				    <option value="q3">What is your favorite movie?</option>
@@ -118,8 +118,8 @@
 			    </div>
 			    <hr />
 			    <div class="securityquestions">
-				Security Question 3: <span name="sqalert" class="alert">Questions must be distinct</span><br />
-				<select name="sq1">
+				Security Question 3: <span id="sq3alert" class="alert">Questions must be distinct</span><br />
+				<select id="sq3" name="sq3">
 				    <option value="q1">Who is your favorite actor, musician, or artist?</option>
 				    <option value="q2">What high school did you attend?</option>
 				    <option value="q3">What is your favorite movie?</option>
@@ -135,9 +135,8 @@
 			    </div>
 			</div>
 			<hr />
-			<div class="formcontent" style="margin-bottom: 0;">
-			    <button type="submit" formaction="login.html">Cancel</button>
-			    <input type="submit" value="Create">
+			<div class="buttons" style="margin-bottom: 0;">
+			    <a href="login.html">Cancel</a><input type="submit" value="Create">
 			</div>
 		    </fieldset>
 		</form>
