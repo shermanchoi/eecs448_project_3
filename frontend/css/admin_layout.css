@@ -1,0 +1,125 @@
+body {
+    bottom:0%;
+}
+div.bodyDiv {
+    position: relative;
+    width: 650px;
+    margin: auto;
+}
+
+div.post {
+    position: relative;
+    top: 5%;
+    height: 200px;
+    width: 644px;
+    margin: auto;
+    margin-bottom: 10px;
+    border: 3px solid black;
+}
+
+div.post>form>div.inputField {
+    text-align:center;
+}
+
+div.post>form>div.inputField>input[type=text].postTitle {
+    width: 640px;
+    height: 24px;
+    margin-top:5px;
+    margin-bottom: 10px;
+    font-size:14px;
+}
+
+div.post>form>div.inputField>textarea.postContent {
+    width: 640px;
+    height: 100px;
+    margin:0 auto;
+    font-size:14px;
+}
+
+.submitButton {
+    text-align: center;
+    margin: 0 auto;
+}
+
+div.post>form>div.submitButton>button {
+    height: 40px;
+    width: 90px;
+    margin-top: 7px;
+}
+
+div.userList {
+    width: 220px;
+    height: 500px;
+    border: 3px solid black;
+    float: left;
+    margin-top: 35px;
+    overflow: auto;
+    background-color: white;
+}
+
+div.userList>form>input {
+    margin-top: 10px;
+    margin-left: 5px;
+    border: 1px solid black;
+}
+
+div.postsList {
+    width: 410px;
+    height: 500px;
+    border: 3px solid black;
+    float: right;
+    margin-top: 35px;
+    overflow: auto;
+}
+
+div.postsList>form>input[type=text] {
+    width: 320px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.postsTable {
+    width: 98%;
+    margin: auto;
+    border-collapse: separate;
+}
+
+.userTable {
+    width: 98%;
+    margin-left: 3%;
+    border-collapse: separate; 
+}
+
+tr {
+    border: 1px solid black;
+    margin-top: 10px;
+    border-spacing: 5px;
+}
+
+.userTable>tr {
+    border: 1px solid black;
+    margin-top: 10px;
+    border-spacing: 5px;
+}
+
+td.postTitle {
+    width: 220px;
+    float: left;
+    margin: 5px;
+    border-right: 1px solid gray;
+    overflow: hidden;
+}
+
+td.postAuthor {
+    width: 60px;
+    float: left;
+    margin: 5px;
+    border-right: 1px solid gray;
+    overflow: hidden;
+}
+
+td.replyNbr {
+    float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+}
