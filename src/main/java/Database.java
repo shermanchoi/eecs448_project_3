@@ -4,15 +4,22 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Database {
+	/**
+	 * This is the driver used to connect to the MySQL server
+	 */
 	final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
+	/**
+	 * The url of the database, such as "jdbc:mysql://localhost:3306/sys"
+	 */
 	final static String url = "jdbc:mysql://localhost:3306/sys";
-	/** The url of the database, such as "jdbc:mysql://localhost:3306/sys" */
+	/**
+	 * The user of the database, such as "root"
+	 */
 	final static String user = "root";
-	/** The user of the database, such as "root" */
+	/**
+	 * The password of the database's user; this will vary
+	 */
 	final static String pass = "password";
-
-	/** The password of the database's user; this will vary */
 
 	/**
 	 * This method begins a connection with the database.
@@ -41,6 +48,14 @@ public class Database {
 		}
 	}
 
+	/**
+	 * This method closes a database connection.
+	 * 
+	 * @pre The connection parameter is a valid, open connection
+	 * @post The connection will be closed
+	 * @param connection
+	 *            The connection to be closed
+	 */
 	public static void disconnect(Connection connection) {
 		try {
 			System.out.println("Connection closing...");

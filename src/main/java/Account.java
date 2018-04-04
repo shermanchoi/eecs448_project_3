@@ -3,9 +3,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Account {
+	/**
+	 * Information of the account
+	 */
 	private String username, password, birthday, firstName, lastName;
-
-	/** Information of the account **/
 
 	/**
 	 * The constructor of an Account class
@@ -75,6 +76,42 @@ public class Account {
 	}
 
 	/**
+	 * Get username method
+	 * 
+	 * @return username of this account
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * Get birthday method
+	 * 
+	 * @return birthday of the account user.
+	 */
+	public String getBirthday() {
+		return birthday;
+	}
+
+	/**
+	 * Get first name method
+	 * 
+	 * @return first name of the account user.
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * Get last name method
+	 * 
+	 * @return last name of the account user.
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
 	 * This method saves the account's information into the database.
 	 * 
 	 * @post The account's information will be altered in the database.
@@ -100,16 +137,17 @@ public class Account {
 	 *            First name of the user of the new account
 	 * @param lName
 	 *            Last name of the user of the new account
-	 * @return An Account object representing the new account if placed without error, null otherwise
+	 * @return An Account object representing the new account if placed without
+	 *         error, null otherwise
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName) {
-		if(Database.querySQLSet("INSERT INTO Accounts (username,password,birthday,firstName,lastName) VALUE " + "(\""
+		if (Database.querySQLSet("INSERT INTO Accounts (username,password,birthday,firstName,lastName) VALUE " + "(\""
 				+ uname + "\",\"" + pword + "\",\"" + dateOfBirth + "\",\"" + fName + "\",\"" + lName + "\");")) {
 			return new Account(uname, pword, dateOfBirth, fName, lName);
-		}else {
+		} else {
 			return null;
 		}
-		
+
 	}
 
 	/**
