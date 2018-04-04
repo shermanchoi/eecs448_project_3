@@ -6,20 +6,27 @@ import java.sql.Statement;
 public class Database {
 	final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-	final static String url = "jdbc:mysql://localhost:3306/sys"; /** The url of the database, such as "jdbc:mysql://localhost:3306/sys" */
-	final static String user = "root"; /** The user of the database, such as "root" */
-	final static String pass = "password"; /** The password of the database's user; this will vary */
-	
+	final static String url = "jdbc:mysql://localhost:3306/sys";
+	/** The url of the database, such as "jdbc:mysql://localhost:3306/sys" */
+	final static String user = "root";
+	/** The user of the database, such as "root" */
+	final static String pass = "password";
+
+	/** The password of the database's user; this will vary */
+
 	/**
 	 * This method begins a connection with the database.
 	 * 
 	 * @pre None
 	 * @post The database is now connected to the database according to parameters.
-	 * @param url_in The URL of the database.
-	 * @param user_in The username used to log into the database.
-	 * @param pass_in The password used to log into the database.
+	 * @param url_in
+	 *            The URL of the database.
+	 * @param user_in
+	 *            The username used to log into the database.
+	 * @param pass_in
+	 *            The password used to log into the database.
 	 */
-	public static Connection connect(){
+	public static Connection connect() {
 		try {
 			// Attempt to connect.
 			System.out.println("Connecting...");
@@ -73,18 +80,4 @@ public class Database {
 		return successful;
 	}
 
-	/**
-	 * This is an post creation method.
-	 * 
-	 * @pre There is a connection to the database.
-	 * @post The post is created.
-	 * @param author The author of the message indicated by username.
-	 * @param message The message's contents.
-	 * @return true if the post was created successfully, false otherwise (boolean)
-	 */
-	public static boolean createPost(String author, String message) {
-		return querySQLSet("INSERT INTO Posts (author,message) VALUE " + "(\"" + author + "\",\"" + message + "\");");
-	}
-
-	
 }
