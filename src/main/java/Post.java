@@ -1,11 +1,8 @@
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 public class Post {
+	/**
+	 * Information of the Post
+	 */
 	private String author, message, title;
-
-	/** Information of the Post */
 
 	/**
 	 * Constructor of a Post object
@@ -21,6 +18,15 @@ public class Post {
 		author = inputAuthor;
 		message = inputMessage;
 		title = inputTitle;
+	}
+
+	/**
+	 * A method that returns this post as HTML
+	 * 
+	 * @return A string that represents the HTML of this page
+	 */
+	public String toHTML() {
+		return "";
 	}
 
 	/**
@@ -45,4 +51,5 @@ public class Post {
 			return null;
 		}
 	}
+
 }
