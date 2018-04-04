@@ -25,15 +25,14 @@ public class Main {
 			String firstName = req.queryParams("fname");
 			String lastName = req.queryParams("lname");
 
-			Account a = Account.createAccount(username,password,dateOfBirth,firstName,lastName);
-			
-			if(a != null) {
+			Account a = Account.createAccount(username, password, dateOfBirth, firstName, lastName);
+
+			if (a != null) {
 				return "Account Creation Successful!</br><a href=\"/\">Go Back</a>";
-			}else {
+			} else {
 				return "Account Creation Failure!</br><a href=\"/html/createAccount.html\">Go Back</a>";
 			}
-			
-			
+
 		});
 		post("/login", (req, res) -> {
 			String uname = req.queryParams("username");
