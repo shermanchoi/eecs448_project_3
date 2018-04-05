@@ -10,10 +10,11 @@
       <artifactId>spark-core</artifactId>
       <version>2.7.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
-      <groupId>com.j2html</groupId>
-      <artifactId>j2html</artifactId>
-      <version>1.2.2</version>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20180130</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

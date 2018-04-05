@@ -1,11 +1,22 @@
 import static spark.Spark.*;
 
-import spark.Session;
-
-import static j2html.TagCreator.*;
+import org.json.*;
 
 public class Main {
 	public static void main(String[] args) {
+		
+		String dummy = new JSONStringer()
+			.object()
+				.key("username").value("schoi")
+				.key("password").value("password")
+				.key("birthday").value("12-12-2121")
+			.endObject()
+			.toString();
+		System.out.println(dummy);
+		
+		
+		
+		
 		port(4567);
 
 		staticFiles.location("/public");
