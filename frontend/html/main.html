@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>Doug's Book</title>
+        <link href="../css/page_layout.css" type="text/css" rel="stylesheet">
+        <link href="../css/main.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <header>Doug's Book</header>
+
+        <div class="headerButtons">
+            <!-- header buttons -->
+            <button type="button" onclick="window.location.href='account.html'">My Account</button>
+            <button type="button" onclick="window.location.href='main.html'">Home Page</button>
+            <script>
+                //get this variable's value from server
+                let somebool = true;
+                if(somebool == true) {
+                    let adminButton = document.createElement("button");
+                    adminButton.innerHTML = "Admin Mode";
+                    let att = document.createAttribute("class");
+                    att.value = "adminButton";
+                    adminButton.setAttributeNode(att);
+                    adminButton.onclick = function() {window.location.href="admin.html"};
+                    document.body.appendChild(adminButton);
+                }
+            </script>
+        </div>
+
+        <div class="bodyButtons">
+            <button type="button" onclick="post.html">Make Post</button>
+            <form class="filter">
+                <select>
+                    <option value="default">Filter</option>
+                    <option value="F">Friends' Posts</option>
+                    <option value="S">System Announcment</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="forumBody">
+            <p class="forumHeader L">Posts</p>
+            <p class="forumHeader R">Following</p>
+            <script>
+                let postT = "Some Title";
+                let postA = "Author";
+                let postR = 0;
+                let postID = 0;
+
+                
+                
+                //get posts from server
+
+                //transfer posts data to a JS array of arrays of strings and numbers
+                //For ex.
+                //posts = [IDs = ['1234', '6543', '8630', ...], titles = ['title1', 'title2', ...], authors = ['author1', 'author2', ...], replies = [1, 213, 33, ...]]
+                //for testing, create some dummy arrays
+                let IDs = ["0", "123", "333"];
+                let titles = ["What's the point?", "This is an empty post", "Aaaaaughibbrgubugbugrguburgle!"];
+                let authors = ["AcePilot", "Null", "Murloc123"];
+                let replies = [2, 0, 18359];
+                let posts = [IDs, titles, authors, replies];
+                
+                function createList (posts) {
+                    let postList = document.createElement("ur");
+
+                    for(let i = 0; i < posts[0].length; i++) {
+                        let post = document.createElement("li");
+
+                        postT = posts[1][i];
+                        postA = posts[2][i];
+                        postR = posts[3][i];
+                        postID = posts[0][i];
+
+                        let _postT = document.createElement("a");
+                        let _postA = document.createElement("a");
+                        let _postR = document.createElement("a");
+
+                        let attT = document.createAttribute("postT");//the class of post title
+                        let attA = document.createAttribute("postA");//the class of post author
+                        let attR = document.createAttribute("postR");//the class of post replies
+
+                        _postT.innerHTML = postT;
+                        _postA.innerHTML = postA;
+
+                        let replyStr = "";
+                        if(postR > 1) {
+                            replyStr = postR + " Replies";
+                        } else {
+                            replyStr = postR + " Reply";
+                        }
+                        _postR.value = replyStr;
+
+                        _postT.onclick = function() {window.location.href="post_page/" + postID + ".html"};//go to post detail page
+                        _postA.onclick = function() {window.location.href="user/" + postA + ".html"};//go to user detail page
+                        _postR.onclick = function() {window.location.href="post_page/" + postID + ".html"};
+                        
+                        _postT.setAttributeNode(attT);
+                        _postA.setAttributeNode(attA);
+                        _postR.setAttributeNode(attR);
+                        
+                        let att = document.createAttribute("post"); //the class of each post
+                        post.setAttributeNode(att);  
+
+                        post.appendChild(_postT);
+                        post.appendChild(_postA);
+                        post.appendChild(_postR);
+
+                        postList.appendChild(post);
+                    }
+                    document.body.appendChild(postList);
+                }
+                
+                createList(posts);
+
+            </script>
+        </div>
+    </body>
+</html>
