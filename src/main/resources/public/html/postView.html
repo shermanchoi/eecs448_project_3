@@ -1,0 +1,117 @@
+<html>
+    <head>
+	<title>Doug's Book</title>
+	<link href="../css/page_layout.css" type="text/css" rel="stylesheet"/>
+	<link href="../css/postView.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+	<header>
+	    Doug's Book
+	</header>
+	<nav>
+	    <script>
+			//get this variable's value from server
+			let somebool = false;
+			if(somebool == true) {
+				let adminButton = document.createElement("a");
+		let adminText = document.createTextNode("Admin Mode");
+		adminButton.appendChild(adminText);
+
+		adminButton.classname = 'adminButton';
+		adminButton.setAttribute('href', 'admin.html');
+
+		let nav = document.getElementsByTagName('nav')[0];
+		nav.appendChild(adminButton);
+			}
+		</script>
+	    <a href="accountMgmt.html">My Account</a>
+	    <a href="main.html">Home</a>
+	</nav>
+
+	<div id="page">
+	    <!--POST STRUCTURE-->
+	    <!--postandreplies (id)
+		    post (id)
+				posttitle (id)
+				postauthor (id)
+				postcontents (id)
+		    replies (id)
+				repliestitle (id)
+				repliescontent (id)
+			    		reply (class)
+							replier (class)
+							replycontent (class)
+	    -->
+
+	    <div id="postandreplies">
+<!--
+			<div id="post">
+				<div id="posttitle">
+				How do I post to this website?
+				</div>
+
+				<div id="postauthor">
+				By: IdontknowwhatImdoing28
+				</div>
+
+				<div id="postcontents">
+				<p>Hello</p>
+				<p>I would like to make a post to this website, but I am not entirely sure how to go about doing
+				that. Can someone help me please?<br>Thanks</br></p>
+				</div>
+			</div>
+-->
+			<script type="text/javascript" src="../js/postView-general.js">
+				createReplyView();
+			</script>
+
+<!--
+			<div id="replies">
+				<div id="repliestitle">
+				Replies
+				<button type="button" class="reply">Write a Reply</button>
+				</div>
+				
+				<div id="repliescontent">
+					<div class="reply">
+						<div class="replier">
+						Dragon_slayer123
+						</div>
+						<div class="replycontent">
+						Here is a reply. Not a whole lot of content, but I will have something more to say later
+						</div>
+					</div>
+
+					<div class="reply">
+						<div class="replier">
+						williamSucksAndCamelCaseRules
+						</div>
+
+						<div class="replycontent">
+						Have you not just posted to the website? I'm pretty sure that what I am replying to is a
+						post, so it doesn't really look like you're having any problems.<br><br>
+						That being said, I don't really know how to reply, either...
+						</div>
+					</div>
+
+					<div class="reply">
+						<div class="replier">
+						DougThaPlug
+						</div>
+						<div class="replycontent">
+						I don't really know what your problem is, but have some lorem ipsum!
+						<p>
+						"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+						aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+						aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+						occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+						</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		-->
+		</div>
+	</div>
+    </body>
+</html>
