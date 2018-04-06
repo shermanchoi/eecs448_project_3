@@ -56,7 +56,7 @@ public class Database {
 				results = statement.executeQuery(query);
 
 				while (results.next()) {
-					switch(results.getString("password")){
+					switch(results.getString("Tables_in_sys")){
 						case "Accounts":
 							existenceAccounts = true;
 							break;
