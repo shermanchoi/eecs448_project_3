@@ -20,8 +20,8 @@ public class Main {
     }
     
     public static void configure(){
-        port(80);
-        staticFiles.location("/statics");
+        port(4567);
+        staticFiles.location("/public");
         staticFiles.externalLocation("./resources");
     }
     
@@ -40,23 +40,24 @@ public class Main {
         /*Handles the request to login*/
         get("/login", (req, res) ->{
             if(!validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
-                res.redirect("/login.html");
+                res.redirect("/html/login.html");
             }else{
                 //send to home
             }
             return null;
         });
         post("/login", (req, res)->{
-            Integer userid = login(req.queryParams("username"), req.queryParams("password"));
+            String userid = login(req.queryParams("username"), req.queryParams("password"));
             Integer sessionid = (int) Math.random();
             
             if(userid != null){
                 req.session(true);
                 req.session().attribute("UserID", userid);
                 req.session().attribute("SessionID", sessionid);
+                
                 return "Successfully Logged In";
             }else{
-                res.redirect("login.html?error=invalid");
+                res.redirect("html/login.html?error=invalid");
             }
             
             return null;
@@ -68,11 +69,14 @@ public class Main {
     
     
     /**Logs the user in an creates a session.**/
-    public static Integer login(String username, String password){
+    public static String login(String username, String password){
         try{
             //Check database set id if success
+        	Account a = Account.login(username, password);
+        	System.out.println(a.getUsername());
+        	return a.getUsername();
         }catch(Exception e) {
-    
+        	
         }
         
         return null;
