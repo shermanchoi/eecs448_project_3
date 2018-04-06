@@ -19,7 +19,8 @@ button:hover {
 
 table {
     width: 100%;
-    background-color: DarkGrey;
+    border-spacing: 0px;
+    border: 2px solid DarkGrey;
 }
 
 thead {
@@ -55,3 +56,10 @@ tr.odd {
 tr.even {
     background-color: hsl(0, 0%, 60%);
 }
+
+tr.odd:hover {
+    background-color: hsl(0,0%,80%);
+}
+
+tr.even:hover {
+    background-color: hsl(0,0%,65%);
