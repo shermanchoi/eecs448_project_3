@@ -80,7 +80,7 @@ public class Database {
 			}
 			
 			
-			//Generate Accounts table if it does not eixt.
+			//Generate Accounts table if it does not exist.
 			if(!existenceAccounts) {
 				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
 						"  `author` varchar(255) NOT NULL,\n" + 
@@ -101,9 +101,12 @@ public class Database {
 						"  `title` longtext NOT NULL,\n" + 
 						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
 						"  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" + 
+						"  `parentPost` int(11) DEFAULT NULL,\n" + 
 						"  PRIMARY KEY (`id`),\n" + 
 						"  KEY `author` (`author`),\n" + 
-						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`)\n" + 
+						"  KEY `fk_Posts_1_idx` (`parentPost`),\n" + 
+						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`),\n" + 
+						"  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `Posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			//Generate Session table if it does not exist.
