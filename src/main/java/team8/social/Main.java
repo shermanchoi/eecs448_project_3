@@ -21,7 +21,7 @@ public class Main {
     }
     
     public static void configure(){
-        port(80);
+        port(4567);
         Database.initialize("jdbc:mysql://localhost:3306/sys", "root", "password");
         staticFiles.location("/public");
         staticFiles.externalLocation("./resources");
