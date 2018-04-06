@@ -1,0 +1,56 @@
+<html>
+    <head>
+	<title>Doug's Book</title>
+	<link href="../css/page_layout.css" type="text/css" rel="stylesheet">
+	<link href="../css/postView.css" type="text/css" rel="stylesheet">
+	<link href="../css/postViewReply.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+	<header>
+	    Doug's Book
+	</header>
+	<nav>
+	    <a href="admin.html">Admin Mode</a> <!--Gonna need some javascript here to see for admin -->
+	    <a href="accountMgmt.html">My Account</a>
+	    <a href="main.html">Home</a>
+	</nav>
+
+	<div id="page">
+	    <div id="postandreplies">
+		<div id="post">
+		    <div id="posttitle">
+			How do I post to this website?
+		    </div>
+		    <div id="postauthor">
+			By: IdontknowwhatImdoing28
+		    </div>
+		    <div id="postcontents">
+			<p>Hello</p>
+			<p>I would like to make a post to this website, but I am not entirely sure how to go about doing
+			that. Can someone help me please?<br>Thanks</br></p>
+		    </div>
+		</div>
+		<div id="replyform">
+		    <form action="tbi.php(?)" method="post">
+			<fieldset>
+			    <div class="formheading">
+				Write a reply
+			    </div>
+			    <div class="formcontent">
+				<div class="textbox">
+				    <textarea name="replycontent"></textarea>
+				</div>
+			    </div>
+			    <div class="buttons">
+				<button type="button" class="cancel">Cancel</button>
+				<input type="submit" value="Reply">
+			    </div>
+			</fieldset>
+		    </form>
+		</div>
+	    </div>
+	</div>
+    </body>
+</html>
+
+
