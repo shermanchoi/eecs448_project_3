@@ -1,3 +1,5 @@
+package team8.social;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

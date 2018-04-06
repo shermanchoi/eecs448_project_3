@@ -1,3 +1,5 @@
+package team8.social;
+
 public class Post {
 	/**
 	 * Information of the Post
@@ -18,15 +20,6 @@ public class Post {
 		author = inputAuthor;
 		message = inputMessage;
 		title = inputTitle;
-	}
-
-	/**
-	 * A method that returns this post as HTML
-	 * 
-	 * @return A string that represents the HTML of this page
-	 */
-	public String toHTML() {
-		return "";
 	}
 
 	/**
