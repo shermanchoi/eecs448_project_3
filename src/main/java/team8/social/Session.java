@@ -29,13 +29,13 @@ public class Session {
 	}
 	/**
 	 * This method checks if this session exists in the database.
-	 * @param sessionID_in
-	 *            The sessionID of the session
 	 * @param username_in
 	 *            The username of the session
+	 * @param sessionID_in
+	 *            The sessionID of the session
 	 * @return True if the method exists, false otherwise
 	 */
-	public boolean validate(int sessionID_in, String username_in) {
+	public boolean validate(String username_in, int sessionID_in) {
 		Connection connection = Database.connect();
 		boolean found = false;
 
