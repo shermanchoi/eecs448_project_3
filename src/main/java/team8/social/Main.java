@@ -7,7 +7,6 @@
 package team8.social;
 
 import java.util.Random;
-
 import static spark.Spark.*;
 
 public class Main {

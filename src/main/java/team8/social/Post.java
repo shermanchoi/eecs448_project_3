@@ -1,5 +1,6 @@
 package team8.social;
 
+
 public class Post {
 	/**
 	 * Information of the Post
