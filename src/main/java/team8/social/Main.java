@@ -21,7 +21,7 @@ public class Main {
     
     public static void configure(){
         port(80);
-        staticFiles.location("/statics");
+        staticFiles.location("/public");
         staticFiles.externalLocation("./resources");
     }
     
@@ -40,7 +40,7 @@ public class Main {
         /*Handles the request to login*/
         get("/login", (req, res) ->{
             if(!validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
-                res.redirect("/login.html");
+                res.redirect("/html/login.html");
             }else{
                 //send to home
             }
