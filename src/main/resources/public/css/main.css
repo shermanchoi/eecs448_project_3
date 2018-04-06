@@ -65,7 +65,15 @@ tr.even:hover {
     background-color: hsl(0,0%,65%);
 }
 
+div.posttitle {
+    margin-left: 0.5em;
+}
+
 div.postauthor {
     font-size: 75%;
-    margin-left: 1em;
+    margin-left: 1.5em;
+}
+
+a {
+    color: DarkBlue;
 }
