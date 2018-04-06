@@ -1,0 +1,58 @@
+#postandreplies {
+    background-color: hsl(0,0%,80%);
+    border-width: 0 2px;
+    border-style: ridge;
+    border-color: black;
+    padding: 1em;
+    border-bottom: 2px ridge black;
+}
+
+#post {
+    margin-bottom: 1em;
+    border-bottom: 2px solid black;
+    padding-bottom: 1em;
+    width: 100%;
+}
+
+#posttitle {
+    color: black;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+#postauthor {
+    margin: 0em 1em auto;
+    color: black;
+    font-size: 90%;
+    border-bottom: 2px solid darkgrey;
+}
+
+#postcontents {
+    margin: 0 2em auto;
+}
+
+#repliestitle {
+    color: black;
+    font-size: 150%;
+    font-weight: bold;
+    border-bottom: 2px solid darkgrey;
+}
+
+#repliescontent{
+    margin: 1em 1em auto;
+}
+
+div.reply {
+    border-bottom: 1px solid darkgrey;
+    padding-bottom: 0.5em;
+    margin: 1em 0 auto;
+}
+
+div.replier {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+div.replycontent {
+    margin: 0 1em auto;
+}
