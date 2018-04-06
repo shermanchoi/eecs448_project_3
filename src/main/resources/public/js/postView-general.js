@@ -12,6 +12,9 @@ let postContent = "";
 let PoR = document.getElementById("postandreplies");
 
 function createPostView (title, author) {
+    //dummy for test
+    title = "This is a meaningless post";
+    author = "isNotaHuman";
     let post = document.createElement("div");
     post.setAttribute("id", "post");
 

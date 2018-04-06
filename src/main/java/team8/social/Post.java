@@ -37,13 +37,38 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
-		if (Database.querySQLSet("INSERT INTO Posts (author,message,title) VALUE " + "(\"" + inputAuthor + "\",\""
-				+ inputMessage + "\",\"" + inputTitle + "\");")) {
+		if (Database.querySQLSet("INSERT INTO `sys`.`Posts` (`author`,`message`,`title`)"
+				+ "VALUES" + "(" + inputAuthor + "," + inputMessage + "," + inputTitle + ");")) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * This method creates a new post and returns it as a new Post object. This one
+	 * specifically generates a reply to an existing message
+	 * 
+	 * @pre The post information to be used must be valid.
+	 * @post The post is created.
+	 * @param inputAuthor
+	 *            The username of the author of the post
+	 * @param inputMessage
+	 *            The message or content inside the post
+	 * @param inputTitle
+	 *            The title of the post
+	 * @param replyingToPostID
+	 *            The id of the post to reply to
+	 * @return A new Post object representing the new post is return if everything
+	 *         is valid, otherwise null
+	 */
+	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
+		if (Database.querySQLSet("INSERT INTO `sys`.`Posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
+				+ "VALUES" + "(" + inputAuthor + "," + inputMessage + "," + inputTitle + "," + replyingToPostID + ");")) {
+			return new Post(inputAuthor, inputMessage, inputTitle);
+		} else {
+			return null;
+		}
+	}
 
 }
