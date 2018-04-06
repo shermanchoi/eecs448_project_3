@@ -13,15 +13,114 @@ public class Database {
 	/**
 	 * The url of the database, such as "jdbc:mysql://localhost:3306/sys"
 	 */
-	final static String url = "jdbc:mysql://localhost:3306/sys";
+	private static String url = "jdbc:mysql://localhost:3306/sys";
 	/**
 	 * The user of the database, such as "root"
 	 */
-	final static String user = "root";
+	private static String user = "root";
 	/**
 	 * The password of the database's user; this will vary
 	 */
-	final static String pass = "password";
+	private static String pass = "password";
+
+	/**
+	 * This method prepares the database for use.
+	 * 
+	 * @post Prepares the database for use.
+	 * @param url_in
+	 *            The url of the database
+	 * @param user_in
+	 *            The user of the database
+	 * @param pass_in
+	 *            The password of the user of the database
+	 */
+	public static void initialize(String url_in, String user_in, String pass_in) {
+		url = url_in;
+		user = user_in;
+		pass = pass_in;
+		
+		boolean existenceAccounts = false;
+		boolean existencePosts = false;
+		boolean existenceSessions = false;
+		
+		//Check which tables exist
+		try {
+			Connection connection = Database.connect();
+			ResultSet results = null;
+
+			String query = "SHOW TABLES WHERE Tables_in_sys='Accounts' OR Tables_in_sys='Posts' OR Tables_in_sys='Sessions';";
+
+			try {
+				System.out.println("Executing Statement:\n\t" + query);
+				Statement statement = connection.createStatement();
+				results = statement.executeQuery(query);
+
+				while (results.next()) {
+					switch(results.getString("password")){
+						case "Accounts":
+							existenceAccounts = true;
+							break;
+						case "Posts":
+							existencePosts = true;
+							break;
+						case "Sessions":
+							existenceSessions = true;
+							break;
+					}
+				}
+
+				results.close();
+				statement.close();
+				Database.disconnect(connection);
+				System.out.println("Execution Success");
+			} catch (Exception e) {
+				System.out.println("Query Error:\n\t" + e.getMessage());
+			}
+			
+			
+			//Generate Accounts table if it does not eixt.
+			if(existenceAccounts) {
+				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
+						"  `author` varchar(255) NOT NULL,\n" + 
+						"  `message` longtext NOT NULL,\n" + 
+						"  `title` longtext NOT NULL,\n" + 
+						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
+						"  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" + 
+						"  PRIMARY KEY (`id`),\n" + 
+						"  KEY `author` (`author`),\n" + 
+						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`)\n" + 
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+			}
+			//Generate Posts table if it does not exist.
+			if(existencePosts) {
+				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
+						"  `author` varchar(255) NOT NULL,\n" + 
+						"  `message` longtext NOT NULL,\n" + 
+						"  `title` longtext NOT NULL,\n" + 
+						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
+						"  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" + 
+						"  PRIMARY KEY (`id`),\n" + 
+						"  KEY `author` (`author`),\n" + 
+						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`)\n" + 
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+			}
+			//Generate Session table if it does not exist.
+			if(existenceSessions) {
+				Database.querySQLSet("CREATE TABLE `Sessions` (\n" + 
+						"  `sessionID` varchar(255) NOT NULL,\n" + 
+						"  `username` varchar(255) NOT NULL,\n" + 
+						"  PRIMARY KEY (`sessionID`),\n" + 
+						"  KEY `username_idx` (`username`),\n" + 
+						"  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `Accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+			}
+			
+			//Delete session items. The entires are runtime stuff.
+			Database.querySQLSet("TRUNCATE Sessions;");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	/**
 	 * This method begins a connection with the database.
@@ -69,7 +168,7 @@ public class Database {
 	}
 
 	/**
-	 * This method executes a mySQL query and places new data.
+	 * This method executes a mySQL query and alters data.
 	 * 
 	 * @pre There is a connection to the database.
 	 * @post The database is altered depending on the query.
