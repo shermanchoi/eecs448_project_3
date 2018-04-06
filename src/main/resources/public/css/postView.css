@@ -43,6 +43,8 @@
 }
 
 div.reply {
+    position: relative;
+    width: 100%;
     border-bottom: 1px solid darkgrey;
     padding-bottom: 0.5em;
     margin: 1em 0 auto;
@@ -55,4 +57,18 @@ div.replier {
 
 div.replycontent {
     margin: 0 1em auto;
+}
+button.reply {
+    position: absolute;
+    right: 5%;
+    font-size: 50%;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    border: 1px solid DarkGrey;
+}
+
+button.reply:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
 }
