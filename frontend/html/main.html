@@ -28,21 +28,49 @@
 	</nav>
 
 	<div id="page">
-	    <div class="bodyButtons">
+	    <div class="forumButtons">
 		<button type="button" onclick="post.html">Make Post</button>
-		<form class="filter">
-		    <select>
-			<option value="default">Filter</option>
-			<option value="F">Friends' Posts</option>
-			<option value="S">System Announcment</option>
-		    </select>
-		</form>
 	    </div>
 
-	    <div class="forumBody">
-		<p class="forumHeader L">Posts</p>
-		<p class="forumHeader R">Following</p>
+	    <div class="forumTable">
+		<table>
+		    <thead>
+			<tr>
+			    <th class="titles">Post</th>
+			    <th class="replies">Replies</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr class="odd">
+			    <td class="mainpostinfo">
+				<div class="posttitle">
+				    Post title
+				</div>
+				<div class="postauthor">
+				    Post author
+				</div>
+			    </td>
+			    <td class="replies">
+				32
+			    </td>
+			</tr>
+			<tr class="even">
+			    <td class="mainpostinfo">
+				<div class="posttitle">
+				    Post title
+				</div>
+				<div class="postauthor">
+				    Post Author
+				</div>
+			    </td>
+			    <td class="replies">
+				28
+			    </td>
+			</tr>
+		    </tbody>
+		</table>
 		<script>
+/*
 		    let postT = "Some Title";
 		    let postA = "Author";
 		    let postR = 0;
@@ -114,6 +142,7 @@
 		    
 		    createList(posts);
 
+		*/
 		</script>
 	    </div>
 	</div>
