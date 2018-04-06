@@ -92,7 +92,8 @@ function createList (posts) {
         authorBlock.innerHTML = postA;
 
         //set click action on title
-        _postT.onclick = function() {window.location.href="post_page.html?" + postID};//go to post detail page
+        let postlink = "postView.html?" + postID;
+        _postT.setAttribute("href", postlink);//go to post detail page
 
         //insert the title link to div
         titleBlock.appendChild(_postT);
