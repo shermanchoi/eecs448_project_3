@@ -56,6 +56,7 @@ public class Database {
 				results = statement.executeQuery(query);
 
 				while (results.next()) {
+					System.out.println(results.getString("Tables_in_sys"));
 					switch(results.getString("Tables_in_sys")){
 						case "Accounts":
 							existenceAccounts = true;
@@ -79,7 +80,7 @@ public class Database {
 			
 			
 			//Generate Accounts table if it does not eixt.
-			if(existenceAccounts) {
+			if(!existenceAccounts) {
 				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
 						"  `author` varchar(255) NOT NULL,\n" + 
 						"  `message` longtext NOT NULL,\n" + 
@@ -92,7 +93,7 @@ public class Database {
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			//Generate Posts table if it does not exist.
-			if(existencePosts) {
+			if(!existencePosts) {
 				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
 						"  `author` varchar(255) NOT NULL,\n" + 
 						"  `message` longtext NOT NULL,\n" + 
@@ -105,7 +106,7 @@ public class Database {
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			//Generate Session table if it does not exist.
-			if(existenceSessions) {
+			if(!existenceSessions) {
 				Database.querySQLSet("CREATE TABLE `Sessions` (\n" + 
 						"  `sessionID` varchar(255) NOT NULL,\n" + 
 						"  `username` varchar(255) NOT NULL,\n" + 
