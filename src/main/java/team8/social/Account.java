@@ -120,8 +120,12 @@ public class Account {
 	 */
 	private void save() {
 		Database.querySQLSet(
-				"UPDATE Accounts SET password=\"" + password + "\",birthday=\"" + birthday + "\",firstName=\""
-						+ firstName + "\",lastName=\"" + lastName + "\" WHERE username=\"" + username + "\";");
+				"UPDATE Accounts SET"
+		+" password=\"" + password 
+		+ "\",birthday=\"" + birthday 
+		+ "\",firstName=\"" + firstName 
+		+ "\",lastName=\"" + lastName 
+		+ "\" WHERE username=\"" + username + "\";");
 	}
 
 	/**
