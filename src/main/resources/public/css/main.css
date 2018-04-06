@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+    background-color: DarkGrey;
+}
+
+thead {
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 90%;
+    font-weight: lighter;
+}
+
+th {
+    font-weight: inherit
+}
+
+th.titles {
+    width: 90%;
+}
+
+th.replies {
+    text-align: center;
+}
+
+td {
+    box-sizing: border-box;
+}
+
+tr.odd {
+    background-color: hsl(0, 0%, 75%);
+}
+
+tr.even {
+    background-color: hsl(0, 0%, 60%);
+}
