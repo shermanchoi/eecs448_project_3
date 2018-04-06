@@ -63,3 +63,9 @@ tr.odd:hover {
 
 tr.even:hover {
     background-color: hsl(0,0%,65%);
+}
+
+div.postauthor {
+    font-size: 75%;
+    margin-left: 1em;
+}
