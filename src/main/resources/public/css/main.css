@@ -1,3 +1,22 @@
+div.forumbuttons {
+    margin: 1em 0 1em 0;
+}
+
+button {
+    height: 40px;
+    background-color: black;
+    color: white;
+    font-size: 100%;
+    text-transform: uppercase;
+    border: 1px solid DarkGrey;
+}
+
+button:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+    
+
 table {
     width: 100%;
     background-color: DarkGrey;
@@ -21,7 +40,7 @@ th.titles {
     width: 90%;
 }
 
-th.replies {
+th.replies, td.replies {
     text-align: center;
 }
 
