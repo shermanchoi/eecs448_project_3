@@ -49,7 +49,7 @@ public class Database {
 			Connection connection = Database.connect();
 			ResultSet results = null;
 
-			String query = "SHOW TABLES WHERE Tables_in_sys='social_accounts' OR Tables_in_sys='social_posts' OR Tables_in_sys='social_sessions';";
+			String query = "SHOW TABLES;";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);

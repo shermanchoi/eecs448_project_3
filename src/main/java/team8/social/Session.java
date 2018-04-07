@@ -35,20 +35,16 @@ public class Session {
 	 *            The sessionID of the session
 	 * @return True if the method exists, false otherwise
 	 */
-	public static boolean validate(String username_in, String sessionID_in) {
+	public static boolean validate(String sessionID_in, String username_in) {
 		Connection connection = Database.connect();
 		boolean found = false;
-
 		try {
-			ResultSet results = null;
-
-			String query = "SELECT * FROM social_sessions WHERE sessionID = \"" + sessionID_in + "\";";
-
 			try {
+				String query = "SELECT * FROM social_sessions WHERE sessionID = '" + sessionID_in + "';";
 				System.out.println("Executing Statement:\n\t" + query);
 				Statement statement = connection.createStatement();
-				results = statement.executeQuery(query);
-
+				ResultSet results = statement.executeQuery(query);
+	
 				while (results.next()) {
 					if (username_in.equals(results.getString("username"))) {
 						found = true;
@@ -87,8 +83,8 @@ public class Session {
 		try {
 			Database.querySQLSet("INSERT INTO `social_sessions`" + 
 					"(`sessionID`," + 
-					"`username`)" + 
-					"VALUES" + "('" + 
+					"`username`) " + 
+					"VALUES" + " ('" + 
 					sessionID_in + "','" + 
 					username_in + "');");
 			return new Session(sessionID_in, username_in);
