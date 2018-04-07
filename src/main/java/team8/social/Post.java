@@ -82,7 +82,7 @@ public class Post {
 	 * @return A JSON string that represents all the posts.
 	 */
 	public static String JSONAllPosts() {
-		String postList = "{'Posts': [";
+		String postList = "{\"Posts\": [";
 		
 		try {
 			try {
