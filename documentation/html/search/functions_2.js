@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['disconnect',['disconnect',['../classDatabase.html#af1ba7076edfe9b89a181078c5edc7619',1,'Database']]]
+  ['disconnect',['disconnect',['../classteam8_1_1social_1_1Database.html#ae35b45066fc1e3546dbb57144dc99178',1,'team8::social::Database']]]
 ];

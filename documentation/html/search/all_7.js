@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['querysqlset',['querySQLSet',['../classDatabase.html#af3623289f96a5d9fa2a499f28c52f886',1,'Database']]]
+  ['main',['Main',['../classteam8_1_1social_1_1Main.html',1,'team8::social']]]
 ];

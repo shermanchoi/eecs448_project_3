@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['post',['Post',['../classPost.html#ac0f17d3fd552e2afc900b4c1523c2592',1,'Post']]]
+  ['jsonallposts',['JSONAllPosts',['../classteam8_1_1social_1_1Post.html#aa4041d2744430b9893ed3800d9fd9dab',1,'team8::social::Post']]]
 ];

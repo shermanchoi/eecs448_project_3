@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['login',['login',['../classAccount.html#acb81b4f12c6e9c8c9e66f6ec351a290b',1,'Account']]]
+  ['initialize',['initialize',['../classteam8_1_1social_1_1Database.html#a587f199dc1d024b88c40bb5a8a8a95ee',1,'team8::social::Database']]]
 ];
