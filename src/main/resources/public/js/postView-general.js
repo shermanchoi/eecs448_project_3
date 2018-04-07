@@ -16,56 +16,62 @@ xhttp.onreadystatechange = function() {
         text = this.responseText;
         obj = JSON.parse(text);
         alert(text);
+
+        postTitle = obj.Title;
+        postAuthor = obj.Author;
+        postContent = obj.Content;
+
+        let PoR = document.getElementById("postandreplies");
+
+        function createPostView (title, author) {
+            //dummy for test
+            /*
+            title = "This is a meaningless post";
+            author = "isNotaHuman";
+            */
+        
+            let post = document.createElement("div");
+            post.setAttribute("id", "post");
+        
+            let postT = document.createElement("div");
+            postT.setAttribute("id", "posttitle");
+        
+            postT.innerHTML = title;
+        
+            post.appendChild(postT);
+        
+            let postA = document.createElement("div");
+            postA.setAttribute("id", "postauthor");
+        
+            postA.innerHTML = "By: " + author;
+        
+            post.appendChild(postA);
+        
+            let postC = document.createElement("div");
+            postC.setAttribute("id", "postcontents");
+        
+            let content = document.createElement("p");
+            content.innerHTML = postContent;
+        
+            postC.appendChild(content);
+        
+            post.appendChild(postC);
+        
+            PoR.appendChild(post);
+        }
+        
+        createPostView(postTitle, postAuthor);
     }
 };
 
 xhttp.open("GET", "/api/post?postid="+ID, true);
 xhttp.send();
 
-postTitle = obj.Title;
-postAuthor = obj.Author;
-postContent = obj.Content;
 
-let PoR = document.getElementById("postandreplies");
 
-function createPostView (title, author) {
-    //dummy for test
-    /*
-    title = "This is a meaningless post";
-    author = "isNotaHuman";
-    */
 
-    let post = document.createElement("div");
-    post.setAttribute("id", "post");
 
-    let postT = document.createElement("div");
-    postT.setAttribute("id", "posttitle");
 
-    postT.innerHTML = title;
-
-    post.appendChild(postT);
-
-    let postA = document.createElement("div");
-    postA.setAttribute("id", "postauthor");
-
-    postA.innerHTML = "By: " + author;
-
-    post.appendChild(postA);
-
-    let postC = document.createElement("div");
-    postC.setAttribute("id", "postcontents");
-
-    let content = document.createElement("p");
-    content.innerHTML = postContent;
-
-    postC.appendChild(content);
-
-    post.appendChild(postC);
-
-    PoR.appendChild(post);
-}
-
-createPostView(postTitle, postAuthor);
 
 
 /*
