@@ -88,9 +88,8 @@ public class Session {
 		
 		return null;
 	}
-	
 	public static boolean deleteSession(String sessionID_in, String username_in){
-		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in + ";";
+		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in + "';";
 		return Database.querySQLSet(query);
 	}
 }
