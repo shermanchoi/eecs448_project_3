@@ -185,9 +185,11 @@ public class Main {
         });
         
         get("/api/posts", (req, res) ->{
-            String postList = "{\"Posts\": [{\"ID\": 1, \"Title\": \"Hello world!\", \"Author\": \"Death\", \"Reply\":0}]}";
-            
-            return postList;
+            return Post.JSONAllPosts();
+        });
+        
+        get("/api/post", (req,res)->{
+           return Post.getPostByID(req.queryParams("postid"));
         });
     }
 }
