@@ -49,7 +49,7 @@ public class Database {
 			Connection connection = Database.connect();
 			ResultSet results = null;
 
-			String query = "SHOW TABLES WHERE Tables_in_sys='Accounts' OR Tables_in_sys='Posts' OR Tables_in_sys='Sessions';";
+			String query = "SHOW TABLES WHERE Tables_in_sys='SocialAccounts' OR Tables_in_sys='SocialPosts' OR Tables_in_sys='SocialSessions';";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);
@@ -82,7 +82,7 @@ public class Database {
 			
 			//Generate Accounts table if it does not exist.
 			if(!existenceAccounts) {
-				Database.querySQLSet("CREATE TABLE `Accounts` (\n" + 
+				Database.querySQLSet("CREATE TABLE `SocialAccounts` (\n" + 
 						"  `username` varchar(255) NOT NULL,\n" + 
 						"  `password` varchar(255) NOT NULL,\n" + 
 						"  `birthday` date NOT NULL,\n" + 
@@ -99,7 +99,7 @@ public class Database {
 			}
 			//Generate Posts table if it does not exist.
 			if(!existencePosts) {
-				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
+				Database.querySQLSet("CREATE TABLE `SocialPosts` (\n" + 
 						"  `author` varchar(255) NOT NULL,\n" + 
 						"  `message` longtext NOT NULL,\n" + 
 						"  `title` longtext NOT NULL,\n" + 
@@ -115,7 +115,7 @@ public class Database {
 			}
 			//Generate Session table if it does not exist.
 			if(!existenceSessions) {
-				Database.querySQLSet("CREATE TABLE `Sessions` (\n" + 
+				Database.querySQLSet("CREATE TABLE `SocialSessions` (\n" + 
 						"  `sessionID` varchar(255) NOT NULL,\n" + 
 						"  `username` varchar(255) NOT NULL,\n" + 
 						"  PRIMARY KEY (`sessionID`),\n" + 
@@ -125,7 +125,7 @@ public class Database {
 			}
 			
 			//Delete session items. The entires are runtime stuff.
-			Database.querySQLSet("TRUNCATE Sessions;");
+			Database.querySQLSet("TRUNCATE SocialSessions;");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

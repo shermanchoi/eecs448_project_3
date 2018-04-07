@@ -58,21 +58,23 @@ public class Main {
                res.redirect("/home");
                return null;
             }
-            
-            String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
-            Integer sessionid = (int) Math.random() * 100000000;
-    
-            if (userid != null) {
-                req.session(true);
-                req.session().attribute("UserID", userid);
-                req.session().attribute("SessionID", sessionid);
-                Session.createSession(sessionid.toString(), userid);
-                
-                res.redirect("/home");
-            } else {
-                res.redirect("html/login.html?error=invalid");
+            try {
+	            String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
+	            Integer sessionid = (int) Math.random() * 100000000;
+	    
+	            if (userid != null) {
+	                req.session(true);
+	                req.session().attribute("UserID", userid);
+	                req.session().attribute("SessionID", sessionid);
+	                Session.createSession(sessionid.toString(), userid);
+	                
+	                res.redirect("/home");
+	            } else {
+	                res.redirect("html/login.html?error=invalid");
+	            }
+            }catch(Exception e) {
+            	
             }
-    
             return null;
         });
     
