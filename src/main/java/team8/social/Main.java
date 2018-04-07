@@ -146,6 +146,19 @@ public class Main {
             return null;
         });
         
+        get("/logout", (req,res)->{
+            if(!Session.validate(req.session().id(), req.session().attribute("UserID")){
+                res.redirect("/login");
+                return null;
+            }
+            
+            Session.deleteSession(req.session().id(), req.session().attribute("UserID"));
+            req.session().removeAttribute("UserID");
+            res.redirect("/login");
+            
+            return null;
+        });
+        
         //Main page if the user is logged in.
         get("/home", (req, res) ->{
         	//You must be logged in to get into the main page.
