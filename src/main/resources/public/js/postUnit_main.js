@@ -62,7 +62,7 @@ function createList () {
             //parse json
             let postL = JSON.parse(this.responseText);
             //start create post blocks
-            for(let i = 0; i < postL.posts.length; i++) {
+            for(let i = 0; i < postL.Posts.length; i++) {
                 //create tr
                 let post = document.createElement("tr");
                 let oore = document.createAttribute("class");
@@ -75,10 +75,10 @@ function createList () {
                 post.setAttributeNode(oore);
         
                 //get post info.
-                postT = postL.posts[i].Title;
-                postA = postL.posts[i].Author;
-                postR = postL.posts[i].Reply;
-                postID = postL.posts[i].ID;
+                postT = postL.Posts[i].Title;
+                postA = postL.Posts[i].Author;
+                postR = postL.Posts[i].Reply;
+                postID = postL.Posts[i].ID;
         
                 //create td for title and author name
                 let mainBlock = document.createElement("td");
