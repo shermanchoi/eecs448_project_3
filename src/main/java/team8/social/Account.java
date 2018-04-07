@@ -161,18 +161,18 @@ public class Account {
 				"`securityAnswer1`," + 
 				"`securityAnswer2`," + 
 				"`securityAnswer3`)" + 
-				"VALUES" + "(" +
-				uname + "," + 
-				pword + "," +  
-				dateOfBirth + "," + 
-				fName + "," + 
-				lName + "," +  
-				secQ1 + "," + 
-				secQ2 + "," + 
-				secQ3 + "," + 
-				ansQ1 + "," + 
-				ansQ2 + "," +
-				ansQ3 + ");")) {
+				"VALUES" + "('" +
+				uname + "','" + 
+				pword + "','" +  
+				dateOfBirth + "','" + 
+				fName + "','" + 
+				lName + "','" +  
+				secQ1 + "','" + 
+				secQ2 + "','" + 
+				secQ3 + "','" + 
+				ansQ1 + "','" + 
+				ansQ2 + "','" +
+				ansQ3 + "');")) {
 			return new Account(uname, pword, dateOfBirth, fName, lName);
 		} else {
 			return null;

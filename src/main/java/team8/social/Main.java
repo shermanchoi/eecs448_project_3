@@ -33,7 +33,7 @@ public class Main {
     public static void pages() {
         /*Handles the request to the root directory.*/
         get("/", (req, res) -> {
-            if (!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
+            if (!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
                 res.redirect("/login");
             } else {
                 res.redirect("/home");
@@ -44,7 +44,7 @@ public class Main {
     
         /*Handles the request to login*/
         get("/login", (req, res) -> {
-            if (!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))) {
+            if (!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
                 res.redirect("/html/login.html");
                 return null;
             }
@@ -53,13 +53,14 @@ public class Main {
             return null;
         });
         post("/login", (req, res) -> {
-            if(Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
+            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
+            	
                res.redirect("/home");
                return null;
             }
             
             String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
-            Integer sessionid = (int) Math.random();
+            Integer sessionid = (int) Math.random() * 100000000;
     
             if (userid != null) {
                 req.session(true);
@@ -77,7 +78,7 @@ public class Main {
     
         //Create Account
         get("/createaccount", (req, res) -> {
-            if(!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))) {
+            if(!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
                 res.redirect("/html/createaccount.html");
                 return null;
             }
@@ -86,7 +87,7 @@ public class Main {
             return null;
         });
         post("/createaccount", (req, res) ->{
-            if(Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
+            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
                res.redirect("/home");
                return null;
             }
@@ -116,7 +117,7 @@ public class Main {
 				if(a != null) {
 					//Create the session since the account is created.
 					String userid = Account.login(uname, pword).getUsername();
-		            Integer sessionid = (int) Math.random();
+		            Integer sessionid = (int) Math.random() * 100000000;
 		            
 		            req.session(true);
 	                req.session().attribute("UserID", userid);
@@ -137,7 +138,9 @@ public class Main {
         
         //Main page if the user is logged in.
         get("/home", (req, res) ->{
-            res.redirect("/html/main.html");
+            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+        		res.redirect("/html/main.html");
+            }
         	
         	return null;
             });
