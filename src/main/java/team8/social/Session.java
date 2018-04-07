@@ -75,5 +75,28 @@ public class Session {
 	public void remove() {
 		Database.querySQLSet("DELETE FROM Sessions WHERE sessionID='" + sessionID + "'");
 	}
+	/**
+	 * This method allows a session to be created.
+	 * @param sessionID_in
+	 * The session id
+	 * @param username_in
+	 * The session username
+	 * @return A session object if created successfully, null otherwise.
+	 */
+	public static Session createSession(String sessionID_in, String username_in){
+		try {
+			Database.querySQLSet("INSERT INTO `sys`.`Sessions`" + 
+					"(`sessionID`," + 
+					"`username`)" + 
+					"VALUES" + "('" + 
+					sessionID_in + "','" + 
+					username_in + "');");
+			return new Session(sessionID_in, username_in);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return null;
+	}
 	
 }
