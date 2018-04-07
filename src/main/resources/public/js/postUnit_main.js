@@ -3,19 +3,32 @@ let postA = "Author";
 let postR = 0;
 let postID = 0;
 
+let xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function() {
+    //get posts from server
+    if(this.readyState == 4 && this.status == 200) {
+        alert(this.responseText);
+    }
+};
+
+xhttp.open("GET", "/api/posts", true);
+xhttp.send();
+
                 
-                
-//get posts from server
+
 
 //transfer posts data to a JS array of arrays of strings and numbers
 //For ex.
 //posts = [IDs = ['1234', '6543', '8630', ...], titles = ['title1', 'title2', ...], authors = ['author1', 'author2', ...], replies = [1, 213, 33, ...]]
 //for testing, create some dummy arrays
+/*
 let IDs = ["0", "123", "333"];
 let titles = ["What's the point?", "This is an empty post", "Aaaaaughibbrgubugbugrguburgle!"];
 let authors = ["AcePilot", "Null", "Murloc123"];
 let replies = [2, 0, 18359];
 let posts = [IDs, titles, authors, replies];
+*/
                 
 function createList (posts) {
     //get div.forumtable from html
@@ -65,6 +78,7 @@ function createList (posts) {
 
         //get post info.
         postT = posts[1][i];
+        //postT = posts[1].
         postA = posts[2][i];
         postR = posts[3][i];
         postID = posts[0][i];
