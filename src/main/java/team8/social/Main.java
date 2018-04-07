@@ -7,12 +7,12 @@
 package team8.social;
 
 import java.util.Random;
-
 import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args){
         System.out.print("Social Server Started\n");
+        
         configure();
         
         //define pages
@@ -20,7 +20,8 @@ public class Main {
     }
     
     public static void configure(){
-        port(4567);
+        port(80);
+        Database.initialize("jdbc:mysql://localhost:3306/sys", "root", "password");
         staticFiles.location("/public");
         staticFiles.externalLocation("./resources");
     }
@@ -54,8 +55,9 @@ public class Main {
                 req.session(true);
                 req.session().attribute("UserID", userid);
                 req.session().attribute("SessionID", sessionid);
-        
-        
+
+                
+                
                 return "Successfully Logged In";
             } else {
                 res.redirect("html/login.html?error=invalid");

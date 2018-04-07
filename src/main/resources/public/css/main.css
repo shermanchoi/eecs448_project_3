@@ -1,6 +1,26 @@
+div.forumbuttons {
+    margin: 1em 0 1em 0;
+}
+
+button {
+    height: 40px;
+    background-color: black;
+    color: white;
+    font-size: 100%;
+    text-transform: uppercase;
+    border: 1px solid DarkGrey;
+}
+
+button:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+    
+
 table {
     width: 100%;
-    background-color: DarkGrey;
+    border-spacing: 0px;
+    border: 2px solid DarkGrey;
 }
 
 thead {
@@ -21,7 +41,7 @@ th.titles {
     width: 90%;
 }
 
-th.replies {
+th.replies, td.replies {
     text-align: center;
 }
 
@@ -35,4 +55,25 @@ tr.odd {
 
 tr.even {
     background-color: hsl(0, 0%, 60%);
+}
+
+tr.odd:hover {
+    background-color: hsl(0,0%,80%);
+}
+
+tr.even:hover {
+    background-color: hsl(0,0%,65%);
+}
+
+div.posttitle {
+    margin-left: 0.5em;
+}
+
+div.postauthor {
+    font-size: 75%;
+    margin-left: 1.5em;
+}
+
+a {
+    color: DarkBlue;
 }
