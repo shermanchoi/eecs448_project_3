@@ -104,14 +104,14 @@ public class Database {
 						"  `message` longtext NOT NULL,\n" + 
 						"  `title` longtext NOT NULL,\n" + 
 						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
-						"  `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,\n" + 
+						"  `dateCreated` datetime DEFAULT NULL,\n" + 
 						"  `parentPost` int(11) DEFAULT NULL,\n" + 
 						"  PRIMARY KEY (`id`),\n" + 
 						"  KEY `author` (`author`),\n" + 
 						"  KEY `fk_Posts_1_idx` (`parentPost`),\n" + 
 						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n" + 
 						"  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
-						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			}
 			//Generate Session table if it does not exist.
 			if(!existenceSessions) {
