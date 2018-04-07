@@ -9,7 +9,7 @@ public class Session {
 	/**
 	 * The ID of the session.
 	 */
-	private String sessionID;
+	private int sessionID;
 	/**
 	 * The user associated with the session
 	 */
@@ -23,7 +23,7 @@ public class Session {
 	 * @param username_in
 	 *            The username of the session
 	 */
-	public Session(String sessionID_in, String username_in) {
+	public Session(int sessionID_in, String username_in) {
 		sessionID = sessionID_in;
 		username = username_in;
 	}
@@ -35,7 +35,7 @@ public class Session {
 	 *            The sessionID of the session
 	 * @return True if the method exists, false otherwise
 	 */
-	public static boolean validate(String username_in, String sessionID_in) {
+	public static boolean validate(String username_in, int sessionID_in) {
 		Connection connection = Database.connect();
 		boolean found = false;
 
