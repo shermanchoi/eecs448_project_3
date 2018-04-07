@@ -189,7 +189,7 @@ public class Main {
         });
         
         get("/api/post", (req,res)->{
-           return Post.getPostByID(req.queryParams("postid"));
+           return Post.getPostByID(Integer.parseInt(req.queryParams("postid")));
         });
     }
 }
