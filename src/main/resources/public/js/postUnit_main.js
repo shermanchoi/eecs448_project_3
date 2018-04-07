@@ -128,11 +128,6 @@ function createList () {
                 //insert tr into tbody
                 postBody.appendChild(post);
             }
-        } else {
-            let error = document.createElement("p");
-            error.setAttribute("class", "error");
-            error.innerHTML = "Something goes wrong.";
-            postBody.appendChild(error);
         }
     };
     
