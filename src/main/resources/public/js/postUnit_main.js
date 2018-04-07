@@ -136,7 +136,7 @@ function createList () {
         }
     };
     
-    xhttp.open("GET", "http://10.88.79.15/api/posts", true);
+    xhttp.open("GET", "/api/posts", true);
     xhttp.send();
 
 
