@@ -58,9 +58,9 @@ function createList () {
     xhttp.onreadystatechange = function() {
         //get posts from server
         if(this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
+            let text = this.responseText;
             //parse json
-            let postL = JSON.parse(this.responseText);
+            let postL = JSON.parse(text);
             //start create post blocks
             for(let i = 0; i < postL.Posts.length; i++) {
                 //create tr
@@ -128,15 +128,10 @@ function createList () {
                 //insert tr into tbody
                 postBody.appendChild(post);
             }
-        } else {
-            let error = document.createElement("p");
-            error.setAttribute("class", "error");
-            error.innerHTML = "Something goes wrong.";
-            postBody.appendChild(error);
         }
     };
     
-    xhttp.open("GET", "http://10.88.79.15/api/posts", true);
+    xhttp.open("GET", "/api/posts", true);
     xhttp.send();
 
 
