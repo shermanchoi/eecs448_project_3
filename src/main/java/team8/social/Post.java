@@ -125,5 +125,45 @@ public class Post {
 
 		return postList;
 	}
+	
+	/**
+	 * This method returns a JSON representing a post using an id
+	 * @pre The post with the id exists.
+	 * @param id_in The id to input.
+	 * @return JSON representing the post
+	 */
+	public static String getPostByID(int id_in) {
+		String post = "";
+		
+		try {
+			try {
+				Connection connection = Database.connect();
+				String query = "SELECT * FROM social_posts WHERE id=" + id_in + ";";
+				System.out.println("Executing Statement:\n\t" + query);
+				Statement statement = connection.createStatement();
+				ResultSet results = statement.executeQuery(query);
+				
+				while (results.next()) {
+					post = new JSONStringer()
+							.object()
+								.key("ID").value(results.getInt("id"))
+								.key("Title").value(results.getString("title"))
+								.key("Author").value(results.getString("author"))
+								.key("Reply").value("0")
+							.endObject()
+							.toString();
+				}
+				results.close();
+				statement.close();
+				Database.disconnect(connection);
+				System.out.println("Execution Success");
+			} catch (Exception e) {
+				System.out.println("Query Error:\n\t" + e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("Login Error:\n\t" + e.getMessage());
+		}
+		return post;
+	}
 
 }
