@@ -65,7 +65,8 @@ public class Main {
                 req.session(true);
                 req.session().attribute("UserID", userid);
                 req.session().attribute("SessionID", sessionid);
-
+                Session.createSession(sessionid.toString(), userid);
+                
                 res.redirect("/home");
             } else {
                 res.redirect("html/login.html?error=invalid");
@@ -90,12 +91,55 @@ public class Main {
                return null;
             }
             
-            try{
+            try {
+            	//Parameters of the post
+				String uname = req.queryParams("uname");
+				String pword = req.queryParams("pword");
+				String dateOfBirth = req.queryParams("Year") + "-" + req.queryParams("Month") + "-" + req.queryParams("Date");
+				String fName = req.queryParams("fname");
+				String lName = req.queryParams("lname");
+				String secQ1 = req.queryParams("sq1");
+				String secQ2 = req.queryParams("sq2");
+				String secQ3 = req.queryParams("sq3");
+				String ansQ1 = req.queryParams("sa1");
+				String ansQ2 = req.queryParams("sa2");
+				String ansQ3 = req.queryParams("sa3");
+				
+				if(pword.length() < 8) {
+					//The password was not long enough
+					res.redirect("/createaccount");
+				}
+				
+				Account a = Account.createAccount(uname, pword, dateOfBirth, fName, lName, secQ1, secQ2, secQ3, ansQ1, ansQ2, ansQ3);
+				
+			
+				if(a != null) {
+					//Create the session since the account is created.
+					String userid = Account.login(uname, pword).getUsername();
+		            Integer sessionid = (int) Math.random();
+		            
+		            req.session(true);
+	                req.session().attribute("UserID", userid);
+	                req.session().attribute("SessionID", sessionid);
+	                Session.createSession(sessionid.toString(), userid);
+	                
+	                //Go to '/home' since the account is created
+	                res.redirect("/home");
+				}
+			} catch (Exception e) {
+
+			}
             
-            }catch(Exception e){
-            
-            }
+            //Something did not happen correctly
+            res.redirect("/html/createaccount.html");
             return null;
         });
+        
+        //Main page if the user is logged in.
+        get("/home", (req, res) ->{
+            res.redirect("/html/main.html");
+        	
+        	return null;
+            });
     }
 }
