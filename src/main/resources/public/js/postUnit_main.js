@@ -58,9 +58,9 @@ function createList () {
     xhttp.onreadystatechange = function() {
         //get posts from server
         if(this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
+            let text = this.responseText;
             //parse json
-            let postL = JSON.parse(this.responseText);
+            let postL = JSON.parse(text);
             //start create post blocks
             for(let i = 0; i < postL.Posts.length; i++) {
                 //create tr

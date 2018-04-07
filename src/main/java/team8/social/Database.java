@@ -124,8 +124,8 @@ public class Database {
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			
-			//Delete session items. The entires are runtime stuff.
-			Database.querySQLSet("TRUNCATE social_sessions;");
+			//Delete session items. The entries are runtime stuff.
+			//Database.querySQLSet("TRUNCATE social_sessions;");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
