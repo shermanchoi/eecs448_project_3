@@ -121,7 +121,7 @@ public class Account {
 	 */
 	private void save() {
 		Database.querySQLSet(
-				"UPDATE Accounts SET"
+				"UPDATE SocialAccounts SET"
 		+" password=\"" + password 
 		+ "\",birthday=\"" + birthday 
 		+ "\",firstName=\"" + firstName 
