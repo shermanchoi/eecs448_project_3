@@ -35,7 +35,7 @@ public class Session {
 	 *            The sessionID of the session
 	 * @return True if the method exists, false otherwise
 	 */
-	public boolean validate(String username_in, int sessionID_in) {
+	public static boolean validate(String username_in, int sessionID_in) {
 		Connection connection = Database.connect();
 		boolean found = false;
 

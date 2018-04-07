@@ -26,10 +26,14 @@ public class Main {
         staticFiles.externalLocation("./resources");
     }
     
+    /**
+     * Defines how URIs are handled.
+     * @post Server knows how to handle a number of URIs
+     */
     public static void pages() {
         /*Handles the request to the root directory.*/
         get("/", (req, res) -> {
-            if (req.session().attribute("SessionID") == null) {
+            if (!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
                 res.redirect("/login");
             } else {
                 res.redirect("/home");
@@ -40,14 +44,20 @@ public class Main {
     
         /*Handles the request to login*/
         get("/login", (req, res) -> {
-            if (!validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+            if (!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))) {
                 res.redirect("/html/login.html");
-            } else {
-                //send to home
+                return null;
             }
+            
+            res.redirect("/home");
             return null;
         });
         post("/login", (req, res) -> {
+            if(Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
+               res.redirect("/home");
+               return null;
+            }
+            
             String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
             Integer sessionid = (int) Math.random();
     
@@ -56,9 +66,7 @@ public class Main {
                 req.session().attribute("UserID", userid);
                 req.session().attribute("SessionID", sessionid);
 
-                
-                
-                return "Successfully Logged In";
+                res.redirect("/home");
             } else {
                 res.redirect("html/login.html?error=invalid");
             }
@@ -68,18 +76,26 @@ public class Main {
     
         //Create Account
         get("/createaccount", (req, res) -> {
-            res.redirect("/html/createaccount.html");
+            if(!Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))) {
+                res.redirect("/html/createaccount.html");
+                return null;
+            }
+            
+            res.redirect("/home");
             return null;
         });
         post("/createaccount", (req, res) ->{
+            if(Session.validate(req.session().attribute("username"), req.session().attribute("sessionid"))){
+               res.redirect("/home");
+               return null;
+            }
             
+            try{
+            
+            }catch(Exception e){
+            
+            }
             return null;
         });
-    }
-    
-    /**Validates a session. (User is logged in)**/
-    public static boolean validate(String userid, String sessionid){
-        
-        return false;
     }
 }
