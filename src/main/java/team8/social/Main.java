@@ -159,6 +159,31 @@ public class Main {
         	return null;
         });
         
+        get("/createpost", (req,res) ->{
+           if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
+               res.redirect("/login");
+               return null;
+           }
+           
+           res.redirect("/html/createPost.html");
+           return null;
+        });
+        post("/createpost", (req, res)->{
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
+                res.redirect("/login");
+                return null;
+            }
+            
+            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("postcontent"), req.queryParams("posttitle"));
+            if(p == null){
+                res.redirect("/createpost");
+            }else{
+                res.redirect("/home");
+            }
+            
+            return null;
+        });
+        
         get("/api/posts", (req, res) ->{
             String postList = "{\"Posts\": [{\"ID\": 1, \"Title\": \"Hello world!\", \"Author\": \"Death\", \"Reply\":0}]}";
             
