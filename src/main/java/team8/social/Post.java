@@ -44,7 +44,7 @@ public class Post {
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
 		if (Database.querySQLSet("INSERT INTO `social_posts` (`author`,`message`,`title`)"
-				+ "VALUES" + "(" + inputAuthor + "," + inputMessage + "," + inputTitle + ");")) {
+				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "');")) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
 			return null;
@@ -70,7 +70,7 @@ public class Post {
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
 		if (Database.querySQLSet("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
-				+ "VALUES" + "(" + inputAuthor + "," + inputMessage + "," + inputTitle + "," + replyingToPostID + ");")) {
+				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID + "');")) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
 			return null;
