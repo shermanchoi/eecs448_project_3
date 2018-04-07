@@ -57,7 +57,7 @@ public class Database {
 				results = statement.executeQuery(query);
 
 				while (results.next()) {
-					System.out.println(results.getString("Tables_in_sys"));
+					//System.out.println(results.getString("Tables_in_sys"));
 					switch(results.getString("Tables_in_sys")){
 						case "Accounts":
 							existenceAccounts = true;
@@ -82,16 +82,20 @@ public class Database {
 			
 			//Generate Accounts table if it does not exist.
 			if(!existenceAccounts) {
-				Database.querySQLSet("CREATE TABLE `Posts` (\n" + 
-						"  `author` varchar(255) NOT NULL,\n" + 
-						"  `message` longtext NOT NULL,\n" + 
-						"  `title` longtext NOT NULL,\n" + 
-						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
-						"  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" + 
-						"  PRIMARY KEY (`id`),\n" + 
-						"  KEY `author` (`author`),\n" + 
-						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`)\n" + 
-						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+				Database.querySQLSet("CREATE TABLE `Accounts` (\n" + 
+						"  `username` varchar(255) NOT NULL,\n" + 
+						"  `password` varchar(255) NOT NULL,\n" + 
+						"  `birthday` date NOT NULL,\n" + 
+						"  `firstName` varchar(255) NOT NULL,\n" + 
+						"  `lastName` varchar(255) NOT NULL,\n" + 
+						"  `securityQuestion1` longtext NOT NULL,\n" + 
+						"  `securityQuestion2` longtext NOT NULL,\n" + 
+						"  `securityQuestion3` longtext NOT NULL,\n" + 
+						"  `securityAnswer1` longtext NOT NULL,\n" + 
+						"  `securityAnswer2` longtext NOT NULL,\n" + 
+						"  `securityAnswer3` longtext NOT NULL,\n" + 
+						"  PRIMARY KEY (`username`)\n" + 
+						") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			}
 			//Generate Posts table if it does not exist.
 			if(!existencePosts) {
@@ -120,7 +124,7 @@ public class Database {
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			
-			//Delete session items. The entires are runtime stuff.
+			//Delete session items. The entries are runtime stuff.
 			Database.querySQLSet("TRUNCATE Sessions;");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
