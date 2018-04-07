@@ -24,6 +24,7 @@ xhttp.send();
 
 postTitle = obj.Title;
 postAuthor = obj.Author;
+postContent = obj.Content;
 
 let PoR = document.getElementById("postandreplies");
 
@@ -127,5 +128,5 @@ function createReplyView () {
 createReplyView();
 */
 
-//{"Title": "title", "Author": "author"}s
+//{"Title": "title", "Author": "author", "Content": "content"}
 //{"Title": "title", "Author": "author", "Replies": [{"Author": "author1", "Content": "content1"}, {"Author": "author2", "Content": "content2"}]}
