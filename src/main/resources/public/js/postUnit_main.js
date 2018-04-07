@@ -5,15 +5,7 @@ let postID = 0;
 
 let xhttp = new XMLHttpRequest();
 
-xhttp.onreadystatechange = function() {
-    //get posts from server
-    if(this.readyState == 4 && this.status == 200) {
-        alert(this.responseText);
-    }
-};
 
-xhttp.open("GET", "/api/posts", true);
-xhttp.send();
 
                 
 
@@ -30,7 +22,7 @@ let replies = [2, 0, 18359];
 let posts = [IDs, titles, authors, replies];
 */
                 
-function createList (posts) {
+function createList () {
     //get div.forumtable from html
     let postList = document.getElementById("forumTable");
     //create table
@@ -63,78 +55,95 @@ function createList (posts) {
     //insert thead into table
     postTable.appendChild(postHeader);
 
-    //start create post blocks
-    for(let i = 0; i < posts[0].length; i++) {
-        //create tr
-        let post = document.createElement("tr");
-        let oore = document.createAttribute("class");
-        if(i%2 == 0) {
-            oore.value = "odd";
+    xhttp.onreadystatechange = function() {
+        //get posts from server
+        if(this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+            //parse json
+            let postL = JSON.parse(this.responseText);
+            //start create post blocks
+            for(let i = 0; i < postL.posts.length; i++) {
+                //create tr
+                let post = document.createElement("tr");
+                let oore = document.createAttribute("class");
+                if(i%2 == 0) {
+                    oore.value = "odd";
+                } else {
+                    oore.value = "even";
+                }
+                //set tr's class
+                post.setAttributeNode(oore);
+        
+                //get post info.
+                postT = postL.posts[i].Title;
+                postA = postL.posts[i].Author;
+                postR = postL.posts[i].Reply;
+                postID = postL.posts[i].ID;
+        
+                //create td for title and author name
+                let mainBlock = document.createElement("td");
+                //set td's class
+                mainBlock.setAttribute("class", "mainpostinfo");
+        
+                //create div's for title and author
+                let titleBlock = document.createElement("div");
+                //set class for title
+                titleBlock.setAttribute("class", "posttitle");
+        
+                let authorBlock = document.createElement("div");
+                //set class for author
+                authorBlock.setAttribute("class", "postauthor");
+        
+                //create a for title
+                let _postT = document.createElement("a");
+        
+                //set value in title
+                _postT.innerHTML = postT;
+                //set value in author
+                authorBlock.innerHTML = postA;
+        
+                //set click action on title
+                let postlink = "postView.html?" + postID;
+                _postT.setAttribute("href", postlink);//go to post detail page
+        
+                //insert the title link to div
+                titleBlock.appendChild(_postT);
+        
+                //insert title and author to td
+                mainBlock.appendChild(titleBlock);
+                mainBlock.appendChild(authorBlock);
+        
+                //create td for replies
+                let replieBlock = document.createElement("td");
+                //set class for replies
+                replieBlock.setAttribute("class", "replies");
+        
+                //set value for replies
+                replieBlock.innerHTML = postR;
+        
+                //insert main block td into tr
+                post.appendChild(mainBlock);
+                //insert reply block td into tr
+                post.appendChild(replieBlock);
+                //insert tr into tbody
+                postBody.appendChild(post);
+            }
         } else {
-            oore.value = "even";
+            let error = document.createElement("p");
+            error.setAttribute("class", "error");
+            error.innerHTML = "Something goes wrong.";
+            postBody.appendChild(error);
         }
-        //set tr's class
-        post.setAttributeNode(oore);
+    };
+    
+    xhttp.open("GET", "http://10.88.79.15/api/posts", true);
+    xhttp.send();
 
-        //get post info.
-        postT = posts[1][i];
-        //postT = posts[1].
-        postA = posts[2][i];
-        postR = posts[3][i];
-        postID = posts[0][i];
 
-        //create td for title and author name
-        let mainBlock = document.createElement("td");
-        //set td's class
-        mainBlock.setAttribute("class", "mainpostinfo");
-
-        //create div's for title and author
-        let titleBlock = document.createElement("div");
-        //set class for title
-        titleBlock.setAttribute("class", "posttitle");
-
-        let authorBlock = document.createElement("div");
-        //set class for author
-        authorBlock.setAttribute("class", "postauthor");
-
-        //create a for title
-        let _postT = document.createElement("a");
-
-        //set value in title
-        _postT.innerHTML = postT;
-        //set value in author
-        authorBlock.innerHTML = postA;
-
-        //set click action on title
-        let postlink = "postView.html?" + postID;
-        _postT.setAttribute("href", postlink);//go to post detail page
-
-        //insert the title link to div
-        titleBlock.appendChild(_postT);
-
-        //insert title and author to td
-        mainBlock.appendChild(titleBlock);
-        mainBlock.appendChild(authorBlock);
-
-        //create td for replies
-        let replieBlock = document.createElement("td");
-        //set class for replies
-        replieBlock.setAttribute("class", "replies");
-
-        //set value for replies
-        replieBlock.innerHTML = postR;
-
-        //insert main block td into tr
-        post.appendChild(mainBlock);
-        //insert reply block td into tr
-        post.appendChild(replieBlock);
-        //insert tr into tbody
-        postBody.appendChild(post);
-    }
     //insert tbody into table
     postTable.appendChild(postBody);
     //insert table to div.forumTable
     postList.appendChild(postTable);
 }
 
-createList(posts);
+createList();
