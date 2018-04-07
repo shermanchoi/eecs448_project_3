@@ -25,61 +25,54 @@ public class Main {
         staticFiles.externalLocation("./resources");
     }
     
-    public static void pages(){
+    public static void pages() {
         /*Handles the request to the root directory.*/
         get("/", (req, res) -> {
-            if(req.session().attribute("SessionID") == null){
+            if (req.session().attribute("SessionID") == null) {
                 res.redirect("/login");
-            }else{
+            } else {
                 res.redirect("/home");
             }
-            
+    
             return null;
         });
-        
+    
         /*Handles the request to login*/
-        get("/login", (req, res) ->{
-            if(!validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+        get("/login", (req, res) -> {
+            if (!validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
                 res.redirect("/html/login.html");
-            }else{
+            } else {
                 //send to home
             }
             return null;
         });
-        post("/login", (req, res)->{
-            String userid = login(req.queryParams("username"), req.queryParams("password"));
+        post("/login", (req, res) -> {
+            String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
             Integer sessionid = (int) Math.random();
-            
-            if(userid != null){
+    
+            if (userid != null) {
                 req.session(true);
                 req.session().attribute("UserID", userid);
                 req.session().attribute("SessionID", sessionid);
-                
+        
+        
                 return "Successfully Logged In";
-            }else{
+            } else {
                 res.redirect("html/login.html?error=invalid");
             }
+    
+            return null;
+        });
+    
+        //Create Account
+        get("/createaccount", (req, res) -> {
+            res.redirect("/html/createaccount.html");
+            return null;
+        });
+        post("/createaccount", (req, res) ->{
             
             return null;
         });
-        
-        //Create Account
-        get("/createaccount", (req, res) -> {res.redirect("/createaccount.html"); return null;});
-    }
-    
-    
-    /**Logs the user in an creates a session.**/
-    public static String login(String username, String password){
-        try{
-            //Check database set id if success
-        	Account a = Account.login(username, password);
-        	System.out.println(a.getUsername());
-        	return a.getUsername();
-        }catch(Exception e) {
-        	
-        }
-        
-        return null;
     }
     
     /**Validates a session. (User is logged in)**/
