@@ -106,7 +106,7 @@ public class Post {
 								.key("ID").value(results.getInt("id"))
 								.key("Title").value(results.getString("title"))
 								.key("Author").value(results.getString("author"))
-								.key("Reply").value("0")
+								.key("Reply").value(getParentCount(results.getInt("id")))
 							.endObject()
 							.toString();
 				}
@@ -119,11 +119,38 @@ public class Post {
 				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Login Error:\n\t" + e.getMessage());
+			System.out.println("Error:\n\t" + e.getMessage());
 		}
 		postList += "]}"; //Close it.
 
 		return postList;
+	}
+	
+	private static int getParentCount(int id){
+		int count = 0;
+		try {
+			try {
+				Connection connection = Database.connect();
+				String query = "SELECT COUNT(*) FROM social_posts WHERE parentPost='" + id + "'";
+				System.out.println("Executing Statement:\n\t" + query);
+				Statement statement = connection.createStatement();
+				ResultSet results = statement.executeQuery(query);
+				
+				while (results.next()) {
+					count = results.getInt("COUNT(*)");
+				}
+
+				results.close();
+				statement.close();
+				Database.disconnect(connection);
+				System.out.println("Execution Success");
+			} catch (Exception e) {
+				System.out.println("Query Error:\n\t" + e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("Error:\n\t" + e.getMessage());
+		}
+		return count;
 	}
 	
 	/**
@@ -149,7 +176,7 @@ public class Post {
 								.key("ID").value(results.getInt("id"))
 								.key("Title").value(results.getString("title"))
 								.key("Author").value(results.getString("author"))
-								.key("Reply").value("0")
+								.key("Content").value(results.getString("message"))
 							.endObject()
 							.toString();
 				}
@@ -161,7 +188,7 @@ public class Post {
 				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Login Error:\n\t" + e.getMessage());
+			System.out.println("Error:\n\t" + e.getMessage());
 		}
 		return post;
 	}
