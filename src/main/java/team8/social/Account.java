@@ -149,7 +149,7 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
-		if (Database.querySQLSet("INSERT INTO `sys`.`Accounts`" + 
+		if (Database.querySQLSet("INSERT INTO `SocialAccounts`" + 
 				"(`username`," + 
 				"`password`," + 
 				"`birthday`," + 
@@ -198,7 +198,7 @@ public class Account {
 		try {
 			ResultSet results = null;
 
-			String query = "SELECT * FROM Accounts WHERE username = \"" + username + "\";";
+			String query = "SELECT * FROM SocialAccounts WHERE username = \"" + username + "\";";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);
