@@ -42,7 +42,7 @@ public class Session {
 		try {
 			ResultSet results = null;
 
-			String query = "SELECT * FROM Sessions WHERE sessionID = \"" + sessionID_in + "\";";
+			String query = "SELECT * FROM SocialSessions WHERE sessionID = \"" + sessionID_in + "\";";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);
@@ -73,7 +73,7 @@ public class Session {
 	 * The method deletes the session's entry in the database.
 	 */
 	public void remove() {
-		Database.querySQLSet("DELETE FROM Sessions WHERE sessionID='" + sessionID + "'");
+		Database.querySQLSet("DELETE FROM SocialSessions WHERE sessionID='" + sessionID + "'");
 	}
 	/**
 	 * This method allows a session to be created.
@@ -85,7 +85,7 @@ public class Session {
 	 */
 	public static Session createSession(String sessionID_in, String username_in){
 		try {
-			Database.querySQLSet("INSERT INTO `sys`.`Sessions`" + 
+			Database.querySQLSet("INSERT INTO `SocialSessions`" + 
 					"(`sessionID`," + 
 					"`username`)" + 
 					"VALUES" + "('" + 
