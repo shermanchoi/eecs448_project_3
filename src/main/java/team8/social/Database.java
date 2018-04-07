@@ -49,7 +49,7 @@ public class Database {
 			Connection connection = Database.connect();
 			ResultSet results = null;
 
-			String query = "SHOW TABLES WHERE Tables_in_sys='SocialAccounts' OR Tables_in_sys='SocialPosts' OR Tables_in_sys='SocialSessions';";
+			String query = "SHOW TABLES WHERE Tables_in_sys='social_accounts' OR Tables_in_sys='social_posts' OR Tables_in_sys='social_sessions';";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);
@@ -59,13 +59,13 @@ public class Database {
 				while (results.next()) {
 					System.out.println(results.getString("Tables_in_sys"));
 					switch(results.getString("Tables_in_sys")){
-						case "Accounts":
+						case "social_accounts":
 							existenceAccounts = true;
 							break;
-						case "Posts":
+						case "social_posts":
 							existencePosts = true;
 							break;
-						case "Sessions":
+						case "social_sessions":
 							existenceSessions = true;
 							break;
 					}
@@ -82,7 +82,7 @@ public class Database {
 			
 			//Generate Accounts table if it does not exist.
 			if(!existenceAccounts) {
-				Database.querySQLSet("CREATE TABLE `SocialAccounts` (\n" + 
+				Database.querySQLSet("CREATE TABLE `social_accounts` (\n" + 
 						"  `username` varchar(255) NOT NULL,\n" + 
 						"  `password` varchar(255) NOT NULL,\n" + 
 						"  `birthday` date NOT NULL,\n" + 
@@ -99,7 +99,7 @@ public class Database {
 			}
 			//Generate Posts table if it does not exist.
 			if(!existencePosts) {
-				Database.querySQLSet("CREATE TABLE `SocialPosts` (\n" + 
+				Database.querySQLSet("CREATE TABLE `social_posts` (\n" + 
 						"  `author` varchar(255) NOT NULL,\n" + 
 						"  `message` longtext NOT NULL,\n" + 
 						"  `title` longtext NOT NULL,\n" + 
@@ -109,23 +109,23 @@ public class Database {
 						"  PRIMARY KEY (`id`),\n" + 
 						"  KEY `author` (`author`),\n" + 
 						"  KEY `fk_Posts_1_idx` (`parentPost`),\n" + 
-						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Accounts` (`username`),\n" + 
-						"  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `Posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
+						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n" + 
+						"  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			//Generate Session table if it does not exist.
 			if(!existenceSessions) {
-				Database.querySQLSet("CREATE TABLE `SocialSessions` (\n" + 
+				Database.querySQLSet("CREATE TABLE `social_sessions` (\n" + 
 						"  `sessionID` varchar(255) NOT NULL,\n" + 
 						"  `username` varchar(255) NOT NULL,\n" + 
 						"  PRIMARY KEY (`sessionID`),\n" + 
 						"  KEY `username_idx` (`username`),\n" + 
-						"  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `Accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
+						"  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
 						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
 			
 			//Delete session items. The entires are runtime stuff.
-			Database.querySQLSet("TRUNCATE SocialSessions;");
+			Database.querySQLSet("TRUNCATE social_sessions;");
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
