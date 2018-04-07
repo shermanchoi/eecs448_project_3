@@ -104,7 +104,7 @@ public class Database {
 						"  `message` longtext NOT NULL,\n" + 
 						"  `title` longtext NOT NULL,\n" + 
 						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
-						"  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" + 
+						"  `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,\n" + 
 						"  `parentPost` int(11) DEFAULT NULL,\n" + 
 						"  PRIMARY KEY (`id`),\n" + 
 						"  KEY `author` (`author`),\n" + 
