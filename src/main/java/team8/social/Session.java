@@ -66,12 +66,6 @@ public class Session {
 		return found;
 	}
 	/**
-	 * The method deletes the session's entry in the database.
-	 */
-	public void remove() {
-		Database.querySQLSet("DELETE FROM social_sessions WHERE sessionID='" + sessionID + "'");
-	}
-	/**
 	 * This method allows a session to be created.
 	 * @param sessionID_in
 	 * The session id
@@ -95,4 +89,8 @@ public class Session {
 		return null;
 	}
 	
+	public static boolean deleteSession(String sessionID_in, String username_in){
+		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in + ";";
+		return Database.querySQLSet(query);
+	}
 }
