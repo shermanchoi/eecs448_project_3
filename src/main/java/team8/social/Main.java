@@ -147,7 +147,7 @@ public class Main {
         });
         
         get("/logout", (req,res)->{
-            if(!Session.validate(req.session().id(), req.session().attribute("UserID")){
+            if(!Session.validate(req.session().id(), req.session().attribute("UserID"))){
                 res.redirect("/login");
                 return null;
             }
