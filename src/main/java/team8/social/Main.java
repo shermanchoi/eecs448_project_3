@@ -145,6 +145,12 @@ public class Main {
             }
         	
         	return null;
-            });
+        });
+        
+        get("/api/posts", (req, res) ->{
+            String postList = "{\"Posts\": [{\"ID\": 1, \"Title\": \"Hello world!\", \"Author\": \"Death\", \"Reply\":0}]}";
+            
+            return postList;
+        });
     }
 }
