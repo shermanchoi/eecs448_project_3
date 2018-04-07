@@ -1,5 +1,6 @@
 package team8.social;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -120,8 +121,12 @@ public class Account {
 	 */
 	private void save() {
 		Database.querySQLSet(
-				"UPDATE Accounts SET password=\"" + password + "\",birthday=\"" + birthday + "\",firstName=\""
-						+ firstName + "\",lastName=\"" + lastName + "\" WHERE username=\"" + username + "\";");
+				"UPDATE Accounts SET"
+		+" password=\"" + password 
+		+ "\",birthday=\"" + birthday 
+		+ "\",firstName=\"" + firstName 
+		+ "\",lastName=\"" + lastName 
+		+ "\" WHERE username=\"" + username + "\";");
 	}
 
 	/**
@@ -142,9 +147,32 @@ public class Account {
 	 * @return An Account object representing the new account if placed without
 	 *         error, null otherwise
 	 */
-	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName) {
-		if (Database.querySQLSet("INSERT INTO Accounts (username,password,birthday,firstName,lastName) VALUE " + "(\""
-				+ uname + "\",\"" + pword + "\",\"" + dateOfBirth + "\",\"" + fName + "\",\"" + lName + "\");")) {
+	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
+			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
+		if (Database.querySQLSet("INSERT INTO `sys`.`Accounts`" + 
+				"(`username`," + 
+				"`password`," + 
+				"`birthday`," + 
+				"`firstName`," + 
+				"`lastName`," + 
+				"`securityQuestion1`," + 
+				"`securityQuestion2`," + 
+				"`securityQuestion3`," + 
+				"`securityAnswer1`," + 
+				"`securityAnswer2`," + 
+				"`securityAnswer3`)" + 
+				"VALUES" + "(" +
+				uname + "," + 
+				pword + "," +  
+				dateOfBirth + "," + 
+				fName + "," + 
+				lName + "," +  
+				secQ1 + "," + 
+				secQ2 + "," + 
+				secQ3 + "," + 
+				ansQ1 + "," + 
+				ansQ2 + "," +
+				ansQ3 + ");")) {
 			return new Account(uname, pword, dateOfBirth, fName, lName);
 		} else {
 			return null;
