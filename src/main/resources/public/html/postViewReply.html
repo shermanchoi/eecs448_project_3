@@ -17,6 +17,7 @@
 
 	<div id="page">
 	    <div id="postandreplies">
+	<!--
 		<div id="post">
 		    <div id="posttitle">
 			How do I post to this website?
@@ -30,21 +31,25 @@
 			that. Can someone help me please?<br>Thanks</br></p>
 		    </div>
 		</div>
+	-->
+		<script type="text/javascript" src="../js/postReply.js"></script>
+
 		<div id="replyform">
-		    <form action="tbi.php(?)" method="post">
+		    <form action="/postreply" method="post">
 			<fieldset>
 			    <div class="formheading">
 				Write a reply
 			    </div>
 			    <div class="formcontent">
-				<div class="textbox">
-				    <textarea name="replycontent"></textarea>
+				<div class="textbox" id="textbox">
+					<textarea name="replycontent" id="replycontent"></textarea>
+					<script type="text/javascript" src="../js/replyPost.js"></script>
 				</div>
 			    </div>
 			    <div class="buttons">
-				<button type="button" class="cancel">Cancel</button>
+				<button type="button" class="cancel" onclick="window.history.back()">Cancel</button>
 				<input type="submit" value="Reply">
-			    </div>
+				</div>
 			</fieldset>
 		    </form>
 		</div>
