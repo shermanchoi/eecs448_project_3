@@ -6,16 +6,34 @@ let postTitle = "";
 let postAuthor = "";
 let postContent = "";
 
-//get necessary information from server
+let text = "";
+let obj = {};
 
+//get necessary information from server
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200) {
+        text = this.responseText;
+        obj = JSON.parse(text);
+        alert(text);
+    }
+};
+
+xhttp.open("GET", "/api/post?postid="+ID, true);
+xhttp.send();
+
+postTitle = obj.Title;
+postAuthor = obj.Author;
 
 let PoR = document.getElementById("postandreplies");
 
 function createPostView (title, author) {
     //dummy for test
+    /*
     title = "This is a meaningless post";
     author = "isNotaHuman";
-    
+    */
+
     let post = document.createElement("div");
     post.setAttribute("id", "post");
 
@@ -49,7 +67,7 @@ function createPostView (title, author) {
 createPostView(postTitle, postAuthor);
 
 
-
+/*
 function createReplyView () {
     let replyArea = document.createElement("div");
     replyArea.setAttribute("id", "replies");
@@ -67,33 +85,36 @@ function createReplyView () {
     replyHeader.appendChild(rHeaderButton);
 
     replyArea.appendChild(replyHeader);
+    */
 
     //get all/some replies from server
     //create dummy for testing
+    /*
     let replyNbr = 4;
     let replyAs = ["PppP", "o0Sherlock0o", "orioHERO", "turtleNinja"];
     let replyCs = ["asd", "1234568", "lDSBVZKJBVLAILURGBALJSKBDVLKJSBKDVsnjkfdb", "sdfgh<br>sfsndadfg<br>sdfbzdbr"];
-
+    */
+/*
     //create div.replycontent
     let replies = document.createElement("div");
     replies.setAttribute("class", "replycontent");
     //start loop to create reply blocks
     
-    for(let i = 0; i < replyNbr; i++) {
+    for(let i = 0; i < obj.Replies.length; i++) {
         let reply = document.createElement("div");
         reply.setAttribute("class", "reply");
 
         let replier = document.createElement("div");
         replier.setAttribute("class", "replier");
 
-        replier.innerHTML = replyAs[i];
+        replier.innerHTML = obj.Replies[i].Author;
         reply.appendChild(replier);
 
         replies.appendChild(reply);
 
         let replyContent = document.createElement("div");
         replyContent.setAttribute("class", "replycontent");
-        replyContent.innerHTML = replyCs[i];
+        replyContent.innerHTML = obj.Replies[i].Content;
 
         reply.appendChild(replyContent);
 
@@ -104,10 +125,7 @@ function createReplyView () {
 }
 
 createReplyView();
-
-
-/*
-obj.keyName; //single item
-
-obj.keyName.subKey;//
 */
+
+//{"Title": "title", "Author": "author"}s
+//{"Title": "title", "Author": "author", "Replies": [{"Author": "author1", "Content": "content1"}, {"Author": "author2", "Content": "content2"}]}

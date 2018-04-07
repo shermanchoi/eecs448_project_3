@@ -3,39 +3,55 @@ let preID = parent.document.URL.substring(parent.document.URL.indexOf('?'), pare
 ID = preID.slice(1);
 
 //dummy
-let title = "Title";
-let author = "author";
-let postContent = "asdfghj";
+let title = "";
+let author = "";
+let postContent = "";
+
+let xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        let text = this.responseText;
+        let obj = JSON.parse(text);
+
+        title = obj.Title;
+        author = obj.Author;
+        postContent = obj.postContent;
 
 
-let originPost = document.getElementById("postandreplies");
+        let originPost = document.getElementById("postandreplies");
 
-let post = document.createElement("div");
-post.setAttribute("id", "post");
+        let post = document.createElement("div");
+        post.setAttribute("id", "post");
 
-let postT = document.createElement("div");
-postT.setAttribute("id", "posttitle");
+        let postT = document.createElement("div");
+        postT.setAttribute("id", "posttitle");
 
-postT.innerHTML = title;
+        postT.innerHTML = title;
 
-post.appendChild(postT);
+        post.appendChild(postT);
 
-let postA = document.createElement("div");
-postA.setAttribute("id", "postauthor");
+        let postA = document.createElement("div");
+        postA.setAttribute("id", "postauthor");
 
-postA.innerHTML = "By: " + author;
+        postA.innerHTML = "By: " + author;
 
-post.appendChild(postA);
+        post.appendChild(postA);
 
-let postC = document.createElement("div");
-postC.setAttribute("id", "postcontents");
+        let postC = document.createElement("div");
+        postC.setAttribute("id", "postcontents");
 
-let content = document.createElement("p");
-content.innerHTML = postContent;
+        let content = document.createElement("p");
+        content.innerHTML = postContent;
 
-postC.appendChild(content);
+        postC.appendChild(content);
 
-post.appendChild(postC);
+        post.appendChild(postC);
 
-originPost.appendChild(post);
+        originPost.appendChild(post);
+    }
+};
+
+xhttp.open("GET", "/api/post?postid="+ID, true);
+xhttp.send();
 
