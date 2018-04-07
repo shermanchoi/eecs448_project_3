@@ -6,15 +6,13 @@
  *****/
 package team8.social;
 
-import java.util.Random;
+
 import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args){
         System.out.print("Social Server Started\n");
-        
         configure();
-        
         //define pages
         pages();
     }
@@ -33,7 +31,7 @@ public class Main {
     public static void pages() {
         /*Handles the request to the root directory.*/
         get("/", (req, res) -> {
-            if (!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
+            if (!Session.validate(req.session().id(),req.session().attribute("UserID"))){
                 res.redirect("/login");
             } else {
                 res.redirect("/home");
@@ -44,58 +42,72 @@ public class Main {
     
         /*Handles the request to login*/
         get("/login", (req, res) -> {
-            if (!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+        	//If there is NOT a logged in session. Redirect to login
+            if (!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
                 res.redirect("/html/login.html");
                 return null;
             }
-            
+            //Otherwise, go to home	
             res.redirect("/home");
             return null;
         });
+        /**
+         * Login Attempt
+         */
         post("/login", (req, res) -> {
-            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
-            	
+        	//If there is already a logged in session. Redirect to home
+            if(Session.validate(req.session().id(),req.session().attribute("UserID"))){
                res.redirect("/home");
                return null;
             }
+            
+            //Attempt to log in using username and password
             try {
-	            String userid = Account.login((String) req.queryParams("username"), (String) req.queryParams("password")).getUsername();
-	            Integer sessionid = (int) Math.random() * 100000000;
-	    
-	            if (userid != null) {
+	            Account user = Account.login(req.queryParams("username"), req.queryParams("password"));
+	            if (user != null) {
+	            	//Successful login, create session.
 	                req.session(true);
-	                req.session().attribute("UserID", userid);
-	                req.session().attribute("SessionID", sessionid);
-	                Session.createSession(sessionid.toString(), userid);
+	                req.session().attribute("UserID", user.getUsername());
+	                Session.createSession(req.session().id(),req.session().attribute("UserID"));
 	                
 	                res.redirect("/home");
-	            } else {
-	                res.redirect("html/login.html?error=invalid");
+	            }else {
+	            	//Account does not exist.
+	            	res.redirect("html/login.html?error=invalid");
 	            }
             }catch(Exception e) {
-            	
+            	//Invalid input.
+            	res.redirect("html/login.html?error=invalid");
             }
+            
             return null;
         });
     
         //Create Account
         get("/createaccount", (req, res) -> {
-            if(!Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+        	//If there is NOT a logged in session. Go as intended
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
                 res.redirect("/html/createaccount.html");
                 return null;
             }
             
+            //Go to home otherwise
             res.redirect("/home");
             return null;
         });
+        
+        /**
+         * Create account action
+         */
         post("/createaccount", (req, res) ->{
-            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))){
+        	//Logged in session already exists.
+            if(Session.validate(req.session().id(),req.session().attribute("UserID"))){
                res.redirect("/home");
                return null;
             }
             
             try {
-            	//Parameters of the post
+            	//Parameters of the account creation.
 				String uname = req.queryParams("uname");
 				String pword = req.queryParams("pword");
 				String dateOfBirth = req.queryParams("Year") + "-" + req.queryParams("Month") + "-" + req.queryParams("Date");
@@ -109,41 +121,41 @@ public class Main {
 				String ansQ3 = req.queryParams("sa3");
 				
 				if(pword.length() < 8) {
-					//The password was not long enough
+					//The password was not long enough.
 					res.redirect("/createaccount");
 				}
 				
+				//Attempt account creation
 				Account a = Account.createAccount(uname, pword, dateOfBirth, fName, lName, secQ1, secQ2, secQ3, ansQ1, ansQ2, ansQ3);
 				
-			
 				if(a != null) {
-					//Create the session since the account is created.
-					String userid = Account.login(uname, pword).getUsername();
-		            Integer sessionid = (int) Math.random() * 100000000;
-		            
+					//The account is now created. Login as that account
 		            req.session(true);
-	                req.session().attribute("UserID", userid);
-	                req.session().attribute("SessionID", sessionid);
-	                Session.createSession(sessionid.toString(), userid);
+	                req.session().attribute("UserID", uname);
+	                Session.createSession(req.session().id(),req.session().attribute("UserID"));
 	                
 	                //Go to '/home' since the account is created
 	                res.redirect("/home");
 				}
-			} catch (Exception e) {
-
+			}finally{
+				//Something did not happen correctly
+	            res.redirect("/html/createaccount.html");
 			}
             
-            //Something did not happen correctly
-            res.redirect("/html/createaccount.html");
+            
             return null;
         });
         
         //Main page if the user is logged in.
         get("/home", (req, res) ->{
-            if(Session.validate(req.session().attribute("UserID"), req.session().attribute("SessionID"))) {
+        	//You must be logged in to get into the main page.
+            if(Session.validate(req.session().id(),req.session().attribute("UserID"))) {
         		res.redirect("/html/main.html");
             }
         	
+            //Go back to root otherwise.
+            res.redirect("/");
+            
         	return null;
         });
         

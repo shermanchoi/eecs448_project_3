@@ -198,7 +198,7 @@ public class Account {
 		try {
 			ResultSet results = null;
 
-			String query = "SELECT * FROM social_accounts WHERE username = \"" + username + "\";";
+			String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
 
 			try {
 				System.out.println("Executing Statement:\n\t" + query);
@@ -207,6 +207,7 @@ public class Account {
 
 				while (results.next()) {
 					if (password.equals(results.getString("password"))) {
+						System.out.println("\tLogin Success");
 						String dob = results.getString("birthday");
 						String fname = results.getString("firstName");
 						String lname = results.getString("lastName");
@@ -217,7 +218,6 @@ public class Account {
 				results.close();
 				statement.close();
 				Database.disconnect(connection);
-				System.out.println("Execution Success");
 			} catch (Exception e) {
 				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
