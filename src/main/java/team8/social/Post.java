@@ -87,7 +87,7 @@ public class Post {
 		try {
 			try {
 				Connection connection = Database.connect();
-				String query = "SELECT * FROM sys.social_posts WHERE parentPost=null;";
+				String query = "SELECT * FROM social_posts WHERE parentPost='';";
 				System.out.println("Executing Statement:\n\t" + query);
 				Statement statement = connection.createStatement();
 				ResultSet results = statement.executeQuery(query);
