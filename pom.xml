@@ -41,11 +41,8 @@
           </archive>
         </configuration>
       </plugin>
-      
     </plugins>
   </build>
-  
-  
   <dependencies>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -62,6 +59,12 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.46</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.11</version>
     </dependency>
   </dependencies>
 </project>
