@@ -1,9 +1,11 @@
 package team8.social;
 
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import org.apache.commons.codec.binary.Hex;
 
 public class Account {
 	/**
@@ -120,13 +122,9 @@ public class Account {
 	 * @post The account's information will be altered in the database.
 	 */
 	private void save() {
-		Database.querySQLSet(
-				"UPDATE social_accounts SET"
-		+" password=\"" + password 
-		+ "\",birthday=\"" + birthday 
-		+ "\",firstName=\"" + firstName 
-		+ "\",lastName=\"" + lastName 
-		+ "\" WHERE username=\"" + username + "\";");
+		Database.querySQLSet("UPDATE social_accounts SET" + " password=\"" + password + "\",birthday=\"" + birthday
+				+ "\",firstName=\"" + firstName + "\",lastName=\"" + lastName + "\" WHERE username=\"" + username
+				+ "\";");
 	}
 
 	/**
@@ -149,30 +147,16 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
-		if (Database.querySQLSet("INSERT INTO `social_accounts`" + 
-				"(`username`," + 
-				"`password`," + 
-				"`birthday`," + 
-				"`firstName`," + 
-				"`lastName`," + 
-				"`securityQuestion1`," + 
-				"`securityQuestion2`," + 
-				"`securityQuestion3`," + 
-				"`securityAnswer1`," + 
-				"`securityAnswer2`," + 
-				"`securityAnswer3`)" + 
-				"VALUES" + "('" +
-				uname + "','" + 
-				pword + "','" +  
-				dateOfBirth + "','" + 
-				fName + "','" + 
-				lName + "','" +  
-				secQ1 + "','" + 
-				secQ2 + "','" + 
-				secQ3 + "','" + 
-				ansQ1 + "','" + 
-				ansQ2 + "','" +
-				ansQ3 + "');")) {
+		pword = encrypt(pword, uname);
+		ansQ1 = encrypt(ansQ1, uname);
+		ansQ2 = encrypt(ansQ2, uname);
+		ansQ3 = encrypt(ansQ3, uname);
+
+		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
+				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
+				+ "`securityQuestion3`," + "`securityAnswer1`," + "`securityAnswer2`," + "`securityAnswer3`)" + "VALUES"
+				+ "('" + uname + "','" + pword + "','" + dateOfBirth + "','" + fName + "','" + lName + "','" + secQ1
+				+ "','" + secQ2 + "','" + secQ3 + "','" + ansQ1 + "','" + ansQ2 + "','" + ansQ3 + "');")) {
 			return new Account(uname, pword, dateOfBirth, fName, lName);
 		} else {
 			return null;
@@ -192,40 +176,53 @@ public class Account {
 	 *         otherwise.
 	 */
 	public static Account login(String username, String password) {
-		Connection connection = Database.connect();
+		String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
 		Account account = null;
 
+		password = encrypt(password, username);
+
 		try {
-			ResultSet results = null;
-
-			String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
-
-			try {
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				results = statement.executeQuery(query);
-
-				while (results.next()) {
-					if (password.equals(results.getString("password"))) {
-						System.out.println("\tLogin Success");
-						String dob = results.getString("birthday");
-						String fname = results.getString("firstName");
-						String lname = results.getString("lastName");
-						account = new Account(username, password, dob, fname, lname);
-					}
+			while (rs.next()) {
+				if (rs.getString("password").equals(password)) {
+					String dob = rs.getString("birthday");
+					String fname = rs.getString("firstName");
+					String lname = rs.getString("lastName");
+					account = new Account(username, password, dob, fname, lname);
 				}
-
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Login Error:\n\t" + e.getMessage());
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 
-		Database.disconnect(connection);
 		return account;
+	}
+
+	/**
+	 * Encryption helper method. Meant for sensitive information encryption.
+	 * 
+	 * @param key
+	 *            The item that is guaranteed to be unique, like username.
+	 * @param salt
+	 *            The item that needs to be encrypted, like password.
+	 * @return A string that as been encrypted using SHA-512
+	 */
+	private static String encrypt(String key, String salt) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			String encrypted = "";
+
+			encrypted += Hex.encodeHexString(md.digest((key).getBytes()));
+			encrypted += Hex.encodeHexString(md.digest((key + salt).getBytes()));
+			encrypted += Hex.encodeHexString(md.digest((salt).getBytes()));
+
+			System.out.println(Hex.encodeHexString(md.digest(encrypted.getBytes())));
+
+			return Hex.encodeHexString(md.digest());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
