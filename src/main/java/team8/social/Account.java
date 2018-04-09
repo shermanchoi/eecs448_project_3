@@ -2,9 +2,7 @@ package team8.social;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import org.apache.commons.codec.binary.Hex;
 
 public class Account {
@@ -49,8 +47,8 @@ public class Account {
 	 * @return True if the change occurs, false otherwise.
 	 */
 	public boolean changePassword(String currentPassword, String newPassword, boolean saveImmediately) {
-		currentPassword = encrypt(username,currentPassword);
-		currentPassword = encrypt(username,newPassword);
+		currentPassword = encryptOneWay(username,currentPassword);
+		currentPassword = encryptOneWay(username,newPassword);
 		
 		if (currentPassword == password) {
 			password = newPassword;
@@ -130,10 +128,10 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
-		pword = encrypt(uname, pword);
-		ansQ1 = encrypt(uname, ansQ1);
-		ansQ2 = encrypt(uname, ansQ2);
-		ansQ3 = encrypt(uname, ansQ3);
+		pword = encryptOneWay(uname, pword);
+		ansQ1 = encryptOneWay(uname, ansQ1);
+		ansQ2 = encryptOneWay(uname, ansQ2);
+		ansQ3 = encryptOneWay(uname, ansQ3);
 
 		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
 				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
@@ -164,7 +162,7 @@ public class Account {
 		ResultSet rs = getter.results;
 		Account account = null;
 
-		password = encrypt(username, password);
+		password = encryptOneWay(username, password);
 
 		try {
 			while (rs.next()) {
@@ -191,7 +189,7 @@ public class Account {
 	 *            The item that needs to be encrypted, like password.
 	 * @return A string that as been encrypted using SHA-512
 	 */
-	private static String encrypt(String key, String salt) {
+	private static String encryptOneWay(String key, String salt) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
 			//The key is unique, but the second part is not, so let it act as the actual salt.
@@ -202,5 +200,9 @@ public class Account {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	private static String encryptTwoWay(String keyString, String item, boolean encrypting) {
+		return null;
 	}
 }
