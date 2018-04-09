@@ -39,26 +39,6 @@ public class Account {
 	 * This method changes an user's password
 	 * 
 	 * @post If the password change is successful and saveImmediately is true,
-	 *       changes will be made on the Account object.
-	 * @param currentPassword
-	 *            The current password of the User.
-	 * @param newPassword
-	 *            The new password the user wants
-	 * @return True if the change occurs, false otherwise.
-	 */
-	public boolean changePassword(String currentPassword, String newPassword) {
-		if (currentPassword == password) {
-			password = newPassword;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * This method changes an user's password
-	 * 
-	 * @post If the password change is successful and saveImmediately is true,
 	 *       changes will be saved in the database and Account object.
 	 * @param currentPassword
 	 *            The current password of the User.
@@ -69,6 +49,9 @@ public class Account {
 	 * @return True if the change occurs, false otherwise.
 	 */
 	public boolean changePassword(String currentPassword, String newPassword, boolean saveImmediately) {
+		currentPassword = encrypt(username,currentPassword);
+		currentPassword = encrypt(username,newPassword);
+		
 		if (currentPassword == password) {
 			password = newPassword;
 			if (saveImmediately) {
@@ -147,10 +130,10 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
-		pword = encrypt(pword, uname);
-		ansQ1 = encrypt(ansQ1, uname);
-		ansQ2 = encrypt(ansQ2, uname);
-		ansQ3 = encrypt(ansQ3, uname);
+		pword = encrypt(uname, pword);
+		ansQ1 = encrypt(uname, ansQ1);
+		ansQ2 = encrypt(uname, ansQ2);
+		ansQ3 = encrypt(uname, ansQ3);
 
 		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
 				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
@@ -181,7 +164,7 @@ public class Account {
 		ResultSet rs = getter.results;
 		Account account = null;
 
-		password = encrypt(password, username);
+		password = encrypt(username, password);
 
 		try {
 			while (rs.next()) {
@@ -200,7 +183,7 @@ public class Account {
 	}
 
 	/**
-	 * Encryption helper method. Meant for sensitive information encryption.
+	 * Encryption helper method. Meant for one-way sensitive information encryption.
 	 * @pre The key is an unique element.
 	 * @param key
 	 *            The item that is guaranteed to be unique, like username.
