@@ -1,6 +1,5 @@
 package team8.social;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -39,12 +38,12 @@ public class Database {
 		url = url_in;
 		user = user_in;
 		pass = pass_in;
-		
+
 		boolean existenceAccounts = false;
 		boolean existencePosts = false;
 		boolean existenceSessions = false;
-		
-		//Check which tables exist
+
+		// Check which tables exist
 		try {
 			Connection connection = Database.connect();
 			ResultSet results = null;
@@ -58,16 +57,16 @@ public class Database {
 
 				while (results.next()) {
 					System.out.println(results.getString("Tables_in_sys"));
-					switch(results.getString("Tables_in_sys")){
-						case "social_accounts":
-							existenceAccounts = true;
-							break;
-						case "social_posts":
-							existencePosts = true;
-							break;
-						case "social_sessions":
-							existenceSessions = true;
-							break;
+					switch (results.getString("Tables_in_sys")) {
+					case "social_accounts":
+						existenceAccounts = true;
+						break;
+					case "social_posts":
+						existencePosts = true;
+						break;
+					case "social_sessions":
+						existenceSessions = true;
+						break;
 					}
 				}
 
@@ -78,55 +77,40 @@ public class Database {
 			} catch (Exception e) {
 				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
-			
-			
-			//Generate Accounts table if it does not exist.
-			if(!existenceAccounts) {
-				Database.querySQLSet("CREATE TABLE `social_accounts` (\n" + 
-						"  `username` varchar(255) NOT NULL,\n" + 
-						"  `password` varchar(255) NOT NULL,\n" + 
-						"  `birthday` date NOT NULL,\n" + 
-						"  `firstName` varchar(255) NOT NULL,\n" + 
-						"  `lastName` varchar(255) NOT NULL,\n" + 
-						"  `securityQuestion1` longtext NOT NULL,\n" + 
-						"  `securityQuestion2` longtext NOT NULL,\n" + 
-						"  `securityQuestion3` longtext NOT NULL,\n" + 
-						"  `securityAnswer1` longtext NOT NULL,\n" + 
-						"  `securityAnswer2` longtext NOT NULL,\n" + 
-						"  `securityAnswer3` longtext NOT NULL,\n" + 
-						"  PRIMARY KEY (`username`)\n" + 
-						") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
+			// Generate Accounts table if it does not exist.
+			if (!existenceAccounts) {
+				Database.querySQLSet("CREATE TABLE `social_accounts` (\n" + "  `username` varchar(255) NOT NULL,\n"
+						+ "  `password` varchar(255) NOT NULL,\n" + "  `birthday` date NOT NULL,\n"
+						+ "  `firstName` varchar(255) NOT NULL,\n" + "  `lastName` varchar(255) NOT NULL,\n"
+						+ "  `securityQuestion1` longtext NOT NULL,\n" + "  `securityQuestion2` longtext NOT NULL,\n"
+						+ "  `securityQuestion3` longtext NOT NULL,\n" + "  `securityAnswer1` longtext NOT NULL,\n"
+						+ "  `securityAnswer2` longtext NOT NULL,\n" + "  `securityAnswer3` longtext NOT NULL,\n"
+						+ "  PRIMARY KEY (`username`)\n" + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			}
-			//Generate Posts table if it does not exist.
-			if(!existencePosts) {
-				Database.querySQLSet("CREATE TABLE `social_posts` (\n" + 
-						"  `author` varchar(255) NOT NULL,\n" + 
-						"  `message` longtext NOT NULL,\n" + 
-						"  `title` longtext NOT NULL,\n" + 
-						"  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + 
-						"  `dateCreated` datetime DEFAULT NULL,\n" + 
-						"  `parentPost` int(11) DEFAULT NULL,\n" + 
-						"  PRIMARY KEY (`id`),\n" + 
-						"  KEY `author` (`author`),\n" + 
-						"  KEY `fk_Posts_1_idx` (`parentPost`),\n" + 
-						"  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n" + 
-						"  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
-						") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			// Generate Posts table if it does not exist.
+			if (!existencePosts) {
+				Database.querySQLSet("CREATE TABLE `social_posts` (\n" + "  `author` varchar(255) NOT NULL,\n"
+						+ "  `message` longtext NOT NULL,\n" + "  `title` longtext NOT NULL,\n"
+						+ "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + "  `dateCreated` datetime DEFAULT NULL,\n"
+						+ "  `parentPost` int(11) DEFAULT NULL,\n" + "  PRIMARY KEY (`id`),\n"
+						+ "  KEY `author` (`author`),\n" + "  KEY `fk_Posts_1_idx` (`parentPost`),\n"
+						+ "  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n"
+						+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
+						+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			}
-			//Generate Session table if it does not exist.
-			if(!existenceSessions) {
-				Database.querySQLSet("CREATE TABLE `social_sessions` (\n" + 
-						"  `sessionID` varchar(255) NOT NULL,\n" + 
-						"  `username` varchar(255) NOT NULL,\n" + 
-						"  PRIMARY KEY (`sessionID`),\n" + 
-						"  KEY `username_idx` (`username`),\n" + 
-						"  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n" + 
-						") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+			// Generate Session table if it does not exist.
+			if (!existenceSessions) {
+				Database.querySQLSet("CREATE TABLE `social_sessions` (\n" + "  `sessionID` varchar(255) NOT NULL,\n"
+						+ "  `username` varchar(255) NOT NULL,\n" + "  PRIMARY KEY (`sessionID`),\n"
+						+ "  KEY `username_idx` (`username`),\n"
+						+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
+						+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 			}
-			
-			//Delete session items. The entries are runtime stuff.
-			//Database.querySQLSet("TRUNCATE social_sessions;");
-		}catch(Exception e) {
+
+			// Delete session items. The entries are runtime stuff.
+			// Database.querySQLSet("TRUNCATE social_sessions;");
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -205,4 +189,12 @@ public class Database {
 		return successful;
 	}
 
+	/**
+	 * This method adds escape characters to queries.
+	 * @param input The query to be modified as needed
+	 * @return An SQL Query.
+	 */
+	public static String prepareQuery(String input) {
+		return input.replaceAll("'", "\\'");
+	}
 }
