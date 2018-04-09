@@ -191,10 +191,16 @@ public class Database {
 
 	/**
 	 * This method adds escape characters to queries.
-	 * @param input The query to be modified as needed
+	 * 
+	 * @param input
+	 *            The query to be modified as needed
 	 * @return An SQL Query.
 	 */
 	public static String prepareQuery(String input) {
-		return input.replaceAll("'", "\\'");
+		// Add escape characters to quotes.
+		input = input.replaceAll("'", "\\'");
+		input = input.replaceAll("`", "\\`");
+		input = input.replaceAll("\"", "\\\"");
+		return input;
 	}
 }
