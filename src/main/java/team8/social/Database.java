@@ -204,3 +204,34 @@ public class Database {
 		return input;
 	}
 }
+
+class DatabaseGetter{
+	private Connection connection;
+	private Statement statement = null;
+	public ResultSet results = null;
+	
+	public DatabaseGetter(String query) {
+		connection = Database.connect();
+		try {
+			try {
+				System.out.println("Executing Statement:\n\t" + query);
+				statement = connection.createStatement();
+				results = statement.executeQuery(query);
+			} catch (Exception e) {
+				System.out.println("Query Error:\n\t" + e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("Connection Error:\n\t" + e.getMessage());
+		}
+	}
+	
+	public void finalize() {
+		try {
+			results.close();
+			statement.close();
+		}catch(Exception e) {
+			System.out.println("Connection Error:\n\t" + e.getMessage());
+		}
+		Database.disconnect(connection);
+	}
+}
