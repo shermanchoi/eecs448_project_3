@@ -87,7 +87,7 @@ public class Main {
         get("/createaccount", (req, res) -> {
         	//If there is NOT a logged in session. Go as intended
             if(!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-                res.redirect("/html/createaccount.html");
+                res.redirect("/html/createAccount.html");
                 return null;
             }
             
@@ -139,7 +139,7 @@ public class Main {
 				}
 			}finally{
 				//Something did not happen correctly
-	            res.redirect("/html/createaccount.html");
+	            res.redirect("/html/createAccount.html");
 			}
             
             
