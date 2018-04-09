@@ -173,9 +173,12 @@ public class Post {
 				ResultSet results = statement.executeQuery(query);
 
 				while (results.next()) {
-					post = new JSONStringer().object().key("ID").value(results.getInt("id")).key("Title")
-							.value(results.getString("title")).key("Author").value(results.getString("author"))
-							.key("Content").value(results.getString("message")).endObject().toString();
+					post = new JSONStringer().object()
+							.key("ID").value(results.getInt("id"))
+							.key("Title").value(results.getString("title"))
+							.key("Author").value(results.getString("author"))
+							.key("Content").value(results.getString("message"))
+						.endObject().toString();
 				}
 				results.close();
 				statement.close();
