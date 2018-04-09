@@ -201,7 +201,7 @@ public class Account {
 
 	/**
 	 * Encryption helper method. Meant for sensitive information encryption.
-	 * 
+	 * @pre The key is an unique element.
 	 * @param key
 	 *            The item that is guaranteed to be unique, like username.
 	 * @param salt
@@ -211,15 +211,10 @@ public class Account {
 	private static String encrypt(String key, String salt) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			String encrypted = "";
-
-			encrypted += Hex.encodeHexString(md.digest((key).getBytes()));
-			encrypted += Hex.encodeHexString(md.digest((key + salt).getBytes()));
-			encrypted += Hex.encodeHexString(md.digest((salt).getBytes()));
-
-			System.out.println(Hex.encodeHexString(md.digest(encrypted.getBytes())));
-
-			return Hex.encodeHexString(md.digest());
+			//The key is unique, but the second part is not, so let it act as the actual salt.
+			String encrypted = key + Hex.encodeHexString(md.digest((key + salt).getBytes()));
+			//Re-encrypt it
+			return Hex.encodeHexString(md.digest(encrypted.getBytes()));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 			return null;
