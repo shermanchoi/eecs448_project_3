@@ -43,8 +43,10 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
-		if (Database.querySQLSet("INSERT INTO `social_posts` (`author`,`message`,`title`)"
-				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "');")) {
+		String query = Database.prepareQuery("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('"
+				+ inputAuthor + "','" + inputMessage + "','" + inputTitle + "');");
+
+		if (Database.querySQLSet(query)) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
 			return null;
@@ -69,21 +71,24 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
-		if (Database.querySQLSet("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
-				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID + "');")) {
+		String query = Database.prepareQuery("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`,"
+				+ "`parentPost`)" + "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','"
+				+ replyingToPostID + "');");
+		if (Database.querySQLSet(query)) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * This method returns a javascript object that has all the post's information.
+	 * 
 	 * @return A JSON string that represents all the posts.
 	 */
 	public static String JSONAllPosts() {
 		String postList = "{\"Posts\": [";
-		
+
 		try {
 			try {
 				Connection connection = Database.connect();
@@ -93,22 +98,17 @@ public class Post {
 				ResultSet results = statement.executeQuery(query);
 
 				boolean first = true;
-				
+
 				while (results.next()) {
-					if(first) {
+					if (first) {
 						first = false;
-					}else {
+					} else {
 						postList += ",";
 					}
-					
-					postList += new JSONStringer()
-							.object()
-								.key("ID").value(results.getInt("id"))
-								.key("Title").value(results.getString("title"))
-								.key("Author").value(results.getString("author"))
-								.key("Reply").value(getParentCount(results.getInt("id")))
-							.endObject()
-							.toString();
+
+					postList += new JSONStringer().object().key("ID").value(results.getInt("id")).key("Title")
+							.value(results.getString("title")).key("Author").value(results.getString("author"))
+							.key("Reply").value(getParentCount(results.getInt("id"))).endObject().toString();
 				}
 
 				results.close();
@@ -121,12 +121,12 @@ public class Post {
 		} catch (Exception e) {
 			System.out.println("Error:\n\t" + e.getMessage());
 		}
-		postList += "]}"; //Close it.
+		postList += "]}"; // Close it.
 
 		return postList;
 	}
-	
-	private static int getParentCount(int id){
+
+	private static int getParentCount(int id) {
 		int count = 0;
 		try {
 			try {
@@ -135,7 +135,7 @@ public class Post {
 				System.out.println("Executing Statement:\n\t" + query);
 				Statement statement = connection.createStatement();
 				ResultSet results = statement.executeQuery(query);
-				
+
 				while (results.next()) {
 					count = results.getInt("COUNT(*)");
 				}
@@ -152,16 +152,18 @@ public class Post {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * This method returns a JSON representing a post using an id
+	 * 
 	 * @pre The post with the id exists.
-	 * @param id_in The id to input.
+	 * @param id_in
+	 *            The id to input.
 	 * @return JSON representing the post
 	 */
 	public static String getPostByID(int id_in) {
 		String post = "";
-		
+
 		try {
 			try {
 				Connection connection = Database.connect();
@@ -169,16 +171,11 @@ public class Post {
 				System.out.println("Executing Statement:\n\t" + query);
 				Statement statement = connection.createStatement();
 				ResultSet results = statement.executeQuery(query);
-				
+
 				while (results.next()) {
-					post = new JSONStringer()
-							.object()
-								.key("ID").value(results.getInt("id"))
-								.key("Title").value(results.getString("title"))
-								.key("Author").value(results.getString("author"))
-								.key("Content").value(results.getString("message"))
-							.endObject()
-							.toString();
+					post = new JSONStringer().object().key("ID").value(results.getInt("id")).key("Title")
+							.value(results.getString("title")).key("Author").value(results.getString("author"))
+							.key("Content").value(results.getString("message")).endObject().toString();
 				}
 				results.close();
 				statement.close();
