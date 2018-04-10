@@ -94,45 +94,84 @@ public class Post {
 	 * @return A JSON string that represents all the posts.
 	 */
 	public static String JSONAllPosts() {
-		String postList = "{\"Posts\": [";
+		String query = "SELECT * FROM social_posts WHERE parentPost IS NULL;";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
+		
+		String postList = "[";
 
 		try {
-			try {
-				Connection connection = Database.connect();
-				String query = "SELECT * FROM social_posts WHERE parentPost IS NULL;";
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				ResultSet results = statement.executeQuery(query);
-
-				boolean first = true;
-
-				while (results.next()) {
-					if (first) {
-						first = false;
-					} else {
-						postList += ",";
-					}
-
-					postList += new JSONStringer().object().key("ID").value(results.getInt("id")).key("Title")
-							.value(results.getString("title")).key("Author").value(results.getString("author"))
-							.key("Reply").value(getParentCount(results.getInt("id"))).endObject().toString();
+			//Only the first element in the array has a comma before it
+			boolean first = true;
+			
+			//Construct the post array.
+			while (rs.next()) {
+				if (first) {
+					first = false;
+				} else {
+					postList += ",";
 				}
-
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-				System.out.println("Execution Success");
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
+				postList += new JSONStringer().object()
+						.key("ID").value(rs.getInt("id"))
+						.key("Title").value(rs.getString("title"))
+						.key("Author").value(rs.getString("author"))
+						.key("Reply").value(getParentCount(rs.getInt("id")))
+						.endObject().toString();
 			}
 		} catch (Exception e) {
-			System.out.println("Error:\n\t" + e.getMessage());
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
-		postList += "]}"; // Close it.
+		
+		postList += "]"; // Close it.
 
-		return postList;
+		return new JSONStringer().object()
+				.key("Posts").value(postList)
+				.endObject().toString();
 	}
-
+	/**
+	 * This method returns a JS object that represents the posts that reply to a specific post given an id
+	 * @param id 
+	 *            The id of the parent post.
+	 * @return A JSON String that contains the replies to a specific post given the id
+	 */
+	public static String JSONAllPostReplies(int id) {
+		String query = "SELECT FROM social_posts WHERE parentPost='" + id + "'";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
+		
+		String postList = "[";
+		int totalPosts = 0;
+		
+		try {
+			boolean first = true; //Only the first item in the array does not have a comma before it
+			//Just get all the replies of a post
+			while (rs.next()) {
+				if (first) {
+					first = false;
+				} else {
+					postList += ",";
+				}
+				totalPosts++;
+				postList += new JSONStringer().object()
+						.key("Author").value(rs.getString("author"))
+						.key("Content").value(rs.getString("message"))
+						.endObject().toString();
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+		
+		postList += "]"; // Close it.
+		
+		//Build the post object to return
+		String postObject = new JSONStringer().object()
+				.key("Current Page").value(1)
+				.key("Total Pages").value(Math.max(1,totalPosts/10))
+				.key("Posts").value(postList)
+				.endObject().toString();
+		
+		return postObject;
+	}
 	/**
 	 * This returns the number of replies a post has.
 	 * 
@@ -173,9 +212,12 @@ public class Post {
 
 		try {
 			while (rs.next()) {
-				post = new JSONStringer().object().key("ID").value(rs.getInt("id")).key("Title")
-						.value(rs.getString("title")).key("Author").value(rs.getString("author")).key("Content")
-						.value(rs.getString("message")).endObject().toString();
+				post = new JSONStringer().object()
+						.key("ID").value(rs.getInt("id"))
+						.key("Title").value(rs.getString("title"))
+						.key("Author").value(rs.getString("author"))
+						.key("Content").value(rs.getString("message"))
+						.endObject().toString();
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
