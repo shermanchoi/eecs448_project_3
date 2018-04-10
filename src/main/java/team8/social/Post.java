@@ -43,8 +43,11 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
-		String query = Database.prepareQuery("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('"
-				+ inputAuthor + "','" + inputMessage + "','" + inputTitle + "');");
+		Database.prepareQueryParameter(inputMessage);
+		Database.prepareQueryParameter(inputTitle);
+
+		String query = ("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('" + inputAuthor
+				+ "','" + inputMessage + "','" + inputTitle + "');");
 
 		if (Database.querySQLSet(query)) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
@@ -71,9 +74,13 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
-		String query = Database.prepareQuery("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`,"
-				+ "`parentPost`)" + "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','"
-				+ replyingToPostID + "');");
+		Database.prepareQueryParameter(inputMessage);
+		Database.prepareQueryParameter(inputTitle);
+
+		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
+				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID
+				+ "');");
+
 		if (Database.querySQLSet(query)) {
 			return new Post(inputAuthor, inputMessage, inputTitle);
 		} else {
@@ -126,30 +133,27 @@ public class Post {
 		return postList;
 	}
 
+	/**
+	 * This returns the number of replies a post has.
+	 * 
+	 * @param id
+	 *            The id of the post
+	 * @return The number of replies the post (associated with the id) has.
+	 */
 	private static int getParentCount(int id) {
+		String query = "SELECT COUNT(*) FROM social_posts WHERE parentPost='" + id + "'";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
+
 		int count = 0;
 		try {
-			try {
-				Connection connection = Database.connect();
-				String query = "SELECT COUNT(*) FROM social_posts WHERE parentPost='" + id + "'";
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				ResultSet results = statement.executeQuery(query);
-
-				while (results.next()) {
-					count = results.getInt("COUNT(*)");
-				}
-
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-				System.out.println("Execution Success");
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
+			while (rs.next()) {
+				count = rs.getInt("COUNT(*)");
 			}
 		} catch (Exception e) {
-			System.out.println("Error:\n\t" + e.getMessage());
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
+
 		return count;
 	}
 
@@ -163,34 +167,20 @@ public class Post {
 	 */
 	public static String getPostByID(int id_in) {
 		String post = "";
+		String query = "SELECT * FROM social_posts WHERE id=" + id_in + ";";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
 
 		try {
-			try {
-				Connection connection = Database.connect();
-				String query = "SELECT * FROM social_posts WHERE id=" + id_in + ";";
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				ResultSet results = statement.executeQuery(query);
-
-				while (results.next()) {
-					post = new JSONStringer().object()
-							.key("ID").value(results.getInt("id"))
-							.key("Title").value(results.getString("title"))
-							.key("Author").value(results.getString("author"))
-							.key("Content").value(results.getString("message"))
-						.endObject().toString();
-				}
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-				System.out.println("Execution Success");
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
+			while (rs.next()) {
+				post = new JSONStringer().object().key("ID").value(rs.getInt("id")).key("Title")
+						.value(rs.getString("title")).key("Author").value(rs.getString("author")).key("Content")
+						.value(rs.getString("message")).endObject().toString();
 			}
 		} catch (Exception e) {
-			System.out.println("Error:\n\t" + e.getMessage());
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
+
 		return post;
 	}
-
 }

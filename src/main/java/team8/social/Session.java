@@ -17,6 +17,7 @@ public class Session {
 
 	/**
 	 * This is the session constructor
+	 * 
 	 * @post Creates the Session in Database.
 	 * @param sessionID_in
 	 *            The sessionID of the session
@@ -27,8 +28,10 @@ public class Session {
 		sessionID = sessionID_in;
 		username = username_in;
 	}
+
 	/**
 	 * This method checks if this session exists in the database.
+	 * 
 	 * @param username_in
 	 *            The username of the session
 	 * @param sessionID_in
@@ -36,60 +39,54 @@ public class Session {
 	 * @return True if the method exists, false otherwise
 	 */
 	public static boolean validate(String sessionID_in, String username_in) {
-		Connection connection = Database.connect();
-		boolean found = false;
+		String query = "SELECT * FROM social_sessions WHERE sessionID = '" + sessionID_in + "';";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
 		try {
-			try {
-				String query = "SELECT * FROM social_sessions WHERE sessionID = '" + sessionID_in + "';";
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				ResultSet results = statement.executeQuery(query);
-	
-				while (results.next()) {
-					if (username_in.equals(results.getString("username"))) {
-						found = true;
-					}
+			while (rs.next()) {
+				if (username_in.equals(rs.getString("username"))) {
+					return true;
 				}
-
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-				System.out.println("Execution Success");
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Login Error:\n\t" + e.getMessage());
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
-
-		Database.disconnect(connection);
-		return found;
+		return false;
 	}
+
 	/**
 	 * This method allows a session to be created.
+	 * 
 	 * @param sessionID_in
-	 * The session id
+	 *            The session id
 	 * @param username_in
-	 * The session username
+	 *            The session username
 	 * @return A session object if created successfully, null otherwise.
 	 */
-	public static Session createSession(String sessionID_in, String username_in){
+	public static Session createSession(String sessionID_in, String username_in) {
 		try {
-			Database.querySQLSet("INSERT INTO `social_sessions`" + 
-					"(`sessionID`," + 
-					"`username`) " + 
-					"VALUES" + " ('" + 
-					sessionID_in + "','" + 
-					username_in + "');");
+			Database.querySQLSet("INSERT INTO `social_sessions`" + "(`sessionID`," + "`username`) " + "VALUES" + " ('"
+					+ sessionID_in + "','" + username_in + "');");
 			return new Session(sessionID_in, username_in);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return null;
 	}
-	public static boolean deleteSession(String sessionID_in, String username_in){
-		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in + "';";
+
+	/**
+	 * This method deletes a session from the database
+	 * 
+	 * @param sessionID_in
+	 *            The ID of the session in question
+	 * @param username_in
+	 *            The username associated with the session
+	 * @return True if the query occurs successfully, false otherwise.
+	 */
+	public static boolean deleteSession(String sessionID_in, String username_in) {
+		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in
+				+ "';";
 		return Database.querySQLSet(query);
 	}
 }
