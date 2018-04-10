@@ -3,6 +3,7 @@ package team8.social;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+
 import org.apache.commons.codec.binary.Hex;
 
 public class Account {
@@ -132,6 +133,12 @@ public class Account {
 		ansQ1 = encryptOneWay(uname, ansQ1);
 		ansQ2 = encryptOneWay(uname, ansQ2);
 		ansQ3 = encryptOneWay(uname, ansQ3);
+		
+		fName = Database.prepareQueryParameter(fName);
+		lName = Database.prepareQueryParameter(lName);
+		secQ1 = Database.prepareQueryParameter(secQ1);
+		secQ2 = Database.prepareQueryParameter(secQ2);
+		secQ3 = Database.prepareQueryParameter(secQ3);
 
 		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
 				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
@@ -156,7 +163,7 @@ public class Account {
 	 * @return An Account object representing the account if it exists. Null
 	 *         otherwise.
 	 */
-	public static Account login(String username, String password) {
+	public static Account login(String username, String password) {		
 		String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
@@ -200,9 +207,5 @@ public class Account {
 			e.printStackTrace();
 			return null;
 		}
-	}
-	
-	private static String encryptTwoWay(String keyString, String item, boolean encrypting) {
-		return null;
 	}
 }
