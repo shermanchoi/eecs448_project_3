@@ -193,10 +193,10 @@ public class Database {
 	 * This method adds escape characters to queries.
 	 * 
 	 * @param input
-	 *            The query to be modified as needed
+	 *            The parameter to be modified as needed
 	 * @return An SQL Query.
 	 */
-	public static String prepareQuery(String input) {
+	public static String prepareQueryParameter(String input) {
 		// Add escape characters to quotes.
 		input = input.replaceAll("'", "\\'");
 		input = input.replaceAll("`", "\\`");
@@ -217,6 +217,7 @@ class DatabaseGetter{
 				System.out.println("Executing Statement:\n\t" + query);
 				statement = connection.createStatement();
 				results = statement.executeQuery(query);
+				System.out.println("Execution Success");
 			} catch (Exception e) {
 				System.out.println("Query Error:\n\t" + e.getMessage());
 			}
@@ -229,9 +230,9 @@ class DatabaseGetter{
 		try {
 			results.close();
 			statement.close();
+			Database.disconnect(connection);
 		}catch(Exception e) {
-			System.out.println("Connection Error:\n\t" + e.getMessage());
+			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
 		}
-		Database.disconnect(connection);
 	}
 }
