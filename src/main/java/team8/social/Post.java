@@ -100,11 +100,13 @@ public class Post {
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
 		
-		
+		int totalPosts = 0;
 		JSONArray jsonArr = new JSONArray();
+		
 		try {			
 			//Construct the post array.
 			while (rs.next()) {
+				totalPosts++;
 				jsonArr.put(
 						new JSONObject()
 						.put("ID",rs.getInt("id"))
@@ -122,6 +124,8 @@ public class Post {
 		JSONStringer json = (JSONStringer) 
 				new JSONStringer().object()
 				.key("Posts").value(jsonArr)
+				.key("currentP").value(1)
+				.key("totalP").value(Math.max(1,totalPosts/10))
 				.endObject();
 
 		
@@ -141,35 +145,28 @@ public class Post {
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
 		
-		String postList = "[";
 		int totalPosts = 0;
+		JSONArray jsonArr = new JSONArray();
 		
 		try {
-			boolean first = true; //Only the first item in the array does not have a comma before it
 			//Just get all the replies of a post
 			while (rs.next()) {
-				if (first) {
-					first = false;
-				} else {
-					postList += ",";
-				}
 				totalPosts++;
-				postList += new JSONStringer().object()
-						.key("Author").value(rs.getString("author"))
-						.key("Content").value(rs.getString("message"))
-						.endObject().toString();
+				jsonArr.put(
+						new JSONObject()
+						.put("Author",rs.getString("author"))
+						.put("Content",rs.getString("message"))
+						);
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 		
-		postList += "]"; // Close it.
-		
 		//Build the post object to return
 		String postObject = new JSONStringer().object()
 				.key("Current Page").value(1)
 				.key("Total Pages").value(Math.max(1,totalPosts/10))
-				.key("Posts").value(postList)
+				.key("Posts").value(jsonArr)
 				.endObject().toString();
 		
 		return postObject;
