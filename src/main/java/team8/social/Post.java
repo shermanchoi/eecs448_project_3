@@ -120,17 +120,12 @@ public class Post {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 		
-		
 		JSONStringer json = (JSONStringer) 
 				new JSONStringer().object()
 				.key("Posts").value(jsonArr)
 				.key("currentP").value(1)
 				.key("totalP").value(Math.max(1,totalPosts/10))
 				.endObject();
-
-		
-
-		System.out.println("\t\tHERE: " + json.toString());
 		
 		return json.toString();
 	}
