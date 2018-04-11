@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 
 import org.apache.commons.codec.binary.Hex;
+import org.json.JSONStringer;
 
 public class Account {
 	/**
@@ -48,9 +49,9 @@ public class Account {
 	 * @return True if the change occurs, false otherwise.
 	 */
 	public boolean changePassword(String currentPassword, String newPassword, boolean saveImmediately) {
-		currentPassword = encryptOneWay(username,currentPassword);
-		currentPassword = encryptOneWay(username,newPassword);
-		
+		currentPassword = encryptOneWay(username, currentPassword);
+		currentPassword = encryptOneWay(username, newPassword);
+
 		if (currentPassword == password) {
 			password = newPassword;
 			if (saveImmediately) {
@@ -133,7 +134,7 @@ public class Account {
 		ansQ1 = encryptOneWay(uname, ansQ1);
 		ansQ2 = encryptOneWay(uname, ansQ2);
 		ansQ3 = encryptOneWay(uname, ansQ3);
-		
+
 		fName = Database.prepareQueryParameter(fName);
 		lName = Database.prepareQueryParameter(lName);
 		secQ1 = Database.prepareQueryParameter(secQ1);
@@ -163,7 +164,7 @@ public class Account {
 	 * @return An Account object representing the account if it exists. Null
 	 *         otherwise.
 	 */
-	public static Account login(String username, String password) {		
+	public static Account login(String username, String password) {
 		String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
@@ -188,7 +189,35 @@ public class Account {
 	}
 
 	/**
+	 * This returns the profile page information of an user.
+	 * 
+	 * @param username
+	 *            The username of the user in question
+	 * @return The JSON representing the user's profile information.
+	 */
+	public static String getProfilePageInformation(String username) {
+		String query = "SELECT * FROM social_accounts WHERE username = '" + username + "';";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		ResultSet rs = getter.results;
+
+		String json = null;
+
+		try {
+			while (rs.next()) {
+				json = new JSONStringer().object().key("username").value(rs.getString("username")).key("firstName")
+						.value(rs.getString("firstName")).key("lastName").value(rs.getString("lastName"))
+						.key("birthday").value(rs.getString("birthday")).endObject().toString();
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+
+		return json;
+	}
+
+	/**
 	 * Encryption helper method. Meant for one-way sensitive information encryption.
+	 * 
 	 * @pre The key is an unique element.
 	 * @param key
 	 *            The item that is guaranteed to be unique, like username.
@@ -199,9 +228,10 @@ public class Account {
 	private static String encryptOneWay(String key, String salt) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			//The key is unique, but the second part is not, so let it act as the actual salt.
+			// The key is unique, but the second part is not, so let it act as the actual
+			// salt.
 			String encrypted = key + Hex.encodeHexString(md.digest((key + salt).getBytes()));
-			//Re-encrypt it
+			// Re-encrypt it
 			return Hex.encodeHexString(md.digest(encrypted.getBytes()));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
