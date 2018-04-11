@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONStringer;
 
 public class Post {
@@ -98,35 +100,35 @@ public class Post {
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
 		
-		String postList = "[";
-
-		try {
-			//Only the first element in the array has a comma before it
-			boolean first = true;
-			
+		
+		JSONArray jsonArr = new JSONArray();
+		try {			
 			//Construct the post array.
 			while (rs.next()) {
-				if (first) {
-					first = false;
-				} else {
-					postList += ",";
-				}
-				postList += new JSONStringer().object()
-						.key("ID").value(rs.getInt("id"))
-						.key("Title").value(rs.getString("title"))
-						.key("Author").value(rs.getString("author"))
-						.key("Reply").value(getParentCount(rs.getInt("id")))
-						.endObject().toString();
+				jsonArr.put(
+						new JSONObject()
+						.put("ID",rs.getInt("id"))
+						.put("Title",rs.getString("title"))
+						.put("Author",rs.getString("author"))
+						.put("Reply",getParentCount(rs.getInt("id")))
+						);
+				
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 		
-		postList += "]"; // Close it.
+		
+		JSONStringer json = (JSONStringer) 
+				new JSONStringer().object()
+				.key("Posts").value(jsonArr)
+				.endObject();
 
-		return new JSONStringer().object()
-				.key("Posts").value(postList)
-				.endObject().toString();
+		
+
+		System.out.println("\t\tHERE: " + json.toString());
+		
+		return json.toString();
 	}
 	/**
 	 * This method returns a JS object that represents the posts that reply to a specific post given an id
