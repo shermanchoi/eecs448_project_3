@@ -46,8 +46,8 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
-		StringEscapeUtils.escapeHtml4(inputMessage);
-		StringEscapeUtils.escapeHtml4(inputTitle);
+		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
+		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 
 		String query = ("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('" + inputAuthor
 				+ "','" + inputMessage + "','" + inputTitle + "');");
@@ -77,8 +77,12 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
-		StringEscapeUtils.escapeHtml4(inputMessage);
-		StringEscapeUtils.escapeHtml4(inputTitle);
+		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
+		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
+		
+		
+		
+		
 
 		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
 				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID
@@ -205,6 +209,8 @@ public class Post {
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
 
+		
+		
 		try {
 			while (rs.next()) {
 				post = new JSONStringer().object()
@@ -213,6 +219,8 @@ public class Post {
 						.key("Author").value(rs.getString("author"))
 						.key("Content").value(rs.getString("message"))
 						.endObject().toString();
+				
+				System.out.println(rs.getString("message"));
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
