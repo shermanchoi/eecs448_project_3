@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONStringer;
 
 public class Account {
@@ -135,11 +136,11 @@ public class Account {
 		ansQ2 = encryptOneWay(uname, ansQ2);
 		ansQ3 = encryptOneWay(uname, ansQ3);
 
-		fName = Database.prepareQueryParameter(fName);
-		lName = Database.prepareQueryParameter(lName);
-		secQ1 = Database.prepareQueryParameter(secQ1);
-		secQ2 = Database.prepareQueryParameter(secQ2);
-		secQ3 = Database.prepareQueryParameter(secQ3);
+		fName = StringEscapeUtils.escapeHtml4(fName);
+		lName = StringEscapeUtils.escapeHtml4(lName);
+		secQ1 = StringEscapeUtils.escapeHtml4(secQ1);
+		secQ2 = StringEscapeUtils.escapeHtml4(secQ2);
+		secQ3 = StringEscapeUtils.escapeHtml4(secQ3);
 
 		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
 				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
@@ -190,7 +191,7 @@ public class Account {
 
 	/**
 	 * This returns the profile page information of an user.
-	 * 
+	 * @pre The account with the username exists
 	 * @param username
 	 *            The username of the user in question
 	 * @return The JSON representing the user's profile information.

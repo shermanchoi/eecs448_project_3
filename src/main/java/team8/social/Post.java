@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -45,8 +46,8 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
-		Database.prepareQueryParameter(inputMessage);
-		Database.prepareQueryParameter(inputTitle);
+		StringEscapeUtils.escapeHtml4(inputMessage);
+		StringEscapeUtils.escapeHtml4(inputTitle);
 
 		String query = ("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('" + inputAuthor
 				+ "','" + inputMessage + "','" + inputTitle + "');");
@@ -76,8 +77,8 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
-		Database.prepareQueryParameter(inputMessage);
-		Database.prepareQueryParameter(inputTitle);
+		StringEscapeUtils.escapeHtml4(inputMessage);
+		StringEscapeUtils.escapeHtml4(inputTitle);
 
 		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
 				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID

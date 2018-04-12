@@ -188,21 +188,6 @@ public class Database {
 		Database.disconnect(connection);
 		return successful;
 	}
-
-	/**
-	 * This method adds escape characters to queries.
-	 * 
-	 * @param input
-	 *            The parameter to be modified as needed
-	 * @return An SQL Query.
-	 */
-	public static String prepareQueryParameter(String input) {
-		// Add escape characters to quotes.
-		input = input.replaceAll("'", "\\'");
-		input = input.replaceAll("`", "\\`");
-		input = input.replaceAll("\"", "\\\"");
-		return input;
-	}
 }
 
 class DatabaseGetter{
