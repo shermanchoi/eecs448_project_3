@@ -46,15 +46,36 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle) {
+		//Escape potentially harmful parameters.
 		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
 		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 
-		String query = ("INSERT INTO `social_posts` (`author`,`message`,`title`)" + "VALUES" + "('" + inputAuthor
-				+ "','" + inputMessage + "','" + inputTitle + "');");
-
-		if (Database.querySQLSet(query)) {
-			return new Post(inputAuthor, inputMessage, inputTitle);
-		} else {
+		// Message cannot be null
+		if (inputMessage.length() < 1) {
+			return null;
+		}
+		// Title cannot be null
+		if (inputTitle.length() < 1) {
+			return null;
+		}
+		
+		// Statement to prepare.
+		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_posts` (`author`,`message`,`title`)"
+				+ "VALUES(?,?,?);");
+		
+		try {
+			// Statement preparing.
+			setter.statement.setString(1, inputAuthor);
+			setter.statement.setString(2, inputMessage);
+			setter.statement.setString(3, inputTitle);
+			// Execution of statement.
+			if (setter.execute()) {
+				return new Post(inputAuthor, inputMessage, inputTitle);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -77,16 +98,37 @@ public class Post {
 	 *         is valid, otherwise null
 	 */
 	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
+		//Escape potentially harmful parameters.
 		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
 		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 		
-		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
-				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + "Reply" + "','" + replyingToPostID
-				+ "');");
+		// Message cannot be null
+		if (inputMessage.length() < 1) {
+			return null;
+		}
+		// Title cannot be null
+		if (inputTitle.length() < 1) {
+			return null;
+		}
 
-		if (Database.querySQLSet(query)) {
-			return new Post(inputAuthor, inputMessage, inputTitle);
-		} else {
+		// Statement to prepare.
+		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_posts`(`author`,`message`,`title`,`parentPost`)"
+				+ "VALUES(?,?,?,?);");
+
+		try {
+			// Statement preparing.
+			setter.statement.setString(1, inputAuthor);
+			setter.statement.setString(2, inputMessage);
+			setter.statement.setString(3, "Reply");
+			setter.statement.setInt(4, replyingToPostID);
+			// Execution of statement.
+			if (setter.execute()) {
+				return new Post(inputAuthor, inputMessage, inputTitle);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -100,73 +142,68 @@ public class Post {
 		String query = "SELECT * FROM social_posts WHERE parentPost IS NULL;";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
-		
+
 		int totalPosts = 0;
 		JSONArray jsonArr = new JSONArray();
-		
-		try {			
-			//Construct the post array.
+
+		try {
+			// Construct the post array.
 			while (rs.next()) {
 				totalPosts++;
-				jsonArr.put(
-						new JSONObject()
-						.put("ID",rs.getInt("id"))
-						.put("Title",rs.getString("title"))
-						.put("Author",rs.getString("author"))
-						.put("Reply",getParentCount(rs.getInt("id")))
-						);
-				
+				jsonArr.put(new JSONObject().put("ID", rs.getInt("id")).put("Title", rs.getString("title"))
+						.put("Author", rs.getString("author")).put("Reply", getParentCount(rs.getInt("id"))));
+
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
-		
-		JSONStringer json = (JSONStringer) 
-				new JSONStringer().object()
-				.key("Posts").value(jsonArr)
-				.key("currentP").value(1)
-				.key("totalP").value(Math.max(1,totalPosts/10))
-				.endObject();
-		
+
+		JSONStringer json = (JSONStringer) new JSONStringer().object().key("Posts").value(jsonArr).key("currentP")
+				.value(1).key("totalP").value(Math.max(1, totalPosts / 10)).endObject();
+
 		return json.toString();
 	}
+
 	/**
-	 * This method returns a JS object that represents the posts that reply to a specific post given an id
-	 * @param id 
+	 * This method returns a JS object that represents the posts that reply to a
+	 * specific post given an id
+	 * 
+	 * @param id
 	 *            The id of the parent post.
-	 * @return A JSON String that contains the replies to a specific post given the id
+	 * @return A JSON String that contains the replies to a specific post given the
+	 *         id
 	 */
 	public static String JSONAllPostReplies(int id) {
 		String query = "SELECT FROM social_posts WHERE parentPost='" + id + "'";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
-		
+
 		int totalPosts = 0;
 		JSONArray jsonArr = new JSONArray();
-		
+
 		try {
-			//Just get all the replies of a post
+			// Just get all the replies of a post
 			while (rs.next()) {
 				totalPosts++;
-				jsonArr.put(
-						new JSONObject() //Start object
-						.put("Author",rs.getString("author")) //Author of reply
-						.put("Content",rs.getString("message")) //Content of reply
-						); //End object
+				jsonArr.put(new JSONObject() // Start object
+						.put("Author", rs.getString("author")) // Author of reply
+						.put("Content", rs.getString("message")) // Content of reply
+				); // End object
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
-		
-		//Build the post object to return
-		String postObject = new JSONStringer().object() //Start object
-				.key("currentP").value(1) //Current page of the json object.
-				.key("totalP").value(Math.max(1,totalPosts/10)) //The total pages of the json object
-				.key("replies").value(jsonArr) //The replies to the object.
-				.endObject().toString(); //End object
-		
+
+		// Build the post object to return
+		String postObject = new JSONStringer().object() // Start object
+				.key("currentP").value(1) // Current page of the json object.
+				.key("totalP").value(Math.max(1, totalPosts / 10)) // The total pages of the json object
+				.key("replies").value(jsonArr) // The replies to the object.
+				.endObject().toString(); // End object
+
 		return postObject;
 	}
+
 	/**
 	 * This returns the number of replies a post has.
 	 * 
@@ -205,16 +242,12 @@ public class Post {
 		DatabaseGetter getter = new DatabaseGetter(query);
 		ResultSet rs = getter.results;
 
-		
 		try {
 			while (rs.next()) {
-				post = new JSONStringer().object()
-						.key("ID").value(rs.getInt("id"))
-						.key("Title").value(rs.getString("title"))
-						.key("Author").value(rs.getString("author"))
-						.key("Content").value(rs.getString("message"))
-						.endObject().toString();
-				
+				post = new JSONStringer().object().key("ID").value(rs.getInt("id")).key("Title")
+						.value(rs.getString("title")).key("Author").value(rs.getString("author")).key("Content")
+						.value(rs.getString("message")).endObject().toString();
+
 				System.out.println(rs.getString("message"));
 			}
 		} catch (Exception e) {
