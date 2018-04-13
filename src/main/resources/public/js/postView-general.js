@@ -86,6 +86,8 @@ replyHeader.appendChild(rHeaderButton);
 
 replyArea.appendChild(replyHeader);
 
+PoR.appendChild(replyArea);
+
 
 let text2 = "";
 let obj2 = {};
@@ -132,14 +134,14 @@ xhttp2.onreadystatechange = function () {
             replies.appendChild(reply);
         }
         replyArea.appendChild(replies);
-
+        PoR.appendChild(replyArea);
     }
 }
 
-xhttp2.open("GET", "/api/postReplies?postid="+ID, true);
+xhttp2.open("GET", "/api/postReply?postid="+ID, true);
 xhttp2.send();
 
-PoR.appendChild(replyArea);
+
 
 
 //{"Title": "title", "Author": "author", "Content": "content"}
