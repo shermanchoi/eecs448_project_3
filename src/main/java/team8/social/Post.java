@@ -174,8 +174,19 @@ public class Post {
 	 *         id
 	 */
 	public static String JSONAllPostReplies(int id) {
-		String query = "SELECT FROM social_posts WHERE parentPost='" + id + "'";
+		String query = "SELECT FROM social_posts WHERE parentPost=?";
 		DatabaseGetter getter = new DatabaseGetter(query);
+		
+		try {
+			// Prepare the statement
+			getter.statement.setInt(1, id);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 		ResultSet rs = getter.results;
 
 		int totalPosts = 0;
@@ -212,11 +223,22 @@ public class Post {
 	 * @return The number of replies the post (associated with the id) has.
 	 */
 	private static int getParentCount(int id) {
-		String query = "SELECT COUNT(*) FROM social_posts WHERE parentPost='" + id + "'";
+		String query = "SELECT COUNT(*) FROM social_posts WHERE parentPost=?";
 		DatabaseGetter getter = new DatabaseGetter(query);
-		ResultSet rs = getter.results;
-
 		int count = 0;
+		
+		try {
+			// Prepare the statement
+			getter.statement.setInt(1, id);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return count;
+		}
+		
+		ResultSet rs = getter.results;
+		
 		try {
 			while (rs.next()) {
 				count = rs.getInt("COUNT(*)");
@@ -238,8 +260,20 @@ public class Post {
 	 */
 	public static String getPostByID(int id_in) {
 		String post = "";
-		String query = "SELECT * FROM social_posts WHERE id=" + id_in + ";";
+		String query = "SELECT * FROM social_posts WHERE id=?;";
+
 		DatabaseGetter getter = new DatabaseGetter(query);
+		
+		try {
+			// Prepare the statement
+			getter.statement.setInt(1, id_in);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 		ResultSet rs = getter.results;
 
 		try {
