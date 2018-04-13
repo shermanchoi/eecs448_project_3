@@ -2,6 +2,7 @@ package team8.social;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -190,11 +191,11 @@ public class Database {
 	}
 }
 
-class DatabaseGetter{
+class DatabaseGetter {
 	private Connection connection;
 	private Statement statement = null;
 	public ResultSet results = null;
-	
+
 	public DatabaseGetter(String query) {
 		connection = Database.connect();
 		try {
@@ -210,13 +211,53 @@ class DatabaseGetter{
 			System.out.println("Connection Error:\n\t" + e.getMessage());
 		}
 	}
-	
+
 	public void finalize() {
 		try {
 			results.close();
 			statement.close();
 			Database.disconnect(connection);
-		}catch(Exception e) {
+		} catch (Exception e) {
+			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
+		}
+	}
+}
+
+class DatabaseSetter {
+	private Connection connection;
+	public PreparedStatement statement = null;
+	public ResultSet results = null;
+
+	public DatabaseSetter(String query) {
+		try {
+			connection = Database.connect();
+			try {
+				System.out.println("Preparing Statement:\n\t" + query);
+				statement = connection.prepareStatement(query);
+			} catch (Exception e) {
+				System.out.println("Query Preparation Error:\n\t" + e.getMessage());
+			}
+		} catch (Exception e) {
+			System.out.println("Connection Error:\n\t" + e.getMessage());
+		}
+	}
+
+	public boolean execute() {
+		try {
+			statement.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			System.out.println("Statement Execution Error:\n\t" + e.getMessage());
+			return false;
+		}
+	}
+
+	public void finalize() {
+		try {
+			results.close();
+			statement.close();
+			Database.disconnect(connection);
+		} catch (Exception e) {
 			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
 		}
 	}

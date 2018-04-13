@@ -64,15 +64,23 @@ public class Session {
 	 * @return A session object if created successfully, null otherwise.
 	 */
 	public static Session createSession(String sessionID_in, String username_in) {
+		//Prepare Statement
+		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_sessions` (`sessionID`,`username`) VALUES (?,?);");
+		
 		try {
-			Database.querySQLSet("INSERT INTO `social_sessions`" + "(`sessionID`," + "`username`) " + "VALUES" + " ('"
-					+ sessionID_in + "','" + username_in + "');");
-			return new Session(sessionID_in, username_in);
+			//Statement preparing.
+			setter.statement.setString(1,sessionID_in);
+			setter.statement.setString(2,username_in);
+			//Execution of statement.
+			if (setter.execute()) {
+				return new Session(sessionID_in, username_in);
+			} else {
+				return null;
+			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
-
-		return null;
 	}
 
 	/**

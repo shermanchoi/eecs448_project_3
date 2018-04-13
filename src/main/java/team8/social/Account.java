@@ -3,6 +3,7 @@ package team8.social;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.text.StringEscapeUtils;
@@ -106,9 +107,9 @@ public class Account {
 	 * @post The account's information will be altered in the database.
 	 */
 	private void save() {
-		Database.querySQLSet("UPDATE social_accounts SET" + " password=\"" + password + "\",birthday=\"" + birthday
-				+ "\",firstName=\"" + firstName + "\",lastName=\"" + lastName + "\" WHERE username=\"" + username
-				+ "\";");
+		Database.querySQLSet(
+				"UPDATE social_accounts SET password=\"" + password + "\",birthday=\"" + birthday + "\",firstName=\""
+						+ firstName + "\",lastName=\"" + lastName + "\" WHERE username=\"" + username + "\";");
 	}
 
 	/**
@@ -131,27 +132,57 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
+		//Encrypt Sensitive information
 		pword = encryptOneWay(uname, pword);
 		ansQ1 = encryptOneWay(uname, ansQ1);
 		ansQ2 = encryptOneWay(uname, ansQ2);
 		ansQ3 = encryptOneWay(uname, ansQ3);
-
+		//Escape potentially harmful parameters.
 		fName = StringEscapeUtils.escapeHtml4(fName);
 		lName = StringEscapeUtils.escapeHtml4(lName);
 		secQ1 = StringEscapeUtils.escapeHtml4(secQ1);
 		secQ2 = StringEscapeUtils.escapeHtml4(secQ2);
 		secQ3 = StringEscapeUtils.escapeHtml4(secQ3);
-
-		if (Database.querySQLSet("INSERT INTO `social_accounts`" + "(`username`," + "`password`," + "`birthday`,"
-				+ "`firstName`," + "`lastName`," + "`securityQuestion1`," + "`securityQuestion2`,"
-				+ "`securityQuestion3`," + "`securityAnswer1`," + "`securityAnswer2`," + "`securityAnswer3`)" + "VALUES"
-				+ "('" + uname + "','" + pword + "','" + dateOfBirth + "','" + fName + "','" + lName + "','" + secQ1
-				+ "','" + secQ2 + "','" + secQ3 + "','" + ansQ1 + "','" + ansQ2 + "','" + ansQ3 + "');")) {
-			return new Account(uname, pword, dateOfBirth, fName, lName);
-		} else {
+		
+		
+		//Password cannot be less than 8 characters.
+		if(pword.length() < 8) {
 			return null;
 		}
-
+		//Security questions cannot be the same.
+		if(secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+			return null;
+		}
+		
+		//Statement to prepare.
+		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_accounts`(`username`,`password`,"
+				+ "`birthday`,`firstName`,`lastName`,`securityQuestion1`,`securityQuestion2`,"
+				+ "`securityQuestion3`,`securityAnswer1`,`securityAnswer2`,`securityAnswer3`)VALUES"
+				+ "(?,?,?,?,?,?,?,?,?,?,?);");
+		
+		try {
+			//Statement preparing.
+			setter.statement.setString(1,uname);
+			setter.statement.setString(2,pword);
+			setter.statement.setString(3,dateOfBirth);
+			setter.statement.setString(4,fName);
+			setter.statement.setString(5,lName);
+			setter.statement.setString(6,secQ1);
+			setter.statement.setString(7,secQ2);
+			setter.statement.setString(8,secQ3);
+			setter.statement.setString(9,ansQ1);
+			setter.statement.setString(10,ansQ2);
+			setter.statement.setString(11,ansQ3);
+			//Execution of statement.
+			if (setter.execute()) {
+				return new Account(uname, pword, dateOfBirth, fName, lName);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
@@ -191,6 +222,7 @@ public class Account {
 
 	/**
 	 * This returns the profile page information of an user.
+	 * 
 	 * @pre The account with the username exists
 	 * @param username
 	 *            The username of the user in question
@@ -205,11 +237,10 @@ public class Account {
 
 		try {
 			while (rs.next()) {
-				json = new JSONStringer().object()
-						.key("username").value(rs.getString("username")) //Username
-						.key("firstName").value(rs.getString("firstName")) //First name
-						.key("lastName").value(rs.getString("lastName")) //Last name
-						.key("birthday").value(rs.getString("birthday")) //Birthday of user
+				json = new JSONStringer().object().key("username").value(rs.getString("username")) // Username
+						.key("firstName").value(rs.getString("firstName")) // First name
+						.key("lastName").value(rs.getString("lastName")) // Last name
+						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.endObject().toString();
 			}
 		} catch (Exception e) {
