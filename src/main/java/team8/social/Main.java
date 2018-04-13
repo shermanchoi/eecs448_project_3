@@ -9,8 +9,10 @@ package team8.social;
 
 import static spark.Spark.*;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args){    	
         System.out.print("Social Server Started\n");
         configure();
         //define pages
@@ -205,6 +207,10 @@ public class Main {
         
         get("/api/post", (req,res)->{
            return Post.getPostByID(Integer.parseInt(req.queryParams("postid")));
+        });
+        
+        get("/api/postReplies", (req, res) ->{
+            return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postid")));
         });
     }
 }
