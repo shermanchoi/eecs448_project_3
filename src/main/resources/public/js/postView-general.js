@@ -9,6 +9,9 @@ let postContent = "";
 let text = "";
 let obj = {};
 
+
+let PoR = document.getElementById("postandreplies");
+
 //get necessary information from server
 let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
@@ -19,8 +22,6 @@ xhttp.onreadystatechange = function() {
         postTitle = obj.Title;
         postAuthor = obj.Author;
         postContent = obj.Content;
-
-        let PoR = document.getElementById("postandreplies");
 
         function createPostView (title, author) {
             //dummy for test
@@ -70,68 +71,74 @@ xhttp.send();
 
 
 
+let text2 = "";
+let obj2 = {};
 
+let xhttp2 = XMLHttpRequest();
 
+xhttp2.onreadystatechange = function () {
+    if(this.readyState == 4 && this.status == 200) {
+        let replyArea = document.createElement("div");
+        replyArea.setAttribute("id", "replies");
 
-/*
-function createReplyView () {
-    let replyArea = document.createElement("div");
-    replyArea.setAttribute("id", "replies");
+        let replyHeader = document.createElement("div");
+        replyHeader.setAttribute("id", "repliestitle");
 
-    let replyHeader = document.createElement("div");
-    replyHeader.setAttribute("id", "repliestitle");
+        replyHeader.innerHTML = "Replies";
 
-    replyHeader.innerHTML = "Replies";
+        let rHeaderButton = document.createElement("button");
+        rHeaderButton.setAttribute("type", "button");
+        rHeaderButton.setAttribute("class", "reply");
+        rHeaderButton.setAttribute("href", "/postViewReply?="+ID);
+        rHeaderButton.innerHTML = "Write a Reply";
 
-    let rHeaderButton = document.createElement("button");
-    rHeaderButton.setAttribute("type", "button");
-    rHeaderButton.setAttribute("class", "reply");
-    rHeaderButton.innerHTML = "Write a Reply";
+        replyHeader.appendChild(rHeaderButton);
 
-    replyHeader.appendChild(rHeaderButton);
+        replyArea.appendChild(replyHeader);
 
-    replyArea.appendChild(replyHeader);
-    */
+        //dummy for testing
+        /*
+        let replyNbr = 4;
+        let replyAs = ["PppP", "o0Sherlock0o", "orioHERO", "turtleNinja"];
+        let replyCs = ["asd", "1234568", "lDSBVZKJBVLAILURGBALJSKBDVLKJSBKDVsnjkfdb", "sdfgh<br>sfsndadfg<br>sdfbzdbr"];
+        */
 
-    //get all/some replies from server
-    //create dummy for testing
-    /*
-    let replyNbr = 4;
-    let replyAs = ["PppP", "o0Sherlock0o", "orioHERO", "turtleNinja"];
-    let replyCs = ["asd", "1234568", "lDSBVZKJBVLAILURGBALJSKBDVLKJSBKDVsnjkfdb", "sdfgh<br>sfsndadfg<br>sdfbzdbr"];
-    */
-/*
-    //create div.replycontent
-    let replies = document.createElement("div");
-    replies.setAttribute("class", "replycontent");
-    //start loop to create reply blocks
-    
-    for(let i = 0; i < obj.Replies.length; i++) {
-        let reply = document.createElement("div");
-        reply.setAttribute("class", "reply");
+        text2 = this.responseText;
+        obj2 = JSON.parse(text2);
 
-        let replier = document.createElement("div");
-        replier.setAttribute("class", "replier");
+        //create div.replycontent
+        let replies = document.createElement("div");
+        replies.setAttribute("class", "replycontent");
+        //start loop to create reply blocks
+        
+        for(let i = 0; i < obj.Replies.length; i++) {
+            let reply = document.createElement("div");
+            reply.setAttribute("class", "reply");
 
-        replier.innerHTML = obj.Replies[i].Author;
-        reply.appendChild(replier);
+            let replier = document.createElement("div");
+            replier.setAttribute("class", "replier");
 
-        replies.appendChild(reply);
+            replier.innerHTML = obj2.Replies[i].Author;
+            reply.appendChild(replier);
 
-        let replyContent = document.createElement("div");
-        replyContent.setAttribute("class", "replycontent");
-        replyContent.innerHTML = obj.Replies[i].Content;
+            replies.appendChild(reply);
 
-        reply.appendChild(replyContent);
+            let replyContent = document.createElement("div");
+            replyContent.setAttribute("class", "replycontent");
+            replyContent.innerHTML = obj2.Replies[i].Content;
 
-        replies.appendChild(reply);
+            reply.appendChild(replyContent);
+
+            replies.appendChild(reply);
+        }
+        replyArea.appendChild(replies);
+        PoR.appendChild(replyArea);
     }
-    replyArea.appendChild(replies);
-    PoR.appendChild(replyArea);
 }
 
-createReplyView();
-*/
+xhttp2.open("GET", "/api/postReplies?postid="+ID, true);
+xhttp2.send();
+
 
 //{"Title": "title", "Author": "author", "Content": "content"}
 
