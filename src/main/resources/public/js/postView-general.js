@@ -134,4 +134,10 @@ createReplyView();
 */
 
 //{"Title": "title", "Author": "author", "Content": "content"}
-//{"Title": "title", "Author": "author", "Replies": [{"Author": "author1", "Content": "content1"}, {"Author": "author2", "Content": "content2"}]}
+
+
+//{Replies": [{"Author": "author1", "Content": "content1"}, {"Author": "author2", "Content": "content2"}]}
+
+//{"currentP": 1, "totalP": 10, "Replies": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]}
+
+//{"currentP": 1, "totalP": 10, "Posts": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]}
