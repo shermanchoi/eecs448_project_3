@@ -111,7 +111,7 @@ xhttp2.onreadystatechange = function () {
         replies.setAttribute("class", "replycontent");
         //start loop to create reply blocks
         
-        for(let i = 0; i < obj.Replies.length; i++) {
+        for(let i = 0; i < obj2.Replies.length; i++) {
             let reply = document.createElement("div");
             reply.setAttribute("class", "reply");
 
