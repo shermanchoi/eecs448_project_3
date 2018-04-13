@@ -244,9 +244,12 @@ public class Post {
 
 		try {
 			while (rs.next()) {
-				post = new JSONStringer().object().key("ID").value(rs.getInt("id")).key("Title")
-						.value(rs.getString("title")).key("Author").value(rs.getString("author")).key("Content")
-						.value(rs.getString("message")).endObject().toString();
+				post = new JSONStringer().object() //Start object
+						.key("ID").value(rs.getInt("id")) //Id of post.
+						.key("Title").value(rs.getString("title")) //Title of post.
+						.key("Author").value(rs.getString("author")) //Author of post.
+						.key("Content").value(rs.getString("message")) //message inside post.
+						.endObject().toString(); //end object
 
 				System.out.println(rs.getString("message"));
 			}

@@ -191,24 +191,46 @@ public class Database {
 	}
 }
 
+/**
+ * This class deals with getting information from the database.
+ * 
+ * @author Sherman Choi
+ *
+ */
 class DatabaseGetter {
+	/**
+	 * The connection to the database.
+	 */
 	private Connection connection;
-	private Statement statement = null;
+	/**
+	 * The statement to be executed. It must be prepared prior to execution.
+	 */
+	public PreparedStatement statement = null;
+	/**
+	 * The result set that is returned as a result of execution.
+	 */
 	public ResultSet results = null;
 
+	
 	public DatabaseGetter(String query) {
-		connection = Database.connect();
 		try {
+			connection = Database.connect();
 			try {
-				System.out.println("Executing Statement:\n\t" + query);
-				statement = connection.createStatement();
-				results = statement.executeQuery(query);
-				System.out.println("Execution Success");
+				System.out.println("Preparing Statement:\n\t" + query);
+				statement = connection.prepareStatement(query);
 			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
+				System.out.println("Query Preparation Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
 			System.out.println("Connection Error:\n\t" + e.getMessage());
+		}
+	}
+
+	public void execute() {
+		try {
+			results = statement.executeQuery();
+		} catch (Exception e) {
+			System.out.println("Statement Execution Error:\n\t" + e.getMessage());
 		}
 	}
 
@@ -223,11 +245,27 @@ class DatabaseGetter {
 	}
 }
 
+/**
+ * This class deals with putting information into the database.
+ * 
+ * @author Sherman Choi
+ */
 class DatabaseSetter {
+	/**
+	 * The connection to the database.
+	 */
 	private Connection connection;
+	/**
+	 * The statement to be executed. It must be prepared prior to execution.
+	 */
 	public PreparedStatement statement = null;
-	public ResultSet results = null;
 
+	/**
+	 * The constructor to the database setter
+	 * 
+	 * @param query
+	 *            The query that represents a statement to be prepared.
+	 */
 	public DatabaseSetter(String query) {
 		try {
 			connection = Database.connect();
@@ -242,6 +280,12 @@ class DatabaseSetter {
 		}
 	}
 
+	/**
+	 * This executes the statement.
+	 * 
+	 * @pre The statement has been prepared.
+	 * @return True if the execution occurred without error, false otherwise.
+	 */
 	public boolean execute() {
 		try {
 			statement.executeUpdate();
@@ -252,10 +296,18 @@ class DatabaseSetter {
 		}
 	}
 
+	/**
+	 * The finalize overrider.
+	 * 
+	 * @post The connection and statement is closed.
+	 */
 	public void finalize() {
 		try {
-			results.close();
 			statement.close();
+		} catch (Exception e) {
+			System.out.println("Statement Closing Error:\n\t" + e.getMessage());
+		}
+		try {
 			Database.disconnect(connection);
 		} catch (Exception e) {
 			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
