@@ -81,7 +81,7 @@ public class Post {
 		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 		
 		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
-				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID
+				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + "Reply" + "','" + replyingToPostID
 				+ "');");
 
 		if (Database.querySQLSet(query)) {
@@ -149,21 +149,21 @@ public class Post {
 			while (rs.next()) {
 				totalPosts++;
 				jsonArr.put(
-						new JSONObject()
-						.put("Author",rs.getString("author"))
-						.put("Content",rs.getString("message"))
-						);
+						new JSONObject() //Start object
+						.put("Author",rs.getString("author")) //Author of reply
+						.put("Content",rs.getString("message")) //Content of reply
+						); //End object
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 		
 		//Build the post object to return
-		String postObject = new JSONStringer().object()
-				.key("currentP").value(1)
-				.key("totalP").value(Math.max(1,totalPosts/10))
-				.key("replies").value(jsonArr)
-				.endObject().toString();
+		String postObject = new JSONStringer().object() //Start object
+				.key("currentP").value(1) //Current page of the json object.
+				.key("totalP").value(Math.max(1,totalPosts/10)) //The total pages of the json object
+				.key("replies").value(jsonArr) //The replies to the object.
+				.endObject().toString(); //End object
 		
 		return postObject;
 	}
