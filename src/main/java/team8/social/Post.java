@@ -162,7 +162,7 @@ public class Post {
 		String postObject = new JSONStringer().object()
 				.key("currentP").value(1)
 				.key("totalP").value(Math.max(1,totalPosts/10))
-				.key("Posts").value(jsonArr)
+				.key("replies").value(jsonArr)
 				.endObject().toString();
 		
 		return postObject;
