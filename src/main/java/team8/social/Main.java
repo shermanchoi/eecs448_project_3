@@ -185,6 +185,8 @@ public class Main {
            res.redirect("/html/createPost.html");
            return null;
         });
+        
+        
         post("/createpost", (req, res)->{
             if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
                 res.redirect("/login");
@@ -200,6 +202,24 @@ public class Main {
             
             return null;
         });
+        
+        post("/postreply", (req, res)->{
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
+                res.redirect("/login");
+                return null;
+            }
+            
+            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",Integer.parseInt(req.queryParams("postid")));
+           
+            if(p == null){
+                res.redirect("/createpost");
+            }else{
+                res.redirect("/html/postView.html?" + Integer.parseInt(req.queryParams("postid")));
+            }
+            
+            return null;
+        });
+            
         
         get("/api/posts", (req, res) ->{
             return Post.JSONAllPosts();

@@ -206,7 +206,6 @@ public class Post {
 		ResultSet rs = getter.results;
 
 		
-		
 		try {
 			while (rs.next()) {
 				post = new JSONStringer().object()
