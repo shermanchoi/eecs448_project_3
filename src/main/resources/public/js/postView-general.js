@@ -68,7 +68,23 @@ xhttp.open("GET", "/api/post?postid="+ID, true);
 xhttp.send();
 
 
+let replyArea = document.createElement("div");
+replyArea.setAttribute("id", "replies");
 
+let replyHeader = document.createElement("div");
+replyHeader.setAttribute("id", "repliestitle");
+
+replyHeader.innerHTML = "Replies";
+
+let rHeaderButton = document.createElement("button");
+rHeaderButton.setAttribute("type", "button");
+rHeaderButton.setAttribute("class", "reply");
+rHeaderButton.setAttribute("href", "/postViewReply?="+ID);
+rHeaderButton.innerHTML = "Write a Reply";
+
+replyHeader.appendChild(rHeaderButton);
+
+replyArea.appendChild(replyHeader);
 
 
 let text2 = "";
@@ -78,23 +94,7 @@ let xhttp2 = XMLHttpRequest();
 
 xhttp2.onreadystatechange = function () {
     if(this.readyState == 4 && this.status == 200) {
-        let replyArea = document.createElement("div");
-        replyArea.setAttribute("id", "replies");
-
-        let replyHeader = document.createElement("div");
-        replyHeader.setAttribute("id", "repliestitle");
-
-        replyHeader.innerHTML = "Replies";
-
-        let rHeaderButton = document.createElement("button");
-        rHeaderButton.setAttribute("type", "button");
-        rHeaderButton.setAttribute("class", "reply");
-        rHeaderButton.setAttribute("href", "/postViewReply?="+ID);
-        rHeaderButton.innerHTML = "Write a Reply";
-
-        replyHeader.appendChild(rHeaderButton);
-
-        replyArea.appendChild(replyHeader);
+       
 
         //dummy for testing
         /*
@@ -132,12 +132,14 @@ xhttp2.onreadystatechange = function () {
             replies.appendChild(reply);
         }
         replyArea.appendChild(replies);
-        PoR.appendChild(replyArea);
+
     }
 }
 
 xhttp2.open("GET", "/api/postReplies?postid="+ID, true);
 xhttp2.send();
+
+PoR.appendChild(replyArea);
 
 
 //{"Title": "title", "Author": "author", "Content": "content"}
