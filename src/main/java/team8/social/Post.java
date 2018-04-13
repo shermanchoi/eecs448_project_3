@@ -80,10 +80,6 @@ public class Post {
 		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
 		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 		
-		
-		
-		
-
 		String query = ("INSERT INTO `social_posts`" + "(`author`," + "`message`," + "`title`," + "`parentPost`)"
 				+ "VALUES" + "('" + inputAuthor + "','" + inputMessage + "','" + inputTitle + "','" + replyingToPostID
 				+ "');");
@@ -164,8 +160,8 @@ public class Post {
 		
 		//Build the post object to return
 		String postObject = new JSONStringer().object()
-				.key("Current Page").value(1)
-				.key("Total Pages").value(Math.max(1,totalPosts/10))
+				.key("currentP").value(1)
+				.key("totalP").value(Math.max(1,totalPosts/10))
 				.key("Posts").value(jsonArr)
 				.endObject().toString();
 		
