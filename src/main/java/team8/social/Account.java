@@ -205,9 +205,12 @@ public class Account {
 
 		try {
 			while (rs.next()) {
-				json = new JSONStringer().object().key("username").value(rs.getString("username")).key("firstName")
-						.value(rs.getString("firstName")).key("lastName").value(rs.getString("lastName"))
-						.key("birthday").value(rs.getString("birthday")).endObject().toString();
+				json = new JSONStringer().object()
+						.key("username").value(rs.getString("username")) //Username
+						.key("firstName").value(rs.getString("firstName")) //First name
+						.key("lastName").value(rs.getString("lastName")) //Last name
+						.key("birthday").value(rs.getString("birthday")) //Birthday of user
+						.endObject().toString();
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
