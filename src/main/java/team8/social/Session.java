@@ -39,8 +39,19 @@ public class Session {
 	 * @return True if the method exists, false otherwise
 	 */
 	public static boolean validate(String sessionID_in, String username_in) {
-		String query = "SELECT * FROM social_sessions WHERE sessionID = '" + sessionID_in + "';";
+		String query = "SELECT * FROM social_sessions WHERE sessionID=?;";
 		DatabaseGetter getter = new DatabaseGetter(query);
+		
+		try {
+			//Prepare the statement
+			getter.statement.setString(1,sessionID_in);
+			//Execute statement.
+			getter.execute();
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
 		ResultSet rs = getter.results;
 		try {
 			while (rs.next()) {
@@ -93,8 +104,18 @@ public class Session {
 	 * @return True if the query occurs successfully, false otherwise.
 	 */
 	public static boolean deleteSession(String sessionID_in, String username_in) {
-		String query = "DELETE FROM social_sessions WHERE sessionID='" + sessionID_in + "' AND username='" + username_in
-				+ "';";
-		return Database.querySQLSet(query);
+		String query = "DELETE FROM social_sessions WHERE sessionID=? AND username=?;";
+		DatabaseSetter setter = new DatabaseSetter(query);
+		
+		try {
+			//Statement preparing.
+			setter.statement.setString(1,sessionID_in);
+			setter.statement.setString(2,username_in);
+			//Execution of statement.
+			return setter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
