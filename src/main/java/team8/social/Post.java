@@ -141,8 +141,18 @@ public class Post {
 	public static String JSONAllPosts() {
 		String query = "SELECT * FROM social_posts WHERE parentPost IS NULL;";
 		DatabaseGetter getter = new DatabaseGetter(query);
-		ResultSet rs = getter.results;
+		
 
+		try {
+			// Statement preparing.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		ResultSet rs = getter.results;
 		int totalPosts = 0;
 		JSONArray jsonArr = new JSONArray();
 
