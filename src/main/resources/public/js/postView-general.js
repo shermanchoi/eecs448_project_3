@@ -84,7 +84,7 @@ xhttp.onreadystatechange = function() {
     }
 };
 
-xhttp.open("GET", "/api/post?postid="+ID, true);
+xhttp.open("GET", "/api/post?postID="+ID, true);
 xhttp.send();
 
 
@@ -144,7 +144,7 @@ xhttp2.onreadystatechange = function () {
     }
 }
 
-xhttp2.open("GET", "/api/postReply?postid="+ID, true);
+xhttp2.open("GET", "/api/postReply?posID="+ID, true);
 xhttp2.send();
 
 

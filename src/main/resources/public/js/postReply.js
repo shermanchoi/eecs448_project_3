@@ -52,6 +52,6 @@ xhttp.onreadystatechange = function() {
     }
 };
 
-xhttp.open("GET", "/api/post?postid="+ID, true);
+xhttp.open("GET", "/api/post?postID="+ID, true);
 xhttp.send();
 
