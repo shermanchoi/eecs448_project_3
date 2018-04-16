@@ -144,6 +144,9 @@ xhttp2.onreadystatechange = function () {
         replyArea.appendChild(replies);
         PoR.appendChild(replyArea);
     }
+    else {
+        console.log(this.readyState, ", " , this.status);
+    }
 }
 
 xhttp2.open("GET", "/api/postReply?posID="+ID, true);
