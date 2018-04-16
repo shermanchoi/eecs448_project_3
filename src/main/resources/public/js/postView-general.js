@@ -61,6 +61,26 @@ xhttp.onreadystatechange = function() {
         }
         
         createPostView(postTitle, postAuthor);
+
+        let replyArea = document.createElement("div");
+        replyArea.setAttribute("id", "replies");
+
+        let replyHeader = document.createElement("div");
+        replyHeader.setAttribute("id", "repliestitle");
+
+        replyHeader.innerHTML = "Replies";
+
+        let rHeaderButton = document.createElement("button");
+        rHeaderButton.setAttribute("type", "button");
+        rHeaderButton.setAttribute("class", "reply");
+        rHeaderButton.setAttribute("href", "/postReply?postID="+ID);
+        rHeaderButton.innerHTML = "Write a Reply";
+
+        replyHeader.appendChild(rHeaderButton);
+
+        replyArea.appendChild(replyHeader);
+
+        PoR.appendChild(replyArea);
     }
 };
 
@@ -68,25 +88,10 @@ xhttp.open("GET", "/api/post?postid="+ID, true);
 xhttp.send();
 
 
-let replyArea = document.createElement("div");
-replyArea.setAttribute("id", "replies");
 
-let replyHeader = document.createElement("div");
-replyHeader.setAttribute("id", "repliestitle");
 
-replyHeader.innerHTML = "Replies";
 
-let rHeaderButton = document.createElement("button");
-rHeaderButton.setAttribute("type", "button");
-rHeaderButton.setAttribute("class", "reply");
-rHeaderButton.setAttribute("href", "/postViewReply?="+ID);
-rHeaderButton.innerHTML = "Write a Reply";
 
-replyHeader.appendChild(rHeaderButton);
-
-replyArea.appendChild(replyHeader);
-
-PoR.appendChild(replyArea);
 
 
 let text2 = "";
