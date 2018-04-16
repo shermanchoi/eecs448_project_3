@@ -240,7 +240,7 @@ public class Main {
            return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
         });
         
-        get("/api/postReplies", (req, res) ->{
+        get("/api/postReply", (req, res) ->{
             return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
         });
     }
