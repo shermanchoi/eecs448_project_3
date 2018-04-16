@@ -149,7 +149,7 @@ xhttp2.onreadystatechange = function () {
     }
 }
 
-xhttp2.open("GET", "/api/postReply?posID="+ID, true);
+xhttp2.open("GET", "/api/postReply?postID="+ID, true);
 xhttp2.send();
 
 
