@@ -1,6 +1,6 @@
 let postID = "";
-let preID = parent.document.URL.substring(parent.document.URL.indexOf('?'), parent.document.URL.length);
-ID = preID.slice(1);
+let preID = parent.document.URL.substring(parent.document.URL.indexOf('?postID='), parent.document.URL.length);
+ID = preID.slice(8);
 
 let postTitle = "";
 let postAuthor = "";
