@@ -99,7 +99,7 @@ xhttp.send();
 let text2 = "";
 let obj2 = {};
 
-let xhttp2 = XMLHttpRequest();
+let xhttp2 = new XMLHttpRequest();
 
 xhttp2.onreadystatechange = function () {
     if(this.readyState == 4 && this.status == 200) {
