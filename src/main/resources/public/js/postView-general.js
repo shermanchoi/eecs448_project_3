@@ -73,7 +73,8 @@ xhttp.onreadystatechange = function() {
         let rHeaderButton = document.createElement("button");
         rHeaderButton.setAttribute("type", "button");
         rHeaderButton.setAttribute("class", "reply");
-        let replyLink = "window.location='/postViewReply.html?postID='" + ID;
+        let link = "'/postViewReply?postID=" + ID + "'";
+        let replyLink = "window.location="+link;
         rHeaderButton.setAttribute("onclick", replyLink);
         rHeaderButton.innerHTML = "Write a Reply";
 
