@@ -225,7 +225,7 @@ public class Main {
             if(p == null){
                 res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
             }else{
-                res.redirect("/html/postView.html?postID=");
+                res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
             }
             
             return null;
