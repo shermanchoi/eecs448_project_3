@@ -57,7 +57,6 @@ public class Database {
 				results = statement.executeQuery(query);
 
 				while (results.next()) {
-					System.out.println(results.getString("Tables_in_sys"));
 					switch (results.getString("Tables_in_sys")) {
 					case "social_accounts":
 						existenceAccounts = true;
@@ -188,6 +187,20 @@ public class Database {
 		}
 		Database.disconnect(connection);
 		return successful;
+	}
+	/**
+	 * This method drops all the tables in MySQL and reinitializes them.
+	 * @post Deletes all tables and recreates them based on initialization variables. They will be empty.
+	 */
+	public static void hardReset() {
+		DatabaseSetter setter = new DatabaseSetter("DROP TABLE IF EXISTS social_sessions, social_posts, social_accounts;");
+		try {
+			// Execution of statement.
+			setter.execute();
+			Database.initialize(url, user, pass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
