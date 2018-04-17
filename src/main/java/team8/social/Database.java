@@ -39,77 +39,31 @@ public class Database {
 		url = url_in;
 		user = user_in;
 		pass = pass_in;
-
-		boolean existenceAccounts = false;
-		boolean existencePosts = false;
-		boolean existenceSessions = false;
-
 		// Check which tables exist
 		try {
-			Connection connection = Database.connect();
-			ResultSet results = null;
+			// Generate tables if they do not exist.
+			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_accounts` (\n" + "  `username` varchar(255) NOT NULL,\n"
+					+ "  `password` varchar(255) NOT NULL,\n" + "  `birthday` date NOT NULL,\n"
+					+ "  `firstName` varchar(255) NOT NULL,\n" + "  `lastName` varchar(255) NOT NULL,\n"
+					+ "  `securityQuestion1` longtext NOT NULL,\n" + "  `securityQuestion2` longtext NOT NULL,\n"
+					+ "  `securityQuestion3` longtext NOT NULL,\n" + "  `securityAnswer1` longtext NOT NULL,\n"
+					+ "  `securityAnswer2` longtext NOT NULL,\n" + "  `securityAnswer3` longtext NOT NULL,\n"
+					+ "  PRIMARY KEY (`username`)\n" + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-			String query = "SHOW TABLES;";
+			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (\n" + "  `author` varchar(255) NOT NULL,\n"
+					+ "  `message` longtext NOT NULL,\n" + "  `title` longtext NOT NULL,\n"
+					+ "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + "  `dateCreated` datetime DEFAULT NULL,\n"
+					+ "  `parentPost` int(11) DEFAULT NULL,\n" + "  PRIMARY KEY (`id`),\n"
+					+ "  KEY `author` (`author`),\n" + "  KEY `fk_Posts_1_idx` (`parentPost`),\n"
+					+ "  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n"
+					+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
+					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-			try {
-				System.out.println("Executing Statement:\n\t" + query);
-				Statement statement = connection.createStatement();
-				results = statement.executeQuery(query);
-
-				while (results.next()) {
-					switch (results.getString("Tables_in_sys")) {
-					case "social_accounts":
-						existenceAccounts = true;
-						break;
-					case "social_posts":
-						existencePosts = true;
-						break;
-					case "social_sessions":
-						existenceSessions = true;
-						break;
-					}
-				}
-
-				results.close();
-				statement.close();
-				Database.disconnect(connection);
-				System.out.println("Execution Success");
-			} catch (Exception e) {
-				System.out.println("Query Error:\n\t" + e.getMessage());
-			}
-
-			// Generate Accounts table if it does not exist.
-			if (!existenceAccounts) {
-				Database.querySQLSet("CREATE TABLE `social_accounts` (\n" + "  `username` varchar(255) NOT NULL,\n"
-						+ "  `password` varchar(255) NOT NULL,\n" + "  `birthday` date NOT NULL,\n"
-						+ "  `firstName` varchar(255) NOT NULL,\n" + "  `lastName` varchar(255) NOT NULL,\n"
-						+ "  `securityQuestion1` longtext NOT NULL,\n" + "  `securityQuestion2` longtext NOT NULL,\n"
-						+ "  `securityQuestion3` longtext NOT NULL,\n" + "  `securityAnswer1` longtext NOT NULL,\n"
-						+ "  `securityAnswer2` longtext NOT NULL,\n" + "  `securityAnswer3` longtext NOT NULL,\n"
-						+ "  PRIMARY KEY (`username`)\n" + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			}
-			// Generate Posts table if it does not exist.
-			if (!existencePosts) {
-				Database.querySQLSet("CREATE TABLE `social_posts` (\n" + "  `author` varchar(255) NOT NULL,\n"
-						+ "  `message` longtext NOT NULL,\n" + "  `title` longtext NOT NULL,\n"
-						+ "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + "  `dateCreated` datetime DEFAULT NULL,\n"
-						+ "  `parentPost` int(11) DEFAULT NULL,\n" + "  PRIMARY KEY (`id`),\n"
-						+ "  KEY `author` (`author`),\n" + "  KEY `fk_Posts_1_idx` (`parentPost`),\n"
-						+ "  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n"
-						+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
-						+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			}
-			// Generate Session table if it does not exist.
-			if (!existenceSessions) {
-				Database.querySQLSet("CREATE TABLE `social_sessions` (\n" + "  `sessionID` varchar(255) NOT NULL,\n"
-						+ "  `username` varchar(255) NOT NULL,\n" + "  PRIMARY KEY (`sessionID`),\n"
-						+ "  KEY `username_idx` (`username`),\n"
-						+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
-						+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
-			}
-
-			// Delete session items. The entries are runtime stuff.
-			// Database.querySQLSet("TRUNCATE social_sessions;");
+			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_sessions` (\n" + "  `sessionID` varchar(255) NOT NULL,\n"
+					+ "  `username` varchar(255) NOT NULL,\n" + "  PRIMARY KEY (`sessionID`),\n"
+					+ "  KEY `username_idx` (`username`),\n"
+					+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
+					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -188,12 +142,16 @@ public class Database {
 		Database.disconnect(connection);
 		return successful;
 	}
+
 	/**
 	 * This method drops all the tables in MySQL and reinitializes them.
-	 * @post Deletes all tables and recreates them based on initialization variables. They will be empty.
+	 * 
+	 * @post Deletes all tables and recreates them based on initialization
+	 *       variables. They will be empty.
 	 */
 	public static void hardReset() {
-		DatabaseSetter setter = new DatabaseSetter("DROP TABLE IF EXISTS social_sessions, social_posts, social_accounts;");
+		DatabaseSetter setter = new DatabaseSetter(
+				"DROP TABLE IF EXISTS social_sessions, social_posts, social_accounts;");
 		try {
 			// Execution of statement.
 			setter.execute();
@@ -224,7 +182,6 @@ class DatabaseGetter {
 	 */
 	public ResultSet results = null;
 
-	
 	public DatabaseGetter(String query) {
 		try {
 			connection = Database.connect();
