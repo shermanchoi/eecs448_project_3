@@ -82,8 +82,7 @@ public class Account {
 
 		// Now, change the password.
 		// Statement to prepare.
-		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
+		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
 		try {
 			// Statement preparing.
 			setter.statement.setString(1, newPassword);
@@ -114,8 +113,7 @@ public class Account {
 
 		// Change the password.
 		// Statement to prepare.
-		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
+		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
 		try {
 			// Statement preparing.
 			setter.statement.setString(1, newPassword);
@@ -183,12 +181,79 @@ public class Account {
 
 		return correctlyAnswered;
 	}
-	
-	
-	public static boolean changePersonalInformation(String uname, String pword, String dateOfBirth, String fName, String lName,
+
+	/**
+	 * This method changes the personal information of a given account.
+	 * 
+	 * @param uname
+	 *            Username of Account
+	 * @param dateOfBirth
+	 *            Date of birth of account
+	 * @param fName
+	 *            First name of account
+	 * @param lName
+	 *            Last name of account
+	 * @param secQ1
+	 *            Security question 1
+	 * @param secQ2
+	 *            Security question 2
+	 * @param secQ3
+	 *            Security question 3
+	 * @param ansQ1
+	 *            Security question answer 1
+	 * @param ansQ2
+	 *            Security question answer 2
+	 * @param ansQ3
+	 *            Security question answer 3
+	 * @return True if successful, false otherwise
+	 */
+	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
-		
-		
+		// Security questions cannot be the same.
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+			return false;
+		}
+
+		// These fields cannot be null.
+		if (uname.length() == 0 || fName.length() == 0 || lName.length() == 0 || ansQ1.length() == 0
+				|| ansQ2.length() == 0 || ansQ3.length() == 0) {
+			return false;
+		}
+
+		// Encrypt Sensitive information
+		ansQ1 = encryptOneWay(uname, ansQ1);
+		ansQ2 = encryptOneWay(uname, ansQ2);
+		ansQ3 = encryptOneWay(uname, ansQ3);
+		// Escape potentially harmful parameters.
+		fName = StringEscapeUtils.escapeHtml4(fName);
+		lName = StringEscapeUtils.escapeHtml4(lName);
+		secQ1 = StringEscapeUtils.escapeHtml4(secQ1);
+		secQ2 = StringEscapeUtils.escapeHtml4(secQ2);
+		secQ3 = StringEscapeUtils.escapeHtml4(secQ3);
+
+		// Statement to prepare.
+		DatabaseSetter setter = new DatabaseSetter(
+				"UPDATE `social_accounts`SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
+
+		try {
+			// Statement preparing.
+			setter.statement.setString(1, dateOfBirth);
+			setter.statement.setString(2, fName);
+			setter.statement.setString(3, lName);
+			setter.statement.setString(4, secQ1);
+			setter.statement.setString(5, secQ2);
+			setter.statement.setString(6, secQ3);
+			setter.statement.setString(7, ansQ1);
+			setter.statement.setString(8, ansQ2);
+			setter.statement.setString(9, ansQ3);
+			setter.statement.setString(10, uname);
+			// Execution of statement.
+			if (setter.execute()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
@@ -433,6 +498,50 @@ public class Account {
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.endObject().toString(); // End object.
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+
+		return json;
+	}
+
+	/**
+	 * This returns the account management page information of an user.
+	 * 
+	 * @pre The account with the username exists
+	 * @param username
+	 *            The username of the user in question
+	 * @return The JSON representing the user's account management page information.
+	 */
+	public static String getAccountManagementInformation(String username) {
+		// Get the query ready.
+		String query = "SELECT * FROM social_accounts WHERE username=?;";
+		DatabaseGetter getter = new DatabaseGetter(query);
+
+		try {
+			// Prepare the statement
+			getter.statement.setString(1, username);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		ResultSet rs = getter.results;
+		String json = null;
+
+		try {
+			while (rs.next()) {
+				json = new JSONStringer().object() // Start object
+						.key("firstName").value(rs.getString("firstName")) // First name
+						.key("lastName").value(rs.getString("lastName")) // Last name
+						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Birthday of user
+						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Birthday of user
+						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Birthday of user
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
