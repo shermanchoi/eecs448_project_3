@@ -83,7 +83,7 @@ public class Account {
 		// Now, change the password.
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `sys`.`social_accounts` SET `password`=? WHERE `username`=?;");
+				"UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
 		try {
 			// Statement preparing.
 			setter.statement.setString(1, newPassword);
@@ -115,7 +115,7 @@ public class Account {
 		// Change the password.
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `sys`.`social_accounts` SET `password`=? WHERE `username`=?;");
+				"UPDATE `social_accounts` SET `password`=? WHERE `username`=?;");
 		try {
 			// Statement preparing.
 			setter.statement.setString(1, newPassword);
@@ -182,6 +182,14 @@ public class Account {
 		}
 
 		return correctlyAnswered;
+	}
+	
+	
+	public static boolean changePersonalInformation(String uname, String pword, String dateOfBirth, String fName, String lName,
+			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
+		
+		
+		return false;
 	}
 
 	/**
