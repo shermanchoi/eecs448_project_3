@@ -132,6 +132,27 @@ public class Account {
 	 */
 	public static Account createAccount(String uname, String pword, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
+
+		// Password cannot be less than 8 characters.
+		if (pword.length() < 8) {
+			return null;
+		}
+		// Security questions cannot be the same.
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+			return null;
+		}
+
+		// These fields cannot be null.
+		if (uname.length() == 0 || fName.length() == 0 || lName.length() == 0 || ansQ1.length() == 0 || ansQ2.length() == 0
+				|| ansQ3.length() == 0) {
+			return null;
+		}
+		
+		//Usernames should not need to be escaped by HTML characters.
+		if(!uname.equals(StringEscapeUtils.escapeHtml4(uname))){
+			return null;
+		}
+
 		// Encrypt Sensitive information
 		pword = encryptOneWay(uname, pword);
 		ansQ1 = encryptOneWay(uname, ansQ1);
@@ -143,15 +164,6 @@ public class Account {
 		secQ1 = StringEscapeUtils.escapeHtml4(secQ1);
 		secQ2 = StringEscapeUtils.escapeHtml4(secQ2);
 		secQ3 = StringEscapeUtils.escapeHtml4(secQ3);
-
-		// Password cannot be less than 8 characters.
-		if (pword.length() < 8) {
-			return null;
-		}
-		// Security questions cannot be the same.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
-			return null;
-		}
 
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_accounts`(`username`,`password`,"
@@ -212,6 +224,7 @@ public class Account {
 		ResultSet rs = getter.results;
 		Account account = null;
 
+		//Check against digested stuff.
 		password = encryptOneWay(username, password);
 
 		try {
