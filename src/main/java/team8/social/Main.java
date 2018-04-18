@@ -9,7 +9,6 @@ package team8.social;
 
 import static spark.Spark.*;
 
-import org.apache.commons.text.StringEscapeUtils;
 
 public class Main {
     public static void main(String[] args){    	
@@ -31,7 +30,7 @@ public class Main {
      * Defines how URIs are handled.
      * @post Server knows how to handle a number of URIs
      */
-    public static void pages() {
+    public static void pages() {    	
         /*Handles the request to the root directory.*/
         get("/", (req, res) -> {
             if (!Session.validate(req.session().id(),req.session().attribute("UserID"))){
@@ -157,6 +156,7 @@ public class Main {
             
             Session.deleteSession(req.session().id(), req.session().attribute("UserID"));
             req.session().removeAttribute("UserID");
+            req.session(false);
             res.redirect("/login");
             
             return null;
@@ -202,7 +202,18 @@ public class Main {
             return null;
         });
         
-        post("/postreply", (req, res)->{
+        get("/postViewReply", (req, res)->{
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
+                res.redirect("/login");
+                return null;
+            }
+            
+            res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
+            
+            return null;
+        });
+        
+        post("/postViewReply", (req, res)->{
             if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
                 res.redirect("/login");
                 return null;
@@ -211,9 +222,9 @@ public class Main {
             Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",Integer.parseInt(req.queryParams("postID")));
            
             if(p == null){
-                res.redirect("/createpost");
+                res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
             }else{
-                res.redirect("/html/postView.html?" + Integer.parseInt(req.queryParams("postid")));
+                res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
             }
             
             return null;
@@ -225,11 +236,11 @@ public class Main {
         });
         
         get("/api/post", (req,res)->{
-           return Post.getPostByID(Integer.parseInt(req.queryParams("postid")));
+           return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
         });
         
-        get("/api/postReplies", (req, res) ->{
-            return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postid")));
+        get("/api/postReply", (req, res) ->{
+            return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
         });
     }
 }

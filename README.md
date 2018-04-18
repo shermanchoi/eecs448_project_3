@@ -5,3 +5,4 @@ The idea for project 3 is a social-media clone. The prototype should have basic 
 The project is currently set up using Maven. Use an IDE like eclipse to utilize it.
 
 Creation of the JAR file ("project-1.0-jar-with-dependencies.jar") is done with the command "mvn install" on this directory.
+	Using the command "mvn install -DskipTests" will create the JAR file and skip any tests that are normally done during compilation.
