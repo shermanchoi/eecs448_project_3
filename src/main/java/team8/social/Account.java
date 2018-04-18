@@ -286,6 +286,7 @@ public class Account {
 			while (rs.next()) {
 				// Build the object
 				json = new JSONStringer().object() // Start object
+						.key("username").value(username) // Username in question
 						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Security Question 1
 						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Security Question 2
 						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Security Question 3
