@@ -42,30 +42,31 @@ public class Database {
 		// Check which tables exist
 		try {
 			// Generate tables if they do not exist.
-			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_accounts` (\n" + "  `username` varchar(255) NOT NULL,\n"
-					+ "  `password` varchar(255) NOT NULL,\n" + "  `birthday` date NOT NULL,\n"
-					+ "  `firstName` varchar(255) NOT NULL,\n" + "  `lastName` varchar(255) NOT NULL,\n"
-					+ "  `securityQuestion1` longtext NOT NULL,\n" + "  `securityQuestion2` longtext NOT NULL,\n"
-					+ "  `securityQuestion3` longtext NOT NULL,\n" + "  `securityAnswer1` longtext NOT NULL,\n"
-					+ "  `securityAnswer2` longtext NOT NULL,\n" + "  `securityAnswer3` longtext NOT NULL,\n"
-					+ "  PRIMARY KEY (`username`)\n" + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (\n" + "  `author` varchar(255) NOT NULL,\n"
-					+ "  `message` longtext NOT NULL,\n" + "  `title` longtext NOT NULL,\n"
-					+ "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" + "  `dateCreated` datetime DEFAULT NULL,\n"
-					+ "  `parentPost` int(11) DEFAULT NULL,\n" + "  PRIMARY KEY (`id`),\n"
-					+ "  KEY `author` (`author`),\n" + "  KEY `fk_Posts_1_idx` (`parentPost`),\n"
-					+ "  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),\n"
-					+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
+			Database.querySQLSet("CREATE TABLE `social_accounts` (  `username` varchar(255) NOT NULL,"
+					+ "  `password` varchar(255) NOT NULL,  `birthday` date NOT NULL,"
+					+ "  `firstName` varchar(255) NOT NULL,  `lastName` varchar(255) NOT NULL,"
+					+ "  `securityQuestion1` longtext NOT NULL,  `securityQuestion2` longtext NOT NULL,"
+					+ "  `securityQuestion3` longtext NOT NULL,  `securityAnswer1` longtext NOT NULL,"
+					+ "  `securityAnswer2` longtext NOT NULL,  `securityAnswer3` longtext NOT NULL,"
+					+ "  `adminStatus` int(11) DEFAULT '0',  PRIMARY KEY (`username`)"
 					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_sessions` (\n" + "  `sessionID` varchar(255) NOT NULL,\n"
-					+ "  `username` varchar(255) NOT NULL,\n" + "  PRIMARY KEY (`sessionID`),\n"
-					+ "  KEY `username_idx` (`username`),\n"
-					+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION\n"
-					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n");
+			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
+					+ "  `message` longtext NOT NULL,  `title` longtext NOT NULL,"
+					+ "  `id` int(11) NOT NULL AUTO_INCREMENT,  `dateCreated` datetime DEFAULT NULL,"
+					+ "  `parentPost` int(11) DEFAULT NULL,  PRIMARY KEY (`id`),"
+					+ "  KEY `author` (`author`),  KEY `fk_Posts_1_idx` (`parentPost`),"
+					+ "  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`author`) REFERENCES `social_accounts` (`username`),"
+					+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
+			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_sessions` ("
+					+ "  `sessionID` varchar(255) NOT NULL,  `username` varchar(255) NOT NULL,"
+					+ "  PRIMARY KEY (`sessionID`),  KEY `username_idx` (`username`),"
+					+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION"
+					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 		}
 	}
 
@@ -84,14 +85,14 @@ public class Database {
 	public static Connection connect() {
 		try {
 			// Attempt to connect.
-			System.out.println("Connecting...");
+			// System.out.println("Connecting...");
 			Connection connection = DriverManager.getConnection(url, user, pass);
 			// Connection successful
-			System.out.println("Connection Successful");
+			// System.out.println("Connection Successful");
 			return connection;
 		} catch (Exception e) {
 			// Connection error
-			System.out.println("Connection Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Error:\n\t" + e.getMessage());
 			return null;
 		}
 	}
@@ -106,11 +107,11 @@ public class Database {
 	 */
 	public static void disconnect(Connection connection) {
 		try {
-			System.out.println("Connection closing...");
+			// System.out.println("Connection closing...");
 			connection.close();
-			System.out.println("Connection closed.");
+			// System.out.println("Connection closed.");
 		} catch (Exception e) {
-			System.out.println("Connection Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Error:\n\t" + e.getMessage());
 		}
 	}
 
@@ -128,16 +129,16 @@ public class Database {
 		Connection connection = Database.connect();
 		boolean successful = false;
 		try {
-			System.out.println("Executing Statement:\n\t" + query);
+			// System.out.println("Executing Statement:\n\t" + query);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
 
 			statement.close();
-			System.out.println("Execution Success");
+			// System.out.println("Execution Success");
 
 			successful = true;
 		} catch (Exception e) {
-			System.out.println("Query Error:\n\t" + e.getMessage());
+			// System.out.println("Query Error:\n\t" + e.getMessage());
 		}
 		Database.disconnect(connection);
 		return successful;
@@ -186,13 +187,13 @@ class DatabaseGetter {
 		try {
 			connection = Database.connect();
 			try {
-				System.out.println("Preparing Statement:\n\t" + query);
+				// System.out.println("Preparing Statement:\n\t" + query);
 				statement = connection.prepareStatement(query);
 			} catch (Exception e) {
-				System.out.println("Query Preparation Error:\n\t" + e.getMessage());
+				// System.out.println("Query Preparation Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Connection Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Error:\n\t" + e.getMessage());
 		}
 	}
 
@@ -200,7 +201,7 @@ class DatabaseGetter {
 		try {
 			results = statement.executeQuery();
 		} catch (Exception e) {
-			System.out.println("Statement Execution Error:\n\t" + e.getMessage());
+			// System.out.println("Statement Execution Error:\n\t" + e.getMessage());
 		}
 	}
 
@@ -210,7 +211,7 @@ class DatabaseGetter {
 			statement.close();
 			Database.disconnect(connection);
 		} catch (Exception e) {
-			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Closing Error:\n\t" + e.getMessage());
 		}
 	}
 }
@@ -240,13 +241,13 @@ class DatabaseSetter {
 		try {
 			connection = Database.connect();
 			try {
-				System.out.println("Preparing Statement:\n\t" + query);
+				// System.out.println("Preparing Statement:\n\t" + query);
 				statement = connection.prepareStatement(query);
 			} catch (Exception e) {
-				System.out.println("Query Preparation Error:\n\t" + e.getMessage());
+				// System.out.println("Query Preparation Error:\n\t" + e.getMessage());
 			}
 		} catch (Exception e) {
-			System.out.println("Connection Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Error:\n\t" + e.getMessage());
 		}
 	}
 
@@ -261,7 +262,7 @@ class DatabaseSetter {
 			statement.executeUpdate();
 			return true;
 		} catch (Exception e) {
-			System.out.println("Statement Execution Error:\n\t" + e.getMessage());
+			// System.out.println("Statement Execution Error:\n\t" + e.getMessage());
 			return false;
 		}
 	}
@@ -275,12 +276,12 @@ class DatabaseSetter {
 		try {
 			statement.close();
 		} catch (Exception e) {
-			System.out.println("Statement Closing Error:\n\t" + e.getMessage());
+			// System.out.println("Statement Closing Error:\n\t" + e.getMessage());
 		}
 		try {
 			Database.disconnect(connection);
 		} catch (Exception e) {
-			System.out.println("Connection Closing Error:\n\t" + e.getMessage());
+			// System.out.println("Connection Closing Error:\n\t" + e.getMessage());
 		}
 	}
 }

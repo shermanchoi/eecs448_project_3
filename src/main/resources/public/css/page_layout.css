@@ -10,6 +10,10 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
+header>img {
+    height: 100%;
+}
+
 header {
     background-color: Black;
     color: white;
