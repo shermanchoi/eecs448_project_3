@@ -1,6 +1,6 @@
 let postID = "";
-let preID = parent.document.URL.substring(parent.document.URL.indexOf('?'), parent.document.URL.length);
-ID = preID.slice(1);
+let preID = parent.document.URL.substring(parent.document.URL.indexOf('?postID='), parent.document.URL.length);
+ID = preID.slice(8);
 
 let postTitle = "";
 let postAuthor = "";
@@ -61,38 +61,45 @@ xhttp.onreadystatechange = function() {
         }
         
         createPostView(postTitle, postAuthor);
+
+        let replyArea = document.createElement("div");
+        replyArea.setAttribute("id", "replies");
+
+        let replyHeader = document.createElement("div");
+        replyHeader.setAttribute("id", "repliestitle");
+
+        replyHeader.innerHTML = "Replies";
+
+        let rHeaderButton = document.createElement("button");
+        rHeaderButton.setAttribute("type", "button");
+        rHeaderButton.setAttribute("class", "reply");
+        let link = "'/postViewReply?postID=" + ID + "'";
+        let replyLink = "window.location="+link;
+        rHeaderButton.setAttribute("onclick", replyLink);
+        rHeaderButton.innerHTML = "Write a Reply";
+
+        replyHeader.appendChild(rHeaderButton);
+
+        replyArea.appendChild(replyHeader);
+
+        PoR.appendChild(replyArea);
     }
 };
 
-xhttp.open("GET", "/api/post?postid="+ID, true);
+xhttp.open("GET", "/api/post?postID="+ID, true);
 xhttp.send();
 
 
-let replyArea = document.createElement("div");
-replyArea.setAttribute("id", "replies");
 
-let replyHeader = document.createElement("div");
-replyHeader.setAttribute("id", "repliestitle");
 
-replyHeader.innerHTML = "Replies";
 
-let rHeaderButton = document.createElement("button");
-rHeaderButton.setAttribute("type", "button");
-rHeaderButton.setAttribute("class", "reply");
-rHeaderButton.setAttribute("href", "/postViewReply?="+ID);
-rHeaderButton.innerHTML = "Write a Reply";
 
-replyHeader.appendChild(rHeaderButton);
-
-replyArea.appendChild(replyHeader);
-
-PoR.appendChild(replyArea);
 
 
 let text2 = "";
 let obj2 = {};
 
-let xhttp2 = XMLHttpRequest();
+let xhttp2 = new XMLHttpRequest();
 
 xhttp2.onreadystatechange = function () {
     if(this.readyState == 4 && this.status == 200) {
@@ -137,9 +144,12 @@ xhttp2.onreadystatechange = function () {
         replyArea.appendChild(replies);
         PoR.appendChild(replyArea);
     }
+    else {
+        console.log(this.readyState, ", " , this.status);
+    }
 }
 
-xhttp2.open("GET", "/api/postReply?postid="+ID, true);
+xhttp2.open("GET", "/api/postReply?postID="+ID, true);
 xhttp2.send();
 
 

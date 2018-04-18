@@ -3,13 +3,31 @@ function generateDates() {
     var year = today.getFullYear();
 
     var date_element = document.getElementById("Date");
+    var new_date;
+    var date_text;
     for (var i = 1; i <= 31; i++) {
-	date_element.innerHTML += "<option value=\"" + i + "\">" + i + "</option>\n";
+	new_date = document.createElement("option");
+	new_date.setAttribute("value", i);
+	date_text = document.createTextNode(i);
+
+	new_date.appendChild(date_text);
+	date_element.appendChild(new_date);	
     }
 
     var year_element = document.getElementById("Year");
+    var new_year;
+    var year_text;
     for (var i = (year - 100); i <= year; i++) {
-	year_element.innerHTML += '<option value=\"' + i + '\">' + i + '</option>\n';
+	new_year = document.createElement("option");
+	new_year.setAttribute("value", i);
+	year_text = document.createTextNode(i);
+
+	new_year.appendChild(year_text);
+	year_element.appendChild(new_year);
+
+	if (i == (year - 18)) {
+	    new_year.setAttribute("selected", "1");
+	}
     }
 }
 

@@ -184,7 +184,7 @@ public class Post {
 	 *         id
 	 */
 	public static String JSONAllPostReplies(int id) {
-		String query = "SELECT FROM social_posts WHERE parentPost=?";
+		String query = "SELECT * FROM social_posts WHERE parentPost=?";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		
 		try {
@@ -219,7 +219,7 @@ public class Post {
 		String postObject = new JSONStringer().object() // Start object
 				.key("currentP").value(1) // Current page of the json object.
 				.key("totalP").value(Math.max(1, totalPosts / 10)) // The total pages of the json object
-				.key("replies").value(jsonArr) // The replies to the object.
+				.key("Replies").value(jsonArr) // The replies to the object.
 				.endObject().toString(); // End object
 
 		return postObject;
