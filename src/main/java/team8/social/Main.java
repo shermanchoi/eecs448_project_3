@@ -22,8 +22,7 @@ public class Main {
     public static void configure(){
         port(80);
         //("jdbc:mysql://localhost:3306/sys","root","password")
-        //("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix")
-        Database.initialize("jdbc:mysql://localhost:3306/sys","root","password");
+        Database.initialize("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix");
         staticFiles.location("/public");
         staticFiles.externalLocation("./resources");
     }
