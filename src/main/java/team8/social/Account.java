@@ -233,7 +233,7 @@ public class Account {
 
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `social_accounts`SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
+				"UPDATE `social_accounts` SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
 
 		try {
 			// Statement preparing.
