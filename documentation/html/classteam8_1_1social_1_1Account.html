@@ -75,10 +75,6 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac2b69517e5010c02aa96b632aa804a1a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#ac2b69517e5010c02aa96b632aa804a1a">Account</a> (String uname, String pword, String dateOfBirth, String fName, String lName)</td></tr>
 <tr class="separator:ac2b69517e5010c02aa96b632aa804a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a312fe54e4848ef0910dcac58c7c33013"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a312fe54e4848ef0910dcac58c7c33013">changePassword</a> (String currentPassword, String newPassword)</td></tr>
-<tr class="separator:a312fe54e4848ef0910dcac58c7c33013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4fea604d13202a84edb5646d14b2c27"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#ad4fea604d13202a84edb5646d14b2c27">changePassword</a> (String currentPassword, String newPassword, boolean saveImmediately)</td></tr>
-<tr class="separator:ad4fea604d13202a84edb5646d14b2c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa787e3dc224b5dba3f2c8f47d60f3e23"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#aa787e3dc224b5dba3f2c8f47d60f3e23">getUsername</a> ()</td></tr>
 <tr class="separator:aa787e3dc224b5dba3f2c8f47d60f3e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e844d15f27323568e1f390270910aac"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a8e844d15f27323568e1f390270910aac">getBirthday</a> ()</td></tr>
@@ -90,10 +86,24 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a096b15ef7fd1e3686c0c043d0c641bdc"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a096b15ef7fd1e3686c0c043d0c641bdc">changePassword</a> (String username, String currentPassword, String newPassword)</td></tr>
+<tr class="separator:a096b15ef7fd1e3686c0c043d0c641bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17cf1c73105b9f09754dff0576a61af8"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a17cf1c73105b9f09754dff0576a61af8">changePassword</a> (String username, String newPassword)</td></tr>
+<tr class="separator:a17cf1c73105b9f09754dff0576a61af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84343a3adef102eea02a1f1588a55b9d"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a84343a3adef102eea02a1f1588a55b9d">securityQuestionCheck</a> (String username, String ansQ1, String ansQ2, String ansQ3)</td></tr>
+<tr class="separator:a84343a3adef102eea02a1f1588a55b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3edcaf218226141a9c4b6c88aca22426"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a3edcaf218226141a9c4b6c88aca22426">changePersonalInformation</a> (String uname, String dateOfBirth, String fName, String lName, String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3)</td></tr>
+<tr class="separator:a3edcaf218226141a9c4b6c88aca22426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66db99db5c76993a12703f85fd90315a"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a66db99db5c76993a12703f85fd90315a">getSecurityQuestions</a> (String username)</td></tr>
+<tr class="separator:a66db99db5c76993a12703f85fd90315a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaa44831f8b3ebb16f346608a2b867de"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#afaa44831f8b3ebb16f346608a2b867de">createAccount</a> (String uname, String pword, String dateOfBirth, String fName, String lName, String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3)</td></tr>
 <tr class="separator:afaa44831f8b3ebb16f346608a2b867de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a991e74d6c13416c59384dc9e25fc05c3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a991e74d6c13416c59384dc9e25fc05c3">login</a> (String username, String password)</td></tr>
 <tr class="separator:a991e74d6c13416c59384dc9e25fc05c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a8a130cb203adc8f5292133c9d9f0ce65">getProfilePageInformation</a> (String username)</td></tr>
+<tr class="separator:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85fa08f1598531a42a60f769ed9dd493"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a85fa08f1598531a42a60f769ed9dd493">getAccountManagementInformation</a> (String username)</td></tr>
+<tr class="separator:a85fa08f1598531a42a60f769ed9dd493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac2b69517e5010c02aa96b632aa804a1a"></a>
@@ -162,8 +172,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a312fe54e4848ef0910dcac58c7c33013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a312fe54e4848ef0910dcac58c7c33013">&#9670;&nbsp;</a></span>changePassword() <span class="overload">[1/2]</span></h2>
+<a id="a096b15ef7fd1e3686c0c043d0c641bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a096b15ef7fd1e3686c0c043d0c641bdc">&#9670;&nbsp;</a></span>changePassword() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,8 +182,14 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">boolean team8.social.Account.changePassword </td>
+          <td class="memname">static boolean team8.social.Account.changePassword </td>
           <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>currentPassword</em>, </td>
         </tr>
@@ -191,25 +207,25 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method changes an user's password</p>
-<dl class="section post"><dt>Postcondition</dt><dd>If the password change is successful and saveImmediately is true, changes will be made on the <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a> object. </dd></dl>
+<p>This method allows password updating, given the user already knows the password</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">currentPassword</td><td>The current password of the User. </td></tr>
-    <tr><td class="paramname">newPassword</td><td>The new password the user wants </td></tr>
+    <tr><td class="paramname">username</td><td>The username of the user in question. </td></tr>
+    <tr><td class="paramname">currentPassword</td><td>The current password of the user. </td></tr>
+    <tr><td class="paramname">newPassword</td><td>The new password for the user. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the change occurs, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the password occured correctly, false otherwise. </dd></dl>
 
 </div>
 </div>
-<a id="ad4fea604d13202a84edb5646d14b2c27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4fea604d13202a84edb5646d14b2c27">&#9670;&nbsp;</a></span>changePassword() <span class="overload">[2/2]</span></h2>
+<a id="a17cf1c73105b9f09754dff0576a61af8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17cf1c73105b9f09754dff0576a61af8">&#9670;&nbsp;</a></span>changePassword() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,22 +234,16 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">boolean team8.social.Account.changePassword </td>
+          <td class="memname">static boolean team8.social.Account.changePassword </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>currentPassword</em>, </td>
+          <td class="paramname"><em>username</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>newPassword</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">boolean&#160;</td>
-          <td class="paramname"><em>saveImmediately</em>&#160;</td>
+          <td class="paramname"><em>newPassword</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -243,21 +253,120 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method changes an user's password</p>
-<dl class="section post"><dt>Postcondition</dt><dd>If the password change is successful and saveImmediately is true, changes will be saved in the database and <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a> object. </dd></dl>
+<p>This method allows password updating. Old password not needed</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">currentPassword</td><td>The current password of the User. </td></tr>
-    <tr><td class="paramname">newPassword</td><td>The new password the user wants </td></tr>
-    <tr><td class="paramname">saveImmediately</td><td>If true, changes will occur immediately within the database. </td></tr>
+    <tr><td class="paramname">username</td><td>The username in question </td></tr>
+    <tr><td class="paramname">newPassword</td><td>The new password </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the change occurs, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the account password changed successfully </dd></dl>
+
+</div>
+</div>
+<a id="a3edcaf218226141a9c4b6c88aca22426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3edcaf218226141a9c4b6c88aca22426">&#9670;&nbsp;</a></span>changePersonalInformation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean team8.social.Account.changePersonalInformation </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>uname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>dateOfBirth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>fName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>secQ1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>secQ2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>secQ3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This method changes the personal information of a given account.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uname</td><td>Username of <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a> </td></tr>
+    <tr><td class="paramname">dateOfBirth</td><td>Date of birth of account </td></tr>
+    <tr><td class="paramname">fName</td><td>First name of account </td></tr>
+    <tr><td class="paramname">lName</td><td>Last name of account </td></tr>
+    <tr><td class="paramname">secQ1</td><td>Security question 1 </td></tr>
+    <tr><td class="paramname">secQ2</td><td>Security question 2 </td></tr>
+    <tr><td class="paramname">secQ3</td><td>Security question 3 </td></tr>
+    <tr><td class="paramname">ansQ1</td><td>Security question answer 1 </td></tr>
+    <tr><td class="paramname">ansQ2</td><td>Security question answer 2 </td></tr>
+    <tr><td class="paramname">ansQ3</td><td>Security question answer 3 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -365,6 +474,41 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a85fa08f1598531a42a60f769ed9dd493"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85fa08f1598531a42a60f769ed9dd493">&#9670;&nbsp;</a></span>getAccountManagementInformation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String team8.social.Account.getAccountManagementInformation </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This returns the account management page information of an user.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>The account with the username exists </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>The username of the user in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The JSON representing the user's account management page information. </dd></dl>
+
+</div>
+</div>
 <a id="a8e844d15f27323568e1f390270910aac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e844d15f27323568e1f390270910aac">&#9670;&nbsp;</a></span>getBirthday()</h2>
 
@@ -446,6 +590,75 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8a130cb203adc8f5292133c9d9f0ce65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a130cb203adc8f5292133c9d9f0ce65">&#9670;&nbsp;</a></span>getProfilePageInformation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String team8.social.Account.getProfilePageInformation </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This returns the profile page information of an user.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>The account with the username exists </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>The username of the user in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The JSON representing the user's profile information. </dd></dl>
+
+</div>
+</div>
+<a id="a66db99db5c76993a12703f85fd90315a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66db99db5c76993a12703f85fd90315a">&#9670;&nbsp;</a></span>getSecurityQuestions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String team8.social.Account.getSecurityQuestions </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This method returns a json object with the security questions of a user</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>The username of the user in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A JSON string representing the security questions. </dd></dl>
+
+</div>
+</div>
 <a id="aa787e3dc224b5dba3f2c8f47d60f3e23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa787e3dc224b5dba3f2c8f47d60f3e23">&#9670;&nbsp;</a></span>getUsername()</h2>
 
@@ -515,6 +728,65 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a> object representing the account if it exists. Null otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a84343a3adef102eea02a1f1588a55b9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84343a3adef102eea02a1f1588a55b9d">&#9670;&nbsp;</a></span>securityQuestionCheck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean team8.social.Account.securityQuestionCheck </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ansQ3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This checks the username and their security question answers of an user who wants to reset their password</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>The username of the account in question </td></tr>
+    <tr><td class="paramname">ansQ1</td><td>The answer to the first security question </td></tr>
+    <tr><td class="paramname">ansQ2</td><td>The answer to the second security question </td></tr>
+    <tr><td class="paramname">ansQ3</td><td>The answer to the third security question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if everything is correct, false otherwise </dd></dl>
 
 </div>
 </div>
