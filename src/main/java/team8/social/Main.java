@@ -162,6 +162,17 @@ public class Main {
             return null;
         });
         
+        //Forgot Password
+        get("/forgotpassword", (req,res)->{
+           if(Session.validate(req.session().id(), req.session().attribute("UserID"))){
+               res.redirect("/home");
+               return null;
+           }
+           
+           res.redirect("/html/forgotPasswordUsernameInput.html");
+           return null;
+        });
+        
         //Main page if the user is logged in.
         get("/home", (req, res) ->{
         	//You must be logged in to get into the main page.
