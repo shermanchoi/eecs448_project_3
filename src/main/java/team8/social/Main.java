@@ -7,6 +7,12 @@
 package team8.social;
 
 
+import team8.social.pages.*;
+import team8.social.pages.account.*;
+import team8.social.pages.post.*;
+
+import java.util.Vector;
+
 import static spark.Spark.*;
 
 
@@ -30,148 +36,28 @@ public class Main {
      * Defines how URIs are handled.
      * @post Server knows how to handle a number of URIs
      */
-    public static void pages() {    	
-        /*Handles the request to the root directory.*/
-        get("/", (req, res) -> {
-            if (!Session.validate(req.session().id(),req.session().attribute("UserID"))){
-                res.redirect("/login");
-            } else {
-                res.redirect("/home");
-            }
-    
-            return null;
-        });
-    
-        /*Handles the request to login*/
-        get("/login", (req, res) -> {
-        	//If there is NOT a logged in session. Redirect to login
-            if (!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-                res.redirect("/html/login.html");
-                return null;
-            }
-            //Otherwise, go to home	
-            res.redirect("/home");
-            return null;
-        });
-        /**
-         * Login Attempt
-         */
-        post("/login", (req, res) -> {
-        	//If there is already a logged in session. Redirect to home
-            if(Session.validate(req.session().id(),req.session().attribute("UserID"))){
-               res.redirect("/home");
-               return null;
-            }
-            
-            //Attempt to log in using username and password
-            try {
-	            Account user = Account.login(req.queryParams("username"), req.queryParams("password"));
-	            if (user != null) {
-	            	//Successful login, create session.
-	                req.session(true);
-	                req.session().attribute("UserID", user.getUsername());
-	                Session.createSession(req.session().id(),req.session().attribute("UserID"));
-	                
-	                res.redirect("/home");
-	            }else {
-	            	//Account does not exist.
-	            	res.redirect("html/login.html?error=invalid");
-	            }
-            }catch(Exception e) {
-            	//Invalid input.
-            	res.redirect("html/login.html?error=invalid");
-            }
-            
-            return null;
-        });
-    
-        //Create Account
-        get("/createaccount", (req, res) -> {
-        	//If there is NOT a logged in session. Go as intended
-            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-                res.redirect("/html/createAccount.html");
-                return null;
-            }
-            
-            //Go to home otherwise
-            res.redirect("/home");
-            return null;
-        });
+    public static void pages() {
+        Vector<PageHandler> pages = new Vector<PageHandler>();
         
-        /**
-         * Create account action
-         */
-        post("/createaccount", (req, res) ->{
-        	//Logged in session already exists.
-            if(Session.validate(req.session().id(),req.session().attribute("UserID"))){
-               res.redirect("/home");
-               return null;
-            }
-            
-            try {
-            	//Parameters of the account creation.
-				String uname = req.queryParams("uname");
-				String pword = req.queryParams("pword");
-				String dateOfBirth = req.queryParams("Year") + "-" + req.queryParams("Month") + "-" + req.queryParams("Date");
-				String fName = req.queryParams("fname");
-				String lName = req.queryParams("lname");
-				String secQ1 = req.queryParams("sq1");
-				String secQ2 = req.queryParams("sq2");
-				String secQ3 = req.queryParams("sq3");
-				String ansQ1 = req.queryParams("sa1");
-				String ansQ2 = req.queryParams("sa2");
-				String ansQ3 = req.queryParams("sa3");
-				
-				if(pword.length() < 8) {
-					//The password was not long enough.
-					res.redirect("/createaccount");
-				}
-				
-				//Attempt account creation
-				Account a = Account.createAccount(uname, pword, dateOfBirth, fName, lName, secQ1, secQ2, secQ3, ansQ1, ansQ2, ansQ3);
-				
-				if(a != null) {
-					//The account is now created. Login as that account
-		            req.session(true);
-	                req.session().attribute("UserID", uname);
-	                Session.createSession(req.session().id(),req.session().attribute("UserID"));
-	                
-	                //Go to '/home' since the account is created
-	                res.redirect("/home");
-				}
-			}finally{
-				//Something did not happen correctly
-	            res.redirect("/html/createAccount.html");
-			}
-            
-            
-            return null;
-        });
+        pages.add(new Root());
         
-        get("/logout", (req,res)->{
-            if(!Session.validate(req.session().id(), req.session().attribute("UserID"))){
-                res.redirect("/login");
-                return null;
-            }
-            
-            Session.deleteSession(req.session().id(), req.session().attribute("UserID"));
-            req.session().removeAttribute("UserID");
-            req.session(false);
-            res.redirect("/login");
-            
-            return null;
-        });
+        //All pages that pertain to accounts
+        pages.add(new CreateAccount());
+        pages.add(new ForgotPassword());
+        pages.add(new Login());
+        pages.add(new Logout());
         
-        //Forgot Password
-        get("/forgotpassword", (req,res)->{
-           if(Session.validate(req.session().id(), req.session().attribute("UserID"))){
-               res.redirect("/home");
-               return null;
-           }
-           
-           res.redirect("/html/forgotPasswordUsernameInput.html");
-           return null;
-        });
+        //All pages that pertain to posts
+        pages.add(new ViewPost());
+        pages.add(new CreatePost());
+        
+        //All pages that pertain to administration
+        
+        
+        //Registers all of the pages
+        for(Integer i = 0; i < pages.size(); i += 1){
+            pages.get(1).pages();
+        }
         
         //Main page if the user is logged in.
         get("/home", (req, res) ->{
@@ -184,33 +70,6 @@ public class Main {
             res.redirect("/");
             
         	return null;
-        });
-        
-        get("/createpost", (req,res) ->{
-           if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
-               res.redirect("/login");
-               return null;
-           }
-           
-           res.redirect("/html/createPost.html");
-           return null;
-        });
-        
-        
-        post("/createpost", (req, res)->{
-            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
-                res.redirect("/login");
-                return null;
-            }
-            
-            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("postcontent"), req.queryParams("posttitle"));
-            if(p == null){
-                res.redirect("/createpost");
-            }else{
-                res.redirect("/home");
-            }
-            
-            return null;
         });
         
         get("/postViewReply", (req, res)->{
