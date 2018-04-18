@@ -233,7 +233,7 @@ public class Account {
 
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `social_accounts`SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
+				"UPDATE `social_accounts` SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
 
 		try {
 			// Statement preparing.
@@ -286,6 +286,7 @@ public class Account {
 			while (rs.next()) {
 				// Build the object
 				json = new JSONStringer().object() // Start object
+						.key("username").value(username) // Username in question
 						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Security Question 1
 						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Security Question 2
 						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Security Question 3
