@@ -114,7 +114,7 @@ xhttp2.onreadystatechange = function () {
 
         text2 = this.responseText;
         obj2 = JSON.parse(text2);
-        alert(text2);
+        //alert(text2);
 
         //create div.replycontent
         let replies = document.createElement("div");

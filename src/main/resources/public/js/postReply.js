@@ -6,6 +6,7 @@ ID = preID.slice(8);
 let title = "";
 let author = "";
 let postContent = "";
+let text = "";
 
 let PnR = document.getElementById("postandreplies");
 
@@ -14,7 +15,7 @@ function postBody (text) {
 
     title = obj.Title;
     author = obj.Author;
-    postContent = obj.postContent;
+    postContent = obj.Content;
 
 
     let post = document.createElement("div");
