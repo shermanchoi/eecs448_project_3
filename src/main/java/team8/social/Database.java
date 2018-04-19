@@ -42,14 +42,14 @@ public class Database {
 		// Check which tables exist
 		try {
 			// Generate tables if they do not exist.
-			Database.querySQLSet("CREATE TABLE `social_accounts` (  `username` varchar(255) NOT NULL,"
-					+ "  `password` varchar(255) NOT NULL,  `birthday` date NOT NULL,"
-					+ "  `firstName` varchar(255) NOT NULL,  `lastName` varchar(255) NOT NULL,"
-					+ "  `securityQuestion1` longtext NOT NULL,  `securityQuestion2` longtext NOT NULL,"
-					+ "  `securityQuestion3` longtext NOT NULL,  `securityAnswer1` longtext NOT NULL,"
-					+ "  `securityAnswer2` longtext NOT NULL,  `securityAnswer3` longtext NOT NULL,"
-					+ "  `adminStatus` int(11) DEFAULT '0',  PRIMARY KEY (`username`)"
-					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			Database.querySQLSet("CREATE TABLE `social_accounts` (`username` varchar(255) NOT NULL,\n"
+					+ "  `password` varchar(255) NOT NULL,`birthday` date NOT NULL,\n"
+					+ "  `firstName` varchar(255) NOT NULL,`lastName` varchar(255) NOT NULL,\n"
+					+ "  `securityQuestion1` longtext NOT NULL,`securityQuestion2` longtext NOT NULL,\n"
+					+ "  `securityQuestion3` longtext NOT NULL,`securityAnswer1` longtext NOT NULL,\n"
+					+ "  `securityAnswer2` longtext NOT NULL,`securityAnswer3` longtext NOT NULL,\n"
+					+ "  `adminStatus` int(11) DEFAULT '0',`banned` tinyint(1) DEFAULT '0',\n"
+					+ "  PRIMARY KEY (`username`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
 					+ "  `message` longtext NOT NULL,  `title` longtext NOT NULL,"
