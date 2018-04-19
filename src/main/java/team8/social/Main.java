@@ -56,7 +56,7 @@ public class Main {
         
         //Registers all of the pages
         for(Integer i = 0; i < pages.size(); i += 1){
-            pages.get(1).pages();
+            pages.get(i).pages();
         }
         
         //Main page if the user is logged in.
