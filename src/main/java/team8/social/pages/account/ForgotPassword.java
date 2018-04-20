@@ -1,13 +1,38 @@
 package team8.social.pages.account;
 
+import sun.nio.cs.StandardCharsets;
 import team8.social.Account;
 import team8.social.PageHandler;
 import team8.social.Session;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class ForgotPassword implements PageHandler {
+    private static String username = "";
+    private static String security = "";
+    
+    public ForgotPassword(){
+        try {
+            username = new String(Files.readAllBytes(
+                    Paths.get(getClass().getResource("/public/html/forgotPasswordUsernameInput.html").toURI())
+            ));
+        }catch(Exception e){
+        
+        }
+        
+        try{
+            security = new String(Files.readAllBytes(
+                    Paths.get(getClass().getResource("/public/html/forgotPasswordSecQuestion.html").toURI())
+            ));
+        }catch(Exception e){
+        
+        }
+    }
+    
     public void pages() {
         //Forgot Password
         get("/forgotpassword", (req,res)->{
@@ -17,11 +42,14 @@ public class ForgotPassword implements PageHandler {
             }
             
             if(req.session().attribute("forgot-username") == null){
-                res.redirect("/html/forgotPasswordUsernameInput.html");
-                return null;
+                //res.redirect("/html/forgotPasswordUsernameInput.html");
+                return username;
+            }else{
+                //res.redirect("/html/forgotPasswordSecQuestion.html");
+                return security;
             }
             
-            return null;
+            //return null;
         });
         
         post("/forgotpassword", (req, res)->{
@@ -36,7 +64,10 @@ public class ForgotPassword implements PageHandler {
                     res.redirect("/forgotpassword");
                 }else{
                     req.session().attribute("forgot-username", user);
-                    res.redirect("/html/forgotPasswordSecQuestion.html");
+                    req.session().attribute("forgot-validated", "false");
+                    
+                    //res.redirect("/html/forgotPasswordSecQuestion.html");
+                    return security;
                 }
             }
             
