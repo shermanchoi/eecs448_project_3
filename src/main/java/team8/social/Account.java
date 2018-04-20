@@ -205,10 +205,12 @@ public class Account {
 	 *            Security question answer 2
 	 * @param ansQ3
 	 *            Security question answer 3
+	 * @param biography
+	 *            biography of user
 	 * @return True if successful, false otherwise
 	 */
 	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
-			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3) {
+			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography) {
 		// Security questions cannot be the same.
 		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
 			return false;
@@ -233,7 +235,7 @@ public class Account {
 
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter(
-				"UPDATE `social_accounts` SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=? WHERE `username`=?;");
+				"UPDATE `social_accounts` SET `birthday`= ?,`firstName`= ?,`lastName`= ?,`securityQuestion1`=?,`securityQuestion2`= ?,`securityQuestion3`=?,`securityAnswer1`=?,`securityAnswer2`=?,`securityAnswer3`=?,`biography`= ? WHERE `username`=?;");
 
 		try {
 			// Statement preparing.
@@ -246,7 +248,8 @@ public class Account {
 			setter.statement.setString(7, ansQ1);
 			setter.statement.setString(8, ansQ2);
 			setter.statement.setString(9, ansQ3);
-			setter.statement.setString(10, uname);
+			setter.statement.setString(10, biography);
+			setter.statement.setString(11, uname);
 			// Execution of statement.
 			if (setter.execute()) {
 				return true;
@@ -570,9 +573,12 @@ public class Account {
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // security question 1 of user
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // security question 2 of user
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // security question 3 of user
+						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // security question 1 of
+																							// user
+						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // security question 2 of
+																							// user
+						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // security question 3 of
+																							// user
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
