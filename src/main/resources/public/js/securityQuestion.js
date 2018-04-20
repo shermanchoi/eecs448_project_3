@@ -10,7 +10,7 @@ function securityQuestionBlock(text) {
     let formBody = document.getElementById("form");
 
     let form = document.createElement("form");
-    form.setAttribute("action", "/forgotpassword/anwser");
+    form.setAttribute("action", "/forgotpassword");
     form.setAttribute("method", "post");
 
     let fieldset = document.createElement("fieldset");
