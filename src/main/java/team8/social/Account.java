@@ -213,8 +213,8 @@ public class Account {
 	 */
 	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography) {
-		// Security questions cannot be the same.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+		// Security questions cannot be the same OR non-existant
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) != null || questionNumberToQuestion(secQ2) != null || questionNumberToQuestion(secQ3) != null) {
 			return false;
 		}
 
@@ -223,6 +223,7 @@ public class Account {
 				|| ansQ2.length() == 0 || ansQ3.length() == 0) {
 			return false;
 		}
+		
 
 		// Encrypt Sensitive information
 		ansQ1 = encryptOneWay(uname, ansQ1);
@@ -371,8 +372,8 @@ public class Account {
 		if (pword.length() < 8) {
 			return null;
 		}
-		// Security questions cannot be the same.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+		// Security questions cannot be the same OR non-existant.
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) != null || questionNumberToQuestion(secQ2) != null || questionNumberToQuestion(secQ3) != null){
 			return null;
 		}
 
@@ -629,6 +630,13 @@ public class Account {
 		}
 	}
 
+	/**
+	 * This method translate the 'q#' into their respective question
+	 * 
+	 * @param qNum
+	 *            The string to be translated
+	 * @return The question string if the q# is valid. Null otherwise.
+	 */
 	private static String questionNumberToQuestion(String qNum) {
 		if (questionHashMap.containsKey("q1")) {
 			// This is not initialized yet.
