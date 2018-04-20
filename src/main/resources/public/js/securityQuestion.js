@@ -80,6 +80,10 @@ xhttp.onreadystatechange = function() {
     if(this.readyState == 4 && this.status == 200) {
         securityQuestionBlock(this.responseText);
     }
+    else
+    {
+        console.log(this.readyState + ", " + this.status);
+    }
 }
 
 xhttp.open("get", "/api/security", true);
