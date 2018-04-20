@@ -3,7 +3,7 @@ package team8.social;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.text.StringEscapeUtils;
@@ -14,6 +14,8 @@ public class Account {
 	 * Information of the account
 	 */
 	private String username, password, birthday, firstName, lastName;
+
+	private static HashMap<String, String> questionHashMap;
 
 	/**
 	 * The constructor of an Account class
@@ -290,9 +292,15 @@ public class Account {
 				// Build the object
 				json = new JSONStringer().object() // Start object
 						.key("username").value(username) // Username in question
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Security Question 1
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Security Question 2
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Security Question 3
+						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // Security
+																														// Question
+																														// 1
+						.key("securityQuestion2").value(questionNumberToQuestion(rs.getString("securityQuestion2"))) // Security
+																														// Question
+																														// 2
+						.key("securityQuestion3").value(questionNumberToQuestion(rs.getString("securityQuestion3"))) // Security
+																														// Question
+																														// 3
 						.endObject().toString(); // end object
 			}
 		} catch (Exception e) {
@@ -573,12 +581,21 @@ public class Account {
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // security question 1 of
-																							// user
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // security question 2 of
-																							// user
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // security question 3 of
-																							// user
+						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // security
+																														// question
+																														// 1
+																														// of
+						// user
+						.key("securityQuestion2").value(questionNumberToQuestion(rs.getString("securityQuestion2"))) // security
+																														// question
+																														// 2
+																														// of
+						// user
+						.key("securityQuestion3").value(questionNumberToQuestion(rs.getString("securityQuestion3"))) // security
+																														// question
+																														// 3
+																														// of
+						// user
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
@@ -610,5 +627,17 @@ public class Account {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private static String questionNumberToQuestion(String qNum) {
+		if (questionHashMap.containsKey("q1")) {
+			// This is not initialized yet.
+			questionHashMap.put("q1", "Who is your favorite actor, musician, or artist?");
+			questionHashMap.put("q2", "What high school did you attend?");
+			questionHashMap.put("q3", "What is your favorite movie?");
+			questionHashMap.put("q4", "What was the name of your first pet?");
+			questionHashMap.put("q5", "Which phone number do you remember most from your childhood?");
+		}
+		return questionHashMap.get(qNum);
 	}
 }
