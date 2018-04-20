@@ -110,9 +110,6 @@ function showReply(text2) {
     PoR.appendChild(replyArea);
 }
 
-
-
-let text2 = "";
 let obj2 = {};
 
 let xhttp2 = new XMLHttpRequest();
