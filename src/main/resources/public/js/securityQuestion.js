@@ -2,7 +2,7 @@ let text = "";
 
 function securityQuestionBlock(text) {
     alert(text);
-    let obj = JSON.parser(text);
+    let obj = JSON.parse(text);
     
     let username = obj.username;
     let SQ = [obj.securityQuestion1, obj.securityQuestion2, obj.securityQuestion3];
@@ -79,6 +79,10 @@ let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if(this.readyState == 4 && this.status == 200) {
         securityQuestionBlock(this.responseText);
+    }
+    else
+    {
+        console.log(this.readyState + ", " + this.status);
     }
 }
 
