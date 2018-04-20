@@ -92,7 +92,7 @@ function securityQuestionBlock(text) {
     buttons.setAttribute("class", "buttons");
 
     let cancelB = document.createElement("a");
-    cancelB.setAttribute("href", "login.html");
+    cancelB.setAttribute("href", "/cancel");
     cancelB.innerHTML = "Cancel";
     buttons.appendChild(cancelB);
 
