@@ -214,7 +214,7 @@ public class Account {
 	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography) {
 		// Security questions cannot be the same OR non-existant
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) != null || questionNumberToQuestion(secQ2) != null || questionNumberToQuestion(secQ3) != null) {
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) == null || questionNumberToQuestion(secQ2) == null || questionNumberToQuestion(secQ3) == null) {
 			return false;
 		}
 
@@ -223,7 +223,6 @@ public class Account {
 				|| ansQ2.length() == 0 || ansQ3.length() == 0) {
 			return false;
 		}
-		
 
 		// Encrypt Sensitive information
 		ansQ1 = encryptOneWay(uname, ansQ1);
@@ -373,7 +372,7 @@ public class Account {
 			return null;
 		}
 		// Security questions cannot be the same OR non-existant.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) != null || questionNumberToQuestion(secQ2) != null || questionNumberToQuestion(secQ3) != null){
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1) || questionNumberToQuestion(secQ1) == null || questionNumberToQuestion(secQ2) == null || questionNumberToQuestion(secQ3) == null){
 			return null;
 		}
 
