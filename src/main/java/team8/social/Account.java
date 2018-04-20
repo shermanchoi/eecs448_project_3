@@ -267,7 +267,7 @@ public class Account {
 	public static String getSecurityQuestions(String username) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
-		String json = "";
+		String json = null;
 		DatabaseGetter getter = new DatabaseGetter(query);
 
 		try {
@@ -499,6 +499,7 @@ public class Account {
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.key("adminStatus").value(rs.getInt("adminStatus")) // admin status (0 or 1)
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
