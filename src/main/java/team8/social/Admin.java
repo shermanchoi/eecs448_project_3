@@ -146,7 +146,7 @@ public class Admin {
 	 *            The user in question.
 	 * @return True if the user is an admin, false otherwise
 	 */
-	private static boolean isAdmin(String username) {
+	public static boolean isAdmin(String username) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
 		DatabaseGetter getter = new DatabaseGetter(query);
