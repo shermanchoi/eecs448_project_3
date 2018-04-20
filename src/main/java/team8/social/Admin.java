@@ -8,6 +8,32 @@ import org.json.JSONML;
 import org.json.JSONObject;
 
 public class Admin {
+
+	public static boolean setAdminStatus(String username, boolean isAdmin) {
+		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `adminStatus`=? WHERE `username`=?;");
+
+		// Statement preparing.
+		try {
+			if (isAdmin) {
+				// Give admin status
+				setter.statement.setInt(1, 1);
+			} else {
+				// Remove admin status
+				setter.statement.setInt(1, 0);
+			}
+			setter.statement.setString(2, username);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Execution of statement.
+		if (setter.execute()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * This returns information for the admin to see.
 	 * 
