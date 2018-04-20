@@ -99,5 +99,9 @@ public class Main {
         get("/api/postReply", (req, res) ->{
             return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
         });
+        
+        get("/api/security", (req,res)->{
+           return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
+        });
     }
 }
