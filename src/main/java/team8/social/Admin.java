@@ -8,7 +8,15 @@ import org.json.JSONML;
 import org.json.JSONObject;
 
 public class Admin {
-
+	/**
+	 * This method gives one admin status or removes it.
+	 * 
+	 * @param username
+	 *            The username of the account in question.
+	 * @param isAdmin
+	 *            The status of the account post activation.
+	 * @return True if everything works, false otherwise
+	 */
 	public static boolean setAdminStatus(String username, boolean isAdmin) {
 		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `adminStatus`=? WHERE `username`=?;");
 
@@ -167,5 +175,80 @@ public class Admin {
 		}
 
 		return isAdmin;
+	}
+
+	/**
+	 * This method deletes a post and its replies.
+	 * 
+	 * @post 
+	 * @param username
+	 *            The user trying to do the action.
+	 * @param postID
+	 *            The id of the post to delete.
+	 * @return True if it occurred without error, false otherwise.
+	 */
+	public static boolean removePost(String username, int postID) {
+		if (isAdmin(username)) {
+			//Look for the post in question
+			boolean found = false;
+			String query = "SELECT * FROM social_posts WHERE id=?;";
+			DatabaseGetter getter = new DatabaseGetter(query);
+			
+			try {
+				//Prepare the statement
+				getter.statement.setInt(1,postID);
+				//Execute statement.
+				getter.execute();
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			
+			ResultSet rs = getter.results;
+			try {
+				while (rs.next()) {
+					found = true;
+				}
+			} catch (Exception e) {
+				System.out.println("ResultSet Error:\n\t" + e.getMessage());
+			}
+			
+			//The post is not even found.
+			if(!found) {
+				return false;
+			}
+			
+			// Get the queries ready.
+			String queryRepliesDelete = "DELETE * FROM social_posts WHERE parentPost=?;";
+			String queryPostDelete = "DELETE * FROM social_posts WHERE id=?;";
+
+			DatabaseSetter setterRepliesDelete = new DatabaseSetter(queryRepliesDelete);
+
+			try {
+				// Prepare the statement
+				setterRepliesDelete.statement.setInt(1, postID);
+				// Execute statement.
+				setterRepliesDelete.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+
+			DatabaseSetter setterPostDelete = new DatabaseSetter(queryPostDelete);
+
+			try {
+				// Prepare the statement
+				setterPostDelete.statement.setInt(1, postID);
+				// Execute statement.
+				setterPostDelete.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
