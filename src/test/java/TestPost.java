@@ -13,12 +13,10 @@ public class TestPost {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Database.hardReset();
-		Account.createAccount("schoi", "1234pass", "1997-11-22", "Sherman", "Choi",
-				"Who is your favorite actor, musician, or artist?", "What high school did you attend?",
-				"What is your favorite movie?", "Pendulum", "SME", "Toy Story");
-		Account.createAccount("nada", "12345678", "1993-3-12", "Johnny", "Smith",
-				"Who is your favorite actor, musician, or artist?", "What high school did you attend?",
-				"What is your favorite movie?", "Aerosmith", "SMN", "Avatar");
+		Account.createAccount("schoi", "1234pass", "1997-11-22", "Sherman", "Choi", "q1", "q2", "q3", "Pendulum", "SME",
+				"Toy Story");
+		Account.createAccount("nada", "12345678", "1993-3-12", "Johnny", "Smith", "q1", "q2", "q3", "Aerosmith", "SMN",
+				"Avatar");
 	}
 
 	@AfterClass
