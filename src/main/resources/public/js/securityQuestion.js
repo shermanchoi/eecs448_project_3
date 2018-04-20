@@ -88,6 +88,8 @@ function securityQuestionBlock(text) {
 
         formContent.appendChild(questionBox3);
 
+    fieldset.appendChild(formContent);
+
     let buttons = document.createElement("div");
     buttons.setAttribute("class", "buttons");
 
