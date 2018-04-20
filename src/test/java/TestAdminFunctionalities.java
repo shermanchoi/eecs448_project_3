@@ -28,7 +28,13 @@ public class TestAdminFunctionalities {
 
 	@Before
 	public void deletePosts() {
-		// Should delete posts...
+		Post.deleteAllPosts();
+	}
+
+	@Test
+	public void testIsAdmin() {
+		//By default, you are not an admin.
+		assertFalse("Admin status given by default", Admin.isAdmin("johnny"));
 	}
 
 	@Test
@@ -104,7 +110,7 @@ public class TestAdminFunctionalities {
 		Admin.removePost("schoi", 1);
 		Admin.removePost("schoi", 2);
 		Admin.removePost("schoi", 3);
-		
+
 		// This should be equal to empty if everything works.
 		String postRemovals = Post.JSONAllPosts();
 
