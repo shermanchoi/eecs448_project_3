@@ -59,19 +59,6 @@ public class Main {
             pages.get(i).pages();
         }
         
-        //Main page if the user is logged in.
-        get("/home", (req, res) ->{
-        	//You must be logged in to get into the main page.
-            if(Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-        		res.redirect("/html/main.html");
-            }
-        	
-            //Go back to root otherwise.
-            res.redirect("/");
-            
-        	return null;
-        });
-        
         get("/postViewReply", (req, res)->{
             if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
                 res.redirect("/login");
