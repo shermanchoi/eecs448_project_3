@@ -499,6 +499,7 @@ public class Account {
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("adminStatus").value(rs.getInt("adminStatus")) // admin status (0 or 1)
 						.endObject().toString(); // End object.
 			}
@@ -507,6 +508,33 @@ public class Account {
 		}
 
 		return json;
+	}
+
+	public static boolean isBanned(String username) {
+		// Get the query ready.
+		String query = "SELECT * FROM social_accounts WHERE username=?;";
+		DatabaseGetter getter = new DatabaseGetter(query);
+
+		try {
+			// Prepare the statement
+			getter.statement.setString(1, username);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		ResultSet rs = getter.results;
+
+		try {
+			while (rs.next()) {
+				return (1 == rs.getInt("banned"));
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+		return false;
 	}
 
 	/**
@@ -541,9 +569,10 @@ public class Account {
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Birthday of user
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Birthday of user
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Birthday of user
+						.key("biography").value(rs.getString("biography")) // biography of user
+						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // security question 1 of user
+						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // security question 2 of user
+						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // security question 3 of user
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
