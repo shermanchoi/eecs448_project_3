@@ -56,7 +56,6 @@ function createList () {
     postTable.appendChild(postHeader);
 
     xhttp.onreadystatechange = function() {
-        //get posts from server
         if(this.readyState == 4 && this.status == 200) {
             let text = this.responseText;
             //parse json
