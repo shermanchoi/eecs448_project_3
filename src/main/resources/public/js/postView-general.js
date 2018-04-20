@@ -2,11 +2,6 @@ let postID = "";
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?postID='), parent.document.URL.length);
 ID = preID.slice(8);
 
-let postTitle = "";
-let postAuthor = "";
-let postContent = "";
-
-let text = "";
 let obj = {};
 
 
@@ -16,10 +11,6 @@ let text = "";
 
 function showPost(text) {
     obj = JSON.parse(text);
-
-    postTitle = obj.Title;
-    postAuthor = obj.Author;
-    postContent = obj.Content;
         
     let post = document.createElement("div");
     post.setAttribute("id", "post");
@@ -27,14 +18,14 @@ function showPost(text) {
     let postT = document.createElement("div");
     postT.setAttribute("id", "posttitle");
         
-    postT.innerHTML = postTitle;
+    postT.innerHTML = obj.Title;
         
     post.appendChild(postT);
         
     let postA = document.createElement("div");
     postA.setAttribute("id", "postauthor");
         
-    postA.innerHTML = "By: " + postAuthor;
+    postA.innerHTML = "By: " + obj.Author;
         
     post.appendChild(postA);
         
@@ -42,7 +33,7 @@ function showPost(text) {
     postC.setAttribute("id", "postcontents");
         
     let content = document.createElement("p");
-    content.innerHTML = postContent;
+    content.innerHTML = obj.Content;
         
     postC.appendChild(content);
         

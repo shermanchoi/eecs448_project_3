@@ -3,9 +3,6 @@ let text = "";
 function securityQuestionBlock(text) {
     alert(text);
     let obj = JSON.parse(text);
-    
-    let username = obj.username;
-    let SQ = [obj.securityQuestion1, obj.securityQuestion2, obj.securityQuestion3];
 
     let formBody = document.getElementById("form");
 
@@ -26,7 +23,7 @@ function securityQuestionBlock(text) {
 
     let usernamestyle = document.createElement("span");
     usernamestyle.setAttribute("style", "font-size:90%;font-weight:bold;font-style:italic;");
-    usernamestyle.innerHTML = username;
+    usernamestyle.innerHTML = obj.username;
     formsubhead.appendChild(usernamestyle);
 
     fieldset.appendChild(formsubhead);
@@ -34,31 +31,68 @@ function securityQuestionBlock(text) {
     let formContent = document.createElement("div");
     formContent.setAttribute("class", "formcontent");
 
-    for(let i = 0; i < 3; i++) {
-        let questionBox = document.createElement("div");
-        questionBox.setAttribute("class", "textbox");
 
-        let label = document.createElement("label");
-        label.innerHTML = SQ[i];
-        questionBox.appendChild(label);
+        let questionBox1 = document.createElement("div");
+        questionBox1.setAttribute("class", "textbox");
 
-        let linebreack = document.createElement("br");
-        questionBox.appendChild(linebreack);
+        let label1 = document.createElement("label");
+        label1.innerHTML = obj.securityQuestion1;
+        questionBox1.appendChild(label1);
 
-        let input = document.createElement("input");
-        input.setAttribute("id", "sa"+i);
-        input.setAttribute("name", "sa"+i);
-        input.setAttribute("type", "text");
-        questionBox.appendChild(input);
+        let linebreack1 = document.createElement("br");
+        questionBox1.appendChild(linebreack1);
 
-        formContent.appendChild(questionBox);
-    }
+        let input1 = document.createElement("input");
+        input1.setAttribute("id", "sa1");
+        input1.setAttribute("name", "sa1");
+        input1.setAttribute("type", "text");
+        questionBox1.appendChild(input1);
+
+        formContent.appendChild(questionBox1);
+
+        let questionBox2 = document.createElement("div");
+        questionBox2.setAttribute("class", "textbox");
+
+        let label2 = document.createElement("label");
+        label2.innerHTML = obj.securityQuestion2;
+        questionBox2.appendChild(label2);
+
+        let linebreack2 = document.createElement("br");
+        questionBox2.appendChild(linebreack2);
+
+        let input2 = document.createElement("input");
+        input2.setAttribute("id", "sa2");
+        input2.setAttribute("name", "sa2");
+        input2.setAttribute("type", "text");
+        questionBox2.appendChild(input2);
+
+        formContent.appendChild(questionBox2);
+
+        let questionBox3 = document.createElement("div");
+        questionBox3.setAttribute("class", "textbox");
+
+        let label3 = document.createElement("label");
+        label3.innerHTML = obj.securityQuestion3;
+        questionBox3.appendChild(label3);
+
+        let linebreack3 = document.createElement("br");
+        questionBox3.appendChild(linebreack3);
+
+        let input3 = document.createElement("input");
+        input3.setAttribute("id", "sa3");
+        input3.setAttribute("name", "sa3");
+        input3.setAttribute("type", "text");
+        questionBox3.appendChild(input3);
+
+        formContent.appendChild(questionBox3);
+
+    fieldset.appendChild(formContent);
 
     let buttons = document.createElement("div");
     buttons.setAttribute("class", "buttons");
 
     let cancelB = document.createElement("a");
-    cancelB.setAttribute("href", "login.html");
+    cancelB.setAttribute("href", "/cancel");
     cancelB.innerHTML = "Cancel";
     buttons.appendChild(cancelB);
 
