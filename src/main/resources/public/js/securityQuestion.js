@@ -3,8 +3,6 @@ let text = "";
 function securityQuestionBlock(text) {
     alert(text);
     let obj = JSON.parse(text);
-    
-    let username = obj.username;
 
     let formBody = document.getElementById("form");
 
@@ -25,7 +23,7 @@ function securityQuestionBlock(text) {
 
     let usernamestyle = document.createElement("span");
     usernamestyle.setAttribute("style", "font-size:90%;font-weight:bold;font-style:italic;");
-    usernamestyle.innerHTML = username;
+    usernamestyle.innerHTML = obj.username;
     formsubhead.appendChild(usernamestyle);
 
     fieldset.appendChild(formsubhead);
