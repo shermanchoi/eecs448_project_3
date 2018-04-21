@@ -243,8 +243,8 @@ public class Admin {
 			}
 			
 			// Get the queries ready.
-			String queryRepliesDelete = "DELETE * FROM social_posts WHERE parentPost=?;";
-			String queryPostDelete = "DELETE * FROM social_posts WHERE id=?;";
+			String queryRepliesDelete = "DELETE FROM social_posts WHERE parentPost=?;";
+			String queryPostDelete = "DELETE FROM social_posts WHERE id=?;";
 
 			DatabaseSetter setterRepliesDelete = new DatabaseSetter(queryRepliesDelete);
 
