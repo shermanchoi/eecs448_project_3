@@ -165,6 +165,6 @@ public class TestAdminFunctionalities {
 		// This should only have the first two posts if this works.
 		String postRemovals = Post.JSONAllPosts();
 
-		assertTrue("Posts removal with non-admin allowed", !postRemovals.equals(firstTwoPosts));
+		assertTrue("Posts removal with non-admin allowed", postRemovals.equals(firstTwoPosts));
 	}
 }
