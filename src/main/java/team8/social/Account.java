@@ -373,9 +373,6 @@ public class Account {
 		}
 		// Security questions cannot be the same OR non-existant.
 		if (verifySecurityQuestions(secQ1,secQ2,secQ3)){
-			System.out.println(secQ1 + "\t" + questionNumberToQuestion(secQ1));
-			System.out.println(secQ2 + "\t" + questionNumberToQuestion(secQ2));
-			System.out.println(secQ3 + "\t" + questionNumberToQuestion(secQ3));
 			return null;
 		}
 
