@@ -4,17 +4,29 @@ import team8.social.Account;
 import team8.social.PageHandler;
 import team8.social.Session;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class CreateAccount implements PageHandler{
+    private static String create = "";
+    
+    public CreateAccount(){
+        try{
+            create = new String(Files.readAllBytes(
+                    Paths.get(getClass().getResource("/public/html/createAccount").toURI())
+            ));
+        }catch(Exception e){}
+    }
+    
     public void pages(){
         //Create Account
         get("/createaccount", (req, res) -> {
             //If there is NOT a logged in session. Go as intended
             if(!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-                res.redirect("/html/createAccount.html");
-                return null;
+                return create;
             }
         
             //Go to home otherwise
@@ -65,7 +77,7 @@ public class CreateAccount implements PageHandler{
                 }
             }finally{
                 //Something did not happen correctly
-                res.redirect("/html/createAccount.html");
+                res.redirect("/createaccount");
             }
         
         
