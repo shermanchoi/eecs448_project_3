@@ -15,7 +15,7 @@ public class Account {
 	 */
 	private String username, password, birthday, firstName, lastName;
 
-	private static HashMap<String, String> questionHashMap = new HashMap<String,String>();
+	private static HashMap<String, String> questionHashMap = new HashMap<String, String>();
 
 	/**
 	 * The constructor of an Account class
@@ -185,6 +185,33 @@ public class Account {
 	}
 
 	/**
+	 * THis method allows an user to modify their biography.
+	 * @pre User exists.
+	 * @param uname
+	 *            The user in question
+	 * @param biography
+	 *            The biography to change to
+	 * @return True if successful, false otherwise.
+	 */
+	public static boolean changeBiography(String uname, String biography) {
+		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `biography`= ? WHERE `username`=?;");
+
+		biography = StringEscapeUtils.escapeHtml4(biography);
+
+		try {
+			// Statement preparing.
+			setter.statement.setString(1, biography);
+			setter.statement.setString(2, uname);
+			// Execution of statement.
+			return setter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
+	/**
 	 * This method changes the personal information of a given account.
 	 * 
 	 * @param uname
@@ -214,7 +241,7 @@ public class Account {
 	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography) {
 		// Security questions cannot be the same OR non-existant
-		if (verifySecurityQuestions(secQ1,secQ2,secQ3)) {
+		if (verifySecurityQuestions(secQ1, secQ2, secQ3)) {
 			return false;
 		}
 
@@ -372,7 +399,7 @@ public class Account {
 			return null;
 		}
 		// Security questions cannot be the same OR non-existant.
-		if (verifySecurityQuestions(secQ1,secQ2,secQ3)){
+		if (verifySecurityQuestions(secQ1, secQ2, secQ3)) {
 			return null;
 		}
 
@@ -431,19 +458,19 @@ public class Account {
 	}
 
 	private static boolean verifySecurityQuestions(String secQ1, String secQ2, String secQ3) {
-		
-		if(secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
 			return true;
 		}
-		
+
 		secQ1 = questionNumberToQuestion(secQ1);
 		secQ2 = questionNumberToQuestion(secQ2);
 		secQ3 = questionNumberToQuestion(secQ3);
-		
-		if(secQ1 == null || secQ2 == null || secQ3 == null) {
+
+		if (secQ1 == null || secQ2 == null || secQ3 == null) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -655,7 +682,7 @@ public class Account {
 	 */
 	private static String questionNumberToQuestion(String qNum) {
 		try {
-						
+
 			if (!questionHashMap.containsKey(qNum)) {
 				// This is not initialized yet.
 				questionHashMap.put("q1", "Who is your favorite actor, musician, or artist?");
@@ -664,11 +691,11 @@ public class Account {
 				questionHashMap.put("q4", "What was the name of your first pet?");
 				questionHashMap.put("q5", "Which phone number do you remember most from your childhood?");
 			}
-			
-			//The question is valid.
+
+			// The question is valid.
 			return questionHashMap.get(qNum);
-		}catch(Exception e) {
-			//The question is invalid.
+		} catch (Exception e) {
+			// The question is invalid.
 			return null;
 		}
 	}
