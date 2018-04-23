@@ -17,18 +17,42 @@ public class Admin {
 	 *            The status of the account post activation.
 	 * @return True if everything works, false otherwise
 	 */
-	public static boolean setAdminStatus(String username, boolean isAdmin) {
+	public static boolean setAdminStatus(String username, boolean setAdmin) {
+		//Does the user even exist?
+		boolean found = false;
+		String query = "SELECT * FROM social_accounts WHERE username=?;";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		
+		try {
+			//Prepare the statement
+			getter.statement.setString(1,username);
+			//Execute statement.
+			getter.execute();
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		ResultSet rs = getter.results;
+		try {
+			while (rs.next()) {
+				found = true;
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+		
+		if(!found) {
+			return false;
+		}
+		
+		
+		//The user exists.
 		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `adminStatus`=? WHERE `username`=?;");
-
+		
 		// Statement preparing.
 		try {
-			if (isAdmin) {
-				// Give admin status
-				setter.statement.setInt(1, 1);
-			} else {
-				// Remove admin status
-				setter.statement.setInt(1, 0);
-			}
+			setter.statement.setBoolean(1, setAdmin);
 			setter.statement.setString(2, username);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -219,8 +243,8 @@ public class Admin {
 			}
 			
 			// Get the queries ready.
-			String queryRepliesDelete = "DELETE * FROM social_posts WHERE parentPost=?;";
-			String queryPostDelete = "DELETE * FROM social_posts WHERE id=?;";
+			String queryRepliesDelete = "DELETE FROM social_posts WHERE parentPost=?;";
+			String queryPostDelete = "DELETE FROM social_posts WHERE id=?;";
 
 			DatabaseSetter setterRepliesDelete = new DatabaseSetter(queryRepliesDelete);
 
