@@ -7,6 +7,8 @@ let obj = {};
 
 let PoR = document.getElementById("postandreplies");
 
+let parser = new BBCodeParser(BBCodeParser.defaultTags());
+
 let text = "";
 
 function showPost(text) {
@@ -33,7 +35,7 @@ function showPost(text) {
     postC.setAttribute("id", "postcontents");
         
     let content = document.createElement("p");
-    content.innerHTML = obj.Content;
+    content.appendChild(parser.parseString(obj.Content));
         
     postC.appendChild(content);
         
@@ -100,7 +102,7 @@ function showReply(text2) {
 
         let replyContent = document.createElement("div");
         replyContent.setAttribute("class", "replycontent");
-        replyContent.innerHTML = obj2.Replies[i].Content;
+        replyContent.appendChild(parser.parseString(obj2.Replies[i].Content));
 
         reply.appendChild(replyContent);
 
