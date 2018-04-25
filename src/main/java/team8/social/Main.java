@@ -22,6 +22,8 @@ public class Main {
         configure();
         //define pages
         pages();
+        
+        System.out.print("Social Server Configured\n");
     }
     
     public static void configure(){
