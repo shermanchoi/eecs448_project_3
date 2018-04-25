@@ -70,10 +70,18 @@ public class ForgotPassword implements PageHandler {
                     return security;
                 }
             }else if(state == "security" && userid != null){
+                if(Account.securityQuestionCheck(userid, req.queryParams("sa1"), req.queryParams("sa2"), req.queryParams("sa2"))){
+                    req.session().attribute("forgot-validated", "true");
+                    req.session().attribute("forgot-state", "reset");
+                    return password;
+                }
                 
-                return password;
+                return security;
             }else if(state == "reset" && validated){
-                if(req.queryParams("pword") != req.queryParams("cpword")){
+                if(!req.queryParams("pword").equals(req.queryParams("cpword").toString())){
+                    System.out.print("Failure");
+                    System.out.println(req.queryParams("pword") + " " + req.queryParams("cpword"));
+                    
                     return password;
                 }
                 
@@ -81,6 +89,14 @@ public class ForgotPassword implements PageHandler {
                 res.redirect("/home");
             }
             
+            return null;
+        });
+        
+        get("/forgotpassword/cancel", (req,res)->{
+            req.session().removeAttribute("forgot-state");
+            req.session().removeAttribute("forgot-username");
+            req.session().removeAttribute("forgot-validated");
+            res.redirect("/login");
             return null;
         });
     }
