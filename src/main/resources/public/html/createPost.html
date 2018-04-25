@@ -10,8 +10,9 @@
 	<title>Create Post</title>
 	<link href="../css/page_layout.css" type="text/css" rel="stylesheet" />
 	<link href="../css/createPost.css" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src="../js/createPost.js"></script>
-	<script type="text/javascript" src="../js/BBCode/Editor/sceditor-2.1.2/minified/sceditor.min.js"></script>
+	<link rel="stylesheet" href="../js/BBCode/Editor/sceditor-2.1.2/minified/themes/default.min.css" />
+	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/sceditor.min.js"></script>
+	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/formats/bbcode.js"></script>
     </head>
     <body>
 	<header>
@@ -38,6 +39,13 @@
 			<div class="formcontent">
 			    <div class="textbox">
 				<textarea name="postcontent" id="postcontent"/></textarea>
+				<script>
+					let textA = document.getElementById("postcontent");
+					sceditor.create(textA, {
+					    format: 'bbcode', 
+ 					    style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'
+					});
+				</script>
 			    </div>
 			</div>
 			<div class="buttons">
