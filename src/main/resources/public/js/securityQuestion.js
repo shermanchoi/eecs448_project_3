@@ -1,7 +1,7 @@
 let text = "";
 
 function securityQuestionBlock(text) {
-    alert(text);
+    //alert(text);
     let obj = JSON.parse(text);
 
     let formBody = document.getElementById("form");
