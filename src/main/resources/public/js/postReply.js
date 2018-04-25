@@ -66,6 +66,7 @@ function formGenerate() {
     let textArea = document.createElement("textarea");
     textArea.setAttribute("name", "replycontent");
     textArea.setAttribute("id", "replycontent");
+    sceditor.create(textArea, {format: 'bbcode', style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'});
 
     textBox.appendChild(textArea);
 

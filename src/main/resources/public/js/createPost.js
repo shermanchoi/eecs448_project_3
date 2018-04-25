@@ -1,6 +1,5 @@
-function setTextArea() {
-    let textA = document.getElementById("postcontent");
-    scediter.create(textA, {format: 'bbcode', style: 'minified/themes/content/default.min.css'});
-}
-
-setTextArea();
+let textA = document.getElementById("postcontent");
+sceditor.create(textA, {
+    format: 'bbcode', 
+    style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'
+});
