@@ -92,7 +92,7 @@ function securityQuestionBlock(text) {
     buttons.setAttribute("class", "buttons");
 
     let cancelB = document.createElement("a");
-    cancelB.setAttribute("href", "/cancel");
+    cancelB.setAttribute("href", "/forgotpassword/cancel");
     cancelB.innerHTML = "Cancel";
     buttons.appendChild(cancelB);
 
