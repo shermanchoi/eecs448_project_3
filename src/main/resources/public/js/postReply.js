@@ -66,7 +66,6 @@ function formGenerate() {
     let textArea = document.createElement("textarea");
     textArea.setAttribute("name", "replycontent");
     textArea.setAttribute("id", "replycontent");
-    sceditor.create(textArea, {format: 'bbcode', style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'});
 
     textBox.appendChild(textArea);
 
@@ -111,9 +110,10 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         postBody(this.responseText);
         formGenerate();
+    }else{
+        console.log(this.readyState + "" + this.status);
     }
 };
 
-xhttp.open("GET", "/api/post?postID="+ID, true);
+xhttp.open("GET", "/api/post?postID="+ID, false);
 xhttp.send();
-
