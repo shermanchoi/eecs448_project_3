@@ -92,8 +92,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a17cf1c73105b9f09754dff0576a61af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84343a3adef102eea02a1f1588a55b9d"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a84343a3adef102eea02a1f1588a55b9d">securityQuestionCheck</a> (String username, String ansQ1, String ansQ2, String ansQ3)</td></tr>
 <tr class="separator:a84343a3adef102eea02a1f1588a55b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3edcaf218226141a9c4b6c88aca22426"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a3edcaf218226141a9c4b6c88aca22426">changePersonalInformation</a> (String uname, String dateOfBirth, String fName, String lName, String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3)</td></tr>
-<tr class="separator:a3edcaf218226141a9c4b6c88aca22426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af021d4a7f681d8c4bee29f1b69655d02"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#af021d4a7f681d8c4bee29f1b69655d02">changeBiography</a> (String uname, String biography)</td></tr>
+<tr class="separator:af021d4a7f681d8c4bee29f1b69655d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec6ebb163275813c25bf15bf00e29ee9"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#aec6ebb163275813c25bf15bf00e29ee9">changePersonalInformation</a> (String uname, String dateOfBirth, String fName, String lName, String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography)</td></tr>
+<tr class="separator:aec6ebb163275813c25bf15bf00e29ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66db99db5c76993a12703f85fd90315a"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a66db99db5c76993a12703f85fd90315a">getSecurityQuestions</a> (String username)</td></tr>
 <tr class="separator:a66db99db5c76993a12703f85fd90315a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaa44831f8b3ebb16f346608a2b867de"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#afaa44831f8b3ebb16f346608a2b867de">createAccount</a> (String uname, String pword, String dateOfBirth, String fName, String lName, String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3)</td></tr>
@@ -102,6 +104,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a991e74d6c13416c59384dc9e25fc05c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a8a130cb203adc8f5292133c9d9f0ce65">getProfilePageInformation</a> (String username)</td></tr>
 <tr class="separator:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36a65d27e061c7db4d2a27815a6b3427"><td class="memItemLeft" align="right" valign="top"><a id="a36a65d27e061c7db4d2a27815a6b3427"></a>
+static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b> (String username)</td></tr>
+<tr class="separator:a36a65d27e061c7db4d2a27815a6b3427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85fa08f1598531a42a60f769ed9dd493"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a85fa08f1598531a42a60f769ed9dd493">getAccountManagementInformation</a> (String username)</td></tr>
 <tr class="separator:a85fa08f1598531a42a60f769ed9dd493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -172,6 +177,51 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="af021d4a7f681d8c4bee29f1b69655d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af021d4a7f681d8c4bee29f1b69655d02">&#9670;&nbsp;</a></span>changeBiography()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean team8.social.Account.changeBiography </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>uname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>biography</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>THis method allows an user to modify their biography. </p><dl class="section pre"><dt>Precondition</dt><dd>User exists. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uname</td><td>The user in question </td></tr>
+    <tr><td class="paramname">biography</td><td>The biography to change to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="a096b15ef7fd1e3686c0c043d0c641bdc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a096b15ef7fd1e3686c0c043d0c641bdc">&#9670;&nbsp;</a></span>changePassword() <span class="overload">[1/2]</span></h2>
 
@@ -269,8 +319,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3edcaf218226141a9c4b6c88aca22426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3edcaf218226141a9c4b6c88aca22426">&#9670;&nbsp;</a></span>changePersonalInformation()</h2>
+<a id="aec6ebb163275813c25bf15bf00e29ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec6ebb163275813c25bf15bf00e29ee9">&#9670;&nbsp;</a></span>changePersonalInformation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +386,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>ansQ3</em>&#160;</td>
+          <td class="paramname"><em>ansQ3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>biography</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -363,6 +419,7 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">ansQ1</td><td>Security question answer 1 </td></tr>
     <tr><td class="paramname">ansQ2</td><td>Security question answer 2 </td></tr>
     <tr><td class="paramname">ansQ3</td><td>Security question answer 3 </td></tr>
+    <tr><td class="paramname">biography</td><td>biography of user </td></tr>
   </table>
   </dd>
 </dl>

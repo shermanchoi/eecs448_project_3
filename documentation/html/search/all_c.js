@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['testaccountcreation',['TestAccountCreation',['../classTestAccountCreation.html',1,'']]],
-  ['testaccountmanagement',['TestAccountManagement',['../classTestAccountManagement.html',1,'']]],
-  ['testpost',['TestPost',['../classTestPost.html',1,'']]]
+  ['querysqlset',['querySQLSet',['../classteam8_1_1social_1_1Database.html#ae39e239836952d44d1d762d67d1aa032',1,'team8::social::Database']]]
 ];
