@@ -3,9 +3,6 @@ let preID = parent.document.URL.substring(parent.document.URL.indexOf('?postID='
 ID = preID.slice(8);
 
 //create variable
-let title = "";
-let author = "";
-let postContent = "";
 let text = "";
 
 let PnR = document.getElementById("postandreplies");
@@ -13,25 +10,20 @@ let PnR = document.getElementById("postandreplies");
 function postBody (text) {
     let obj = JSON.parse(text);
 
-    title = obj.Title;
-    author = obj.Author;
-    postContent = obj.Content;
-
-
     let post = document.createElement("div");
     post.setAttribute("id", "post");
 
     let postT = document.createElement("div");
     postT.setAttribute("id", "posttitle");
 
-    postT.innerHTML = title;
+    postT.innerHTML = obj.Title;
 
     post.appendChild(postT);
 
     let postA = document.createElement("div");
     postA.setAttribute("id", "postauthor");
 
-    postA.innerHTML = "By: " + author;
+    postA.innerHTML = "By: " + obj.Author;
 
     post.appendChild(postA);
 
@@ -39,7 +31,7 @@ function postBody (text) {
     postC.setAttribute("id", "postcontents");
 
     let content = document.createElement("p");
-    content.innerHTML = postContent;
+    content.innerHTML = obj.Content;
 
     postC.appendChild(content);
 
@@ -118,9 +110,10 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         postBody(this.responseText);
         formGenerate();
+    }else{
+        console.log(this.readyState + "" + this.status);
     }
 };
 
-xhttp.open("GET", "/api/post?postID="+ID, true);
+xhttp.open("GET", "/api/post?postID="+ID, false);
 xhttp.send();
-

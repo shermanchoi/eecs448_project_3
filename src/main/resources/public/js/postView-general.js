@@ -2,24 +2,17 @@ let postID = "";
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?postID='), parent.document.URL.length);
 ID = preID.slice(8);
 
-let postTitle = "";
-let postAuthor = "";
-let postContent = "";
-
-let text = "";
 let obj = {};
 
 
 let PoR = document.getElementById("postandreplies");
 
+let parser = new BBCodeParser(BBCodeParser.defaultTags());
+
 let text = "";
 
 function showPost(text) {
     obj = JSON.parse(text);
-
-    postTitle = obj.Title;
-    postAuthor = obj.Author;
-    postContent = obj.Content;
         
     let post = document.createElement("div");
     post.setAttribute("id", "post");
@@ -27,14 +20,14 @@ function showPost(text) {
     let postT = document.createElement("div");
     postT.setAttribute("id", "posttitle");
         
-    postT.innerHTML = postTitle;
+    postT.innerHTML = obj.Title;
         
     post.appendChild(postT);
         
     let postA = document.createElement("div");
     postA.setAttribute("id", "postauthor");
         
-    postA.innerHTML = "By: " + postAuthor;
+    postA.innerHTML = "By: " + obj.Author;
         
     post.appendChild(postA);
         
@@ -42,7 +35,7 @@ function showPost(text) {
     postC.setAttribute("id", "postcontents");
         
     let content = document.createElement("p");
-    content.innerHTML = postContent;
+    content.appendChild(parser.parseString(obj.Content));
         
     postC.appendChild(content);
         
@@ -109,7 +102,7 @@ function showReply(text2) {
 
         let replyContent = document.createElement("div");
         replyContent.setAttribute("class", "replycontent");
-        replyContent.innerHTML = obj2.Replies[i].Content;
+        replyContent.appendChild(parser.parseString(obj2.Replies[i].Content));
 
         reply.appendChild(replyContent);
 
@@ -119,9 +112,6 @@ function showReply(text2) {
     PoR.appendChild(replyArea);
 }
 
-
-
-let text2 = "";
 let obj2 = {};
 
 let xhttp2 = new XMLHttpRequest();

@@ -48,7 +48,7 @@ public class Session {
 			//Execute statement.
 			getter.execute();
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 		

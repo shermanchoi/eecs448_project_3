@@ -4,6 +4,9 @@ import team8.social.Account;
 import team8.social.PageHandler;
 import team8.social.Session;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -15,13 +18,21 @@ import static spark.Spark.post;
  *****/
 
 public class Login implements PageHandler{
+    private static String source = "";
+    
+    public Login(){
+        try{
+            source = new String(Files.readAllBytes(
+                    Paths.get(getClass().getResource("/public/html/login.html").toURI())
+            ));
+        }catch (Exception e){}
+    }
     public void pages(){
         /*Handles the request to login*/
         get("/login", (req, res) -> {
             //If there is NOT a logged in session. Redirect to login
             if (!Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-                res.redirect("/html/login.html");
-                return null;
+                return source;
             }
             //Otherwise, go to home
             res.redirect("/home");
@@ -49,11 +60,11 @@ public class Login implements PageHandler{
                     res.redirect("/home");
                 }else {
                     //Account does not exist.
-                    res.redirect("html/login.html?error=invalid");
+                    return source;
                 }
             }catch(Exception e) {
                 //Invalid input.
-                res.redirect("html/login.html?error=invalid");
+                return source;
             }
         
             return null;
