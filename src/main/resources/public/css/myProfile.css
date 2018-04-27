@@ -63,5 +63,73 @@ button:hover {
 
 #cancelbutton {
     display: none;
-    background-color: DarkSlateGrey;
+    background-color: hsl(180, 25%, 25%);
+    border: 1px solid black;
 }
+
+
+#cancelchangepasswordbutton {
+    display: none;
+    background-color: hsl(180, 25%, 25%);
+    border: 1px solid black;
+}
+
+#cancelchangepasswordbutton:hover {
+    background-color: hsl(180, 25%, 30%);
+}
+
+
+form {
+    width: 50%;
+    display: none;
+}
+
+div.formheading {
+    position: relative;
+    left: 0;
+    font-weight: bold;
+}
+
+div.formsubheading {
+    position: relative;
+    left: 1em;
+}
+
+div.formcontent {
+    position: relative;
+    margin: 0 2em auto;
+    margin-bottom: 1em;
+}
+
+div.textbox {
+    margin-bottom: 1em;
+}
+
+input[type="text"],input[type="password"] {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input[type="submit"] {
+    display: none;
+    background-color: black;
+    font-size: 50%;
+    color: white;
+    border: 1px solid DarkSlateGrey;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+
+span.alert {
+    position: absolute;
+    right: 0;
+    font-size: 75%;
+    color: red;
+    font-style: italic;
+    display: none;
+}
+ 

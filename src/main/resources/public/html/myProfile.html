@@ -56,10 +56,33 @@
 		    </div>	
 		    <textarea id="bioedit"></textarea>
 		</div>
+		<div class="inner1em">
+		    <h3>Password <input type="submit" form="changepasswordform" value="Change"><button
+			    id="changepasswordbutton" type="button">Change Password</button><button
+				 id="cancelchangepasswordbutton" type="button">Cancel</button></h3>
+		    <form id="changepasswordform" action="changepassword.php(?)" onsubmit="return changePasswordValidate()">
+			<div class="formcontent">
+			    <div class="textbox">
+				<label>Current Password</label><br>
+				<input type="password" name="cpwd">
+			    </div>
+			    <div class="textbox">
+				<label>New Password</label> <span style="font-size: 75%;">(8 character minimum)</span>
+<br>
+				<input type="password" name="npwd"><br>
+				<span class="alert" id="npwdalert">Insufficient Complexity</span>
+			    </div>
+			    <div class="textbox">
+				<label>Confirm Password</label> <span style="font-size: 75%;">(8 character
+				    minimum)</span><br>
+				<input type="password" name="cnpwd"><br>
+				<span class="alert" id="cnpwdalert">Passwords do not match</span>
+			    </div>
+			</div>
+		    </form>
+		</div>
 	    </div>
 	</div>
     </body>
     <script type="text/javascript" src="../js/myProfile.js"></script>
 </html>
-
-
