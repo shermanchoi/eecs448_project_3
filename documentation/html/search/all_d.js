@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['validate',['validate',['../classteam8_1_1social_1_1Session.html#a27ba4b3c350009ab2b412e14764db3b6',1,'team8::social::Session']]]
+  ['removepost',['removePost',['../classteam8_1_1social_1_1Admin.html#a031eebbe846dd2fec112af3e1b5074ac',1,'team8::social::Admin']]],
+  ['root',['Root',['../classteam8_1_1social_1_1pages_1_1Root.html',1,'team8::social::pages']]]
 ];
