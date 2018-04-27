@@ -79,6 +79,22 @@ public class Post {
 			return null;
 		}
 	}
+	/**
+	 * This method deletes all posts
+	 * @post All posts will be deleted
+	 * @return True if successful, false otherwise. 
+	 */
+	public static boolean deleteAllPosts() {
+		// Statement to prepare.
+		DatabaseSetter setter = new DatabaseSetter("TRUNCATE social_posts;");
+		
+		try {
+			return setter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * This method creates a new post and returns it as a new Post object. This one

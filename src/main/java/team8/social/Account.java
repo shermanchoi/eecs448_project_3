@@ -3,7 +3,7 @@ package team8.social;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.text.StringEscapeUtils;
@@ -14,6 +14,8 @@ public class Account {
 	 * Information of the account
 	 */
 	private String username, password, birthday, firstName, lastName;
+
+	private static HashMap<String, String> questionHashMap = new HashMap<String, String>();
 
 	/**
 	 * The constructor of an Account class
@@ -183,6 +185,33 @@ public class Account {
 	}
 
 	/**
+	 * THis method allows an user to modify their biography.
+	 * @pre User exists.
+	 * @param uname
+	 *            The user in question
+	 * @param biography
+	 *            The biography to change to
+	 * @return True if successful, false otherwise.
+	 */
+	public static boolean changeBiography(String uname, String biography) {
+		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `biography`= ? WHERE `username`=?;");
+
+		biography = StringEscapeUtils.escapeHtml4(biography);
+
+		try {
+			// Statement preparing.
+			setter.statement.setString(1, biography);
+			setter.statement.setString(2, uname);
+			// Execution of statement.
+			return setter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
+	/**
 	 * This method changes the personal information of a given account.
 	 * 
 	 * @param uname
@@ -211,8 +240,8 @@ public class Account {
 	 */
 	public static boolean changePersonalInformation(String uname, String dateOfBirth, String fName, String lName,
 			String secQ1, String secQ2, String secQ3, String ansQ1, String ansQ2, String ansQ3, String biography) {
-		// Security questions cannot be the same.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+		// Security questions cannot be the same OR non-existant
+		if (verifySecurityQuestions(secQ1, secQ2, secQ3)) {
 			return false;
 		}
 
@@ -290,9 +319,15 @@ public class Account {
 				// Build the object
 				json = new JSONStringer().object() // Start object
 						.key("username").value(username) // Username in question
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // Security Question 1
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // Security Question 2
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // Security Question 3
+						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // Security
+																														// Question
+																														// 1
+						.key("securityQuestion2").value(questionNumberToQuestion(rs.getString("securityQuestion2"))) // Security
+																														// Question
+																														// 2
+						.key("securityQuestion3").value(questionNumberToQuestion(rs.getString("securityQuestion3"))) // Security
+																														// Question
+																														// 3
 						.endObject().toString(); // end object
 			}
 		} catch (Exception e) {
@@ -363,8 +398,8 @@ public class Account {
 		if (pword.length() < 8) {
 			return null;
 		}
-		// Security questions cannot be the same.
-		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+		// Security questions cannot be the same OR non-existant.
+		if (verifySecurityQuestions(secQ1, secQ2, secQ3)) {
 			return null;
 		}
 
@@ -420,6 +455,23 @@ public class Account {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private static boolean verifySecurityQuestions(String secQ1, String secQ2, String secQ3) {
+
+		if (secQ1.equals(secQ2) || secQ2.equals(secQ3) || secQ3.equals(secQ1)) {
+			return true;
+		}
+
+		secQ1 = questionNumberToQuestion(secQ1);
+		secQ2 = questionNumberToQuestion(secQ2);
+		secQ3 = questionNumberToQuestion(secQ3);
+
+		if (secQ1 == null || secQ2 == null || secQ3 == null) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -573,12 +625,21 @@ public class Account {
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
-						.key("securityQuestion1").value(rs.getString("securityQuestion1")) // security question 1 of
-																							// user
-						.key("securityQuestion2").value(rs.getString("securityQuestion2")) // security question 2 of
-																							// user
-						.key("securityQuestion3").value(rs.getString("securityQuestion3")) // security question 3 of
-																							// user
+						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // security
+																														// question
+																														// 1
+																														// of
+						// user
+						.key("securityQuestion2").value(questionNumberToQuestion(rs.getString("securityQuestion2"))) // security
+																														// question
+																														// 2
+																														// of
+						// user
+						.key("securityQuestion3").value(questionNumberToQuestion(rs.getString("securityQuestion3"))) // security
+																														// question
+																														// 3
+																														// of
+						// user
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
@@ -608,6 +669,33 @@ public class Account {
 			return Hex.encodeHexString(md.digest(encrypted.getBytes()));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * This method translate the 'q#' into their respective question
+	 * 
+	 * @param qNum
+	 *            The string to be translated
+	 * @return The question string if the q# is valid. Null otherwise.
+	 */
+	private static String questionNumberToQuestion(String qNum) {
+		try {
+
+			if (!questionHashMap.containsKey(qNum)) {
+				// This is not initialized yet.
+				questionHashMap.put("q1", "Who is your favorite actor, musician, or artist?");
+				questionHashMap.put("q2", "What high school did you attend?");
+				questionHashMap.put("q3", "What is your favorite movie?");
+				questionHashMap.put("q4", "What was the name of your first pet?");
+				questionHashMap.put("q5", "Which phone number do you remember most from your childhood?");
+			}
+
+			// The question is valid.
+			return questionHashMap.get(qNum);
+		} catch (Exception e) {
+			// The question is invalid.
 			return null;
 		}
 	}

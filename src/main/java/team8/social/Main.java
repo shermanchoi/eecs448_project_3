@@ -6,111 +6,120 @@
  *****/
 package team8.social;
 
-
+import team8.tests.*;
 import team8.social.pages.*;
 import team8.social.pages.account.*;
 import team8.social.pages.post.*;
 
 import java.util.Vector;
 
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
 import static spark.Spark.*;
 
-
 public class Main {
-    public static void main(String[] args){    	
-        System.out.print("Social Server Started\n");
-        configure();
-        //define pages
-        pages();
-    }
-    
-    public static void configure(){
-        port(80);
-        //("jdbc:mysql://localhost:3306/sys","root","password")
-        Database.initialize("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix");
-        staticFiles.location("/public");
-        staticFiles.externalLocation("./resources");
-    }
-    
-    /**
-     * Defines how URIs are handled.
-     * @post Server knows how to handle a number of URIs
-     */
-    public static void pages() {
-        Vector<PageHandler> pages = new Vector<PageHandler>();
-        
-        pages.add(new Root());
-        
-        //All pages that pertain to accounts
-        pages.add(new CreateAccount());
-        pages.add(new ForgotPassword());
-        pages.add(new Login());
-        pages.add(new Logout());
-        
-        //All pages that pertain to posts
-        pages.add(new ViewPost());
-        pages.add(new CreatePost());
-        
-        //All pages that pertain to administration
-        
-        
-        //Registers all of the pages
-        for(Integer i = 0; i < pages.size(); i += 1){
-            pages.get(i).pages();
-        }
-        
-        //Main page if the user is logged in.
-        get("/home", (req, res) ->{
-        	//You must be logged in to get into the main page.
-            if(Session.validate(req.session().id(),req.session().attribute("UserID"))) {
-        		res.redirect("/html/main.html");
-            }
-        	
-            //Go back to root otherwise.
-            res.redirect("/");
-            
-        	return null;
-        });
-        
-        get("/postViewReply", (req, res)->{
-            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
-                res.redirect("/login");
-                return null;
-            }
-            
-            res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-            
-            return null;
-        });
-        
-        post("/postViewReply", (req, res)->{
-            if(!Session.validate(req.session().id(),req.session().attribute("UserID"))){
-                res.redirect("/login");
-                return null;
-            }
-            
-            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",Integer.parseInt(req.queryParams("postID")));
-           
-            if(p == null){
-                res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-            }else{
-                res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-            }
-            
-            return null;
-        });
-            
-        
-        get("/api/posts", (req, res) ->{
-            return Post.JSONAllPosts();
-        });
-        
-        get("/api/post", (req,res)->{
-           return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
-        });
-        
-        get("/api/postReply", (req, res) ->{
-            return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
-        });
-    }
+	public static void main(String[] args) {
+		if (args.length == 1 && args[0].equals("-t")) {
+			System.out.println("Running Tests");
+			
+			Result r = org.junit.runner.JUnitCore.runClasses(TestAccountCreation.class, TestAccountManagement.class,
+					TestAdminFunctionalities.class, TestPost.class);
+			
+			if(r.getFailureCount() > 0) {
+				System.out.println("Failed tests:");
+				for(Failure f : r.getFailures()) {
+					System.out.println("\t" + f.getMessage());
+				}
+			}else {
+				System.out.println("All tests succesful");
+			}
+		} else {
+			System.out.print("Social Server Started\n");
+			configure();
+			// define pages
+			pages();
+		}
+	}
+
+	public static void configure() {
+		port(80);
+		// ("jdbc:mysql://localhost:3306/sys","root","password")
+		Database.initialize("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix");
+		staticFiles.location("/public");
+		staticFiles.externalLocation("./resources");
+	}
+
+	/**
+	 * Defines how URIs are handled.
+	 * 
+	 * @post Server knows how to handle a number of URIs
+	 */
+	public static void pages() {
+		Vector<PageHandler> pages = new Vector<PageHandler>();
+
+		pages.add(new Root());
+
+		// All pages that pertain to accounts
+		pages.add(new CreateAccount());
+		pages.add(new ForgotPassword());
+		pages.add(new Login());
+		pages.add(new Logout());
+
+		// All pages that pertain to posts
+		pages.add(new ViewPost());
+		pages.add(new CreatePost());
+
+		// All pages that pertain to administration
+
+		// Registers all of the pages
+		for (Integer i = 0; i < pages.size(); i += 1) {
+			pages.get(i).pages();
+		}
+
+		get("/postViewReply", (req, res) -> {
+			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
+				res.redirect("/login");
+				return null;
+			}
+
+			res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
+
+			return null;
+		});
+
+		post("/postViewReply", (req, res) -> {
+			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
+				res.redirect("/login");
+				return null;
+			}
+
+			Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",
+					Integer.parseInt(req.queryParams("postID")));
+
+			if (p == null) {
+				res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
+			} else {
+				res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
+			}
+
+			return null;
+		});
+
+		get("/api/posts", (req, res) -> {
+			return Post.JSONAllPosts();
+		});
+
+		get("/api/post", (req, res) -> {
+			return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
+		});
+
+		get("/api/postReply", (req, res) -> {
+			return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
+		});
+
+		get("/api/security", (req, res) -> {
+			return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
+		});
+	}
 }

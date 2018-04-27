@@ -1,16 +1,13 @@
 let text = "";
 
 function securityQuestionBlock(text) {
-    alert(text);
+    //alert(text);
     let obj = JSON.parse(text);
-    
-    let username = obj.username;
-    let SQ = [obj.securityQuestion1, obj.securityQuestion2, obj.securityQuestion3];
 
     let formBody = document.getElementById("form");
 
     let form = document.createElement("form");
-    form.setAttribute("action", "/forgotpassword/anwser");
+    form.setAttribute("action", "/forgotpassword");
     form.setAttribute("method", "post");
 
     let fieldset = document.createElement("fieldset");
@@ -26,7 +23,7 @@ function securityQuestionBlock(text) {
 
     let usernamestyle = document.createElement("span");
     usernamestyle.setAttribute("style", "font-size:90%;font-weight:bold;font-style:italic;");
-    usernamestyle.innerHTML = username;
+    usernamestyle.innerHTML = obj.username;
     formsubhead.appendChild(usernamestyle);
 
     fieldset.appendChild(formsubhead);
@@ -39,7 +36,7 @@ function securityQuestionBlock(text) {
         questionBox1.setAttribute("class", "textbox");
 
         let label1 = document.createElement("label");
-        label1.innerHTML = SQ[0];
+        label1.innerHTML = obj.securityQuestion1;
         questionBox1.appendChild(label1);
 
         let linebreack1 = document.createElement("br");
@@ -57,7 +54,7 @@ function securityQuestionBlock(text) {
         questionBox2.setAttribute("class", "textbox");
 
         let label2 = document.createElement("label");
-        label2.innerHTML = SQ[1];
+        label2.innerHTML = obj.securityQuestion2;
         questionBox2.appendChild(label2);
 
         let linebreack2 = document.createElement("br");
@@ -75,7 +72,7 @@ function securityQuestionBlock(text) {
         questionBox3.setAttribute("class", "textbox");
 
         let label3 = document.createElement("label");
-        label3.innerHTML = SQ[2];
+        label3.innerHTML = obj.securityQuestion3;
         questionBox3.appendChild(label3);
 
         let linebreack3 = document.createElement("br");
@@ -89,11 +86,13 @@ function securityQuestionBlock(text) {
 
         formContent.appendChild(questionBox3);
 
+    fieldset.appendChild(formContent);
+
     let buttons = document.createElement("div");
     buttons.setAttribute("class", "buttons");
 
     let cancelB = document.createElement("a");
-    cancelB.setAttribute("href", "login.html");
+    cancelB.setAttribute("href", "/forgotpassword/cancel");
     cancelB.innerHTML = "Cancel";
     buttons.appendChild(cancelB);
 
