@@ -56,3 +56,12 @@ button:hover {
     height: 100px;
     display: none;
 }
+
+#savebutton {
+    display: none;
+}
+
+#cancelbutton {
+    display: none;
+    background-color: DarkSlateGrey;
+}
