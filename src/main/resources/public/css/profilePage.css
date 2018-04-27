@@ -1,0 +1,35 @@
+#titlebar {
+    width: 100%;
+    font-size: 200%;
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px ridge black;
+    margin-top: 1em;
+}
+
+#infobox {
+    margin-top: 1em;
+    background-color: LightGrey;
+    border: 1px solid DarkGrey;
+    font-size: 95%;
+    padding: 1em 0;
+    font-weight: 900;
+}
+
+td {
+    font-size: 95%;
+}
+
+td.attribute {
+    text-align: right;
+}
+
+td.value {
+    text-align: left;
+}
+
+div.inner1em {
+    margin: 0 1em auto;
+    font-weight: 100;
+}
+
