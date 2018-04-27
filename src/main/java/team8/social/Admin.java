@@ -76,7 +76,6 @@ public class Admin {
 	 */
 	public static String getAdminViewJSON(String username) {
 		if (isAdmin(username)) {
-			JSONObject posts = JSONML.toJSONObject(Post.JSONAllPosts());
 
 			JSONArray users = new JSONArray();
 
@@ -101,11 +100,11 @@ public class Admin {
 				System.out.println("ResultSet Error:\n\t" + e.getMessage());
 			}
 
-			JSONObject adminView = new JSONObject().put("users", users).put("posts", posts);
+			JSONObject adminView = new JSONObject().put("users", users);
 
 			return adminView.toString();
 		} else {
-			return new JSONObject().put("users", "stop trying to hack us").put("posts", "seriously stop").toString();
+			return new JSONObject().put("users", "stop trying to hack us").toString();
 		}
 	}
 
