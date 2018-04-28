@@ -17,18 +17,41 @@ import static spark.Spark.*;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.print("Social Server Started\n");
-		configure();
-		// define pages
-		pages();
+		if(args.length == 0) {
+			System.out.print("Social Server Started\n");
+			if(configure()) {
+				// define pages
+				pages();
+			}else {
+				System.out.println("Failed to connect to database!");
+				System.out.println("The default server is down.");
+			}
+		}else if(args.length == 3) {
+			System.out.print("Social Server Started\n");
+			if(configure(args[0],args[1],args[2])) {
+				// define pages
+				pages();
+			}else {
+				System.out.println("Failed to connect to database!");
+				System.out.println("Did you type in the correct information?");
+			}
+		}
 	}
 
-	public static void configure() {
+	public static boolean configure() {
 		port(80);
 		// ("jdbc:mysql://localhost:3306/sys","root","password")
-		Database.initialize("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix");
 		staticFiles.location("/public");
 		staticFiles.externalLocation("./resources");
+		return Database.initialize("jdbc:mysql://mysql.eecs.ku.edu/w751g500", "w751g500", "eig4Jaix");
+	}
+	
+	public static boolean configure(String url, String username, String password) {
+		port(80);
+		// ("jdbc:mysql://localhost:3306/sys","root","password")
+		staticFiles.location("/public");
+		staticFiles.externalLocation("./resources");
+		return Database.initialize(url, username, password);
 	}
 
 	/**
