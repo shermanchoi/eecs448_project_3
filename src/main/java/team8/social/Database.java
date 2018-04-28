@@ -35,17 +35,18 @@ public class Database {
 	 * @param pass_in
 	 *            The password of the user of the database
 	 */
-	public static void initialize(String url_in, String user_in, String pass_in) {
+	public static boolean initialize(String url_in, String user_in, String pass_in) {
 		url = url_in;
 		user = user_in;
 		pass = pass_in;
+		
+		boolean isSuccessful = true;
 		// Check which tables exist
 		try {
 			// Generate tables if they do not exist.
-			Database.querySQLSet(
-					"CREATE TABLE `social_accounts` ( `username` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `birthday` date NOT NULL, `firstName` varchar(255) NOT NULL, `lastName` varchar(255) NOT NULL, `securityQuestion1` longtext NOT NULL, `securityQuestion2` longtext NOT NULL, `securityQuestion3` longtext NOT NULL, `securityAnswer1` longtext NOT NULL, `securityAnswer2` longtext NOT NULL, `securityAnswer3` longtext NOT NULL, `adminStatus` int(11) DEFAULT '0', `banned` tinyint(1) DEFAULT '0', `biography` longtext, PRIMARY KEY (`username`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
+			isSuccessful = isSuccessful && Database.querySQLSet(
+					"CREATE TABLE IF NOT EXISTS `social_accounts` ( `username` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `birthday` date NOT NULL, `firstName` varchar(255) NOT NULL, `lastName` varchar(255) NOT NULL, `securityQuestion1` longtext NOT NULL, `securityQuestion2` longtext NOT NULL, `securityQuestion3` longtext NOT NULL, `securityAnswer1` longtext NOT NULL, `securityAnswer2` longtext NOT NULL, `securityAnswer3` longtext NOT NULL, `adminStatus` int(11) DEFAULT '0', `banned` tinyint(1) DEFAULT '0', `biography` longtext, PRIMARY KEY (`username`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			isSuccessful = isSuccessful && Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
 					+ "  `message` longtext NOT NULL,  `title` longtext NOT NULL,"
 					+ "  `id` int(11) NOT NULL AUTO_INCREMENT,  `dateCreated` datetime DEFAULT NULL,"
 					+ "  `parentPost` int(11) DEFAULT NULL,  PRIMARY KEY (`id`),"
@@ -54,13 +55,15 @@ public class Database {
 					+ "  CONSTRAINT `fk_Posts_1` FOREIGN KEY (`parentPost`) REFERENCES `social_posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION"
 					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-			Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_sessions` ("
+			isSuccessful = isSuccessful && Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_sessions` ("
 					+ "  `sessionID` varchar(255) NOT NULL,  `username` varchar(255) NOT NULL,"
 					+ "  PRIMARY KEY (`sessionID`),  KEY `username_idx` (`username`),"
 					+ "  CONSTRAINT `username` FOREIGN KEY (`username`) REFERENCES `social_accounts` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION"
 					+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			return isSuccessful;
 		} catch (Exception e) {
 			// System.out.println(e.getMessage());
+			return false;
 		}
 	}
 
@@ -121,7 +124,6 @@ public class Database {
 	 */
 	public static boolean querySQLSet(String query) {
 		Connection connection = Database.connect();
-		boolean successful = false;
 		try {
 			// System.out.println("Executing Statement:\n\t" + query);
 			Statement statement = connection.createStatement();
@@ -129,13 +131,13 @@ public class Database {
 
 			statement.close();
 			// System.out.println("Execution Success");
-
-			successful = true;
+			Database.disconnect(connection);
+			
+			return true;
 		} catch (Exception e) {
-			// System.out.println("Query Error:\n\t" + e.getMessage());
+			System.out.println("Query Error:\n\t" + e.getMessage());
+			return false;
 		}
-		Database.disconnect(connection);
-		return successful;
 	}
 
 	/**
