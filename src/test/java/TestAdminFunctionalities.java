@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,8 +33,15 @@ public class TestAdminFunctionalities {
 				"Did not have to go to school", "Batman");
 		Account.createAccount("someone", "abetterpassword123123", "1995-08-12", "Yuria", "Lastname", "q1", "q2", "q3",
 				"I just like rock", "Something University", "I did not have movies");
+		System.out.println("Started Testing Admin Functionalities");
 	}
-
+	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		Database.hardReset();
+		System.out.println("Finished Testing Admin Functionalities");
+	}
+	
 	@Before
 	public void deletePosts() {
 		Post.deleteAllPosts();

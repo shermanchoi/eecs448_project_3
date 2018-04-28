@@ -26,11 +26,13 @@ public class TestPost {
 				"Toy Story");
 		Account.createAccount("nada", "12345678", "1993-3-12", "Johnny", "Smith", "q1", "q2", "q3", "Aerosmith", "SMN",
 				"Avatar");
+		System.out.println("Started Testing Posts");
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		Database.hardReset();
+		System.out.println("Finished Testing Posts");
 	}
 
 	@Test

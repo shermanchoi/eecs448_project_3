@@ -23,11 +23,13 @@ public class TestAccountManagement {
 		Database.hardReset();
 		Account.createAccount("schoi", "1234pass", "1997-11-22", "Sherman", "Choi", "q1", "q2", "q3", "Pendulum", "SME",
 				"Toy Story");
+		System.out.println("Started Testing Account Management");
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		Database.hardReset();
+		System.out.println("Finished Testing Account Management");
 	}
 
 	@Test
