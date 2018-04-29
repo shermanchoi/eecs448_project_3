@@ -138,14 +138,19 @@ public class Admin {
 	 *            The user who will be banned
 	 * @return True if the ban happens, false otherwise.
 	 */
-	public static boolean banUser(String username, String who) {
+	public static boolean banUser(String username, String who, boolean banned) {
 		if (isAdmin(username)) {
 			DatabaseSetter setter = new DatabaseSetter(
-					"UPDATE `social_accounts` SET `banned` = 1 WHERE `username` = ?;");
+					"UPDATE `social_accounts` SET `banned` = ? WHERE `username` = ?;");
 
 			// Statement preparing.
 			try {
-				setter.statement.setString(1, who);
+				if(banned) {
+					setter.statement.setInt(1, 1);
+				}else {
+					setter.statement.setInt(1, 0);
+				}
+				setter.statement.setString(2, who);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
