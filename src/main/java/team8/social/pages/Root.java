@@ -7,7 +7,9 @@ import team8.social.Session;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.path;
 
 public class Root implements PageHandler {
     private static String home = "";
