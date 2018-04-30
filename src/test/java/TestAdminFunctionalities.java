@@ -146,8 +146,8 @@ public class TestAdminFunctionalities {
 
 		// Create posts
 		Post.createPost("johnny", "Content Here", "Title Here"); // Id 1
-		Post.createPost("someone", "Content There", "Title There", 1); // id 2
-		Post.createPost("schoi", "Content Where", "Title Where", 1); // id 3
+		Post.createPost("someone", "Content There", 1); // id 2
+		Post.createPost("schoi", "Content Where", 1); // id 3
 
 		// Remove parent post, which should delete the entire thing.
 		Admin.removePost("schoi", 1);
