@@ -76,7 +76,6 @@ public class Admin {
 	 */
 	public static String getAdminViewJSON(String username) {
 		if (isAdmin(username)) {
-			JSONObject posts = JSONML.toJSONObject(Post.JSONAllPosts());
 
 			JSONArray users = new JSONArray();
 
@@ -101,11 +100,11 @@ public class Admin {
 				System.out.println("ResultSet Error:\n\t" + e.getMessage());
 			}
 
-			JSONObject adminView = new JSONObject().put("users", users).put("posts", posts);
+			JSONObject adminView = new JSONObject().put("users", users);
 
 			return adminView.toString();
 		} else {
-			return new JSONObject().put("users", "stop trying to hack us").put("posts", "seriously stop").toString();
+			return new JSONObject().put("users", "stop trying to hack us").toString();
 		}
 	}
 
@@ -139,14 +138,19 @@ public class Admin {
 	 *            The user who will be banned
 	 * @return True if the ban happens, false otherwise.
 	 */
-	public static boolean banUser(String username, String who) {
+	public static boolean banUser(String username, String who, boolean banned) {
 		if (isAdmin(username)) {
 			DatabaseSetter setter = new DatabaseSetter(
-					"UPDATE `social_accounts` SET `banned` = 1 WHERE `username` = ?;");
+					"UPDATE `social_accounts` SET `banned` = ? WHERE `username` = ?;");
 
 			// Statement preparing.
 			try {
-				setter.statement.setString(1, who);
+				if(banned) {
+					setter.statement.setInt(1, 1);
+				}else {
+					setter.statement.setInt(1, 0);
+				}
+				setter.statement.setString(2, who);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

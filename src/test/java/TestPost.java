@@ -1,6 +1,7 @@
-package team8.tests;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,17 +14,25 @@ import team8.social.Post;
 public class TestPost {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws IOException {
+		if (!Database.initialize(System.getProperty("url"), System.getProperty("user"), System.getProperty("password"))) {
+			System.out.println("Failed to connect to database!");
+			System.out.println("When you called \"mvn test\", you need to put -Durl=<your_database_url> -Duser=<your_username> -D=password=<your_password> in order to run the tests.");
+			System.out.println("\tFor example, a valid Maven test command would look like: \"mvn test -Durl=jdbc:mysql://localhost:3306/sys -Duser=root -Dpassword=password\"");
+			System.exit(0);
+		}
 		Database.hardReset();
 		Account.createAccount("schoi", "1234pass", "1997-11-22", "Sherman", "Choi", "q1", "q2", "q3", "Pendulum", "SME",
 				"Toy Story");
 		Account.createAccount("nada", "12345678", "1993-3-12", "Johnny", "Smith", "q1", "q2", "q3", "Aerosmith", "SMN",
 				"Avatar");
+		System.out.println("Started Testing Posts");
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		Database.hardReset();
+		System.out.println("Finished Testing Posts");
 	}
 
 	@Test

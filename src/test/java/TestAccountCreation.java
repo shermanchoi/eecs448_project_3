@@ -1,9 +1,12 @@
-package team8.tests;
+
 
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,11 +17,24 @@ import team8.social.Database;
 public class TestAccountCreation {
 
 	@BeforeClass
-	public static void setupDatabase() {
+	public static void setupDatabase() throws IOException {
+		if (!Database.initialize(System.getProperty("url"), System.getProperty("user"), System.getProperty("password"))) {
+			System.out.println("Failed to connect to database!");
+			System.out.println("When you called \"mvn test\", you need to put -Durl=<your_database_url> -Duser=<your_username> -D=password=<your_password> in order to run the tests.");
+			System.out.println("\tFor example, a valid Maven test command would look like: \"mvn test -Durl=jdbc:mysql://localhost:3306/sys -Duser=root -Dpassword=password\"");
+			System.exit(0);
+		}
 		// Reset the database
 		Database.hardReset();
+		System.out.println("Started Testing Account Creation");
 	}
-
+	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		Database.hardReset();
+		System.out.println("Finished Testing Account Creation");
+	}
+	
 	@After
 	public void resetDatabase() {
 		// Reset the database everytime account creation is tested.
