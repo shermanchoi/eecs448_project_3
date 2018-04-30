@@ -1,0 +1,88 @@
+<html>
+    <head>
+	<title>My Profile</title>
+	<link href="../css/page_layout.css" type="text/css" rel="stylesheet">
+	<link href="../css/myProfile.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+	<header>
+	    <img src="../banner1.png">
+	</header>
+	<nav>
+	    <a href="main.html" class="other">Home</a>
+	    <a href="account.html" class="other">My Account</a>
+	    <a href="/logout" class="logout">Log Out</a>
+	</nav>
+	<div id="page">
+	    <div id="titlebar">
+		My Profile - [Insert Username Here]
+	    </div>
+	    <div id="infobox">
+		<div class="inner1em">
+		    <table>
+			<tr>
+			    <td class="attribute">Name:</td>
+			    <td class="value">[Insert Name Here</td>
+			</tr>
+			<tr>
+			    <td class="attribute">Joined:</td>
+			    <td class="value">[Insert account creation time here]</td>
+			</tr>
+			<tr>
+			    <td class="attribute">Birthday:</td>
+			    <td class="value">[Insert birthday here (day,month)]</td>
+			</tr>
+			<tr></tr>
+			<tr>
+			    <td class="attribute">Posts:</td>
+			    <td class="value">[Insert number of posts here]</td>
+			</tr>
+		    </table>
+		</div>
+		<div class="inner1em">
+		    <h3>Bio <button id="savebutton" type="button">Save</button><button id="editbutton" type="button">Edit</button><button id="cancelbutton"
+									 type="button">Cancel</button></h3>
+		    <div id="biotext">
+			At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+			deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+			provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
+			fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis
+			est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis
+			voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis
+			aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+			recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus
+			maiores alias consequatur aut perferendis doloribus asperiores repellat.
+			---Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+		    </div>	
+		    <textarea id="bioedit"></textarea>
+		</div>
+		<div class="inner1em">
+		    <h3>Password <input type="submit" form="changepasswordform" value="Change"><button
+			    id="changepasswordbutton" type="button">Change Password</button><button
+				 id="cancelchangepasswordbutton" type="button">Cancel</button></h3>
+		    <form id="changepasswordform" action="changepassword.php(?)" onsubmit="return changePasswordValidate()">
+			<div class="formcontent">
+			    <div class="textbox">
+				<label>Current Password</label><br>
+				<input type="password" name="cpwd">
+			    </div>
+			    <div class="textbox">
+				<label>New Password</label> <span style="font-size: 75%;">(8 character minimum)</span>
+<br>
+				<input type="password" name="npwd"><br>
+				<span class="alert" id="npwdalert">Insufficient Complexity</span>
+			    </div>
+			    <div class="textbox">
+				<label>Confirm Password</label> <span style="font-size: 75%;">(8 character
+				    minimum)</span><br>
+				<input type="password" name="cnpwd"><br>
+				<span class="alert" id="cnpwdalert">Passwords do not match</span>
+			    </div>
+			</div>
+		    </form>
+		</div>
+	    </div>
+	</div>
+    </body>
+    <script type="text/javascript" src="../js/myProfile.js"></script>
+</html>

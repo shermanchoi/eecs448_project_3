@@ -1,9 +1,12 @@
-package team8.tests;
 
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
+import org.json.JSONObject;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,9 +17,14 @@ import team8.social.Database;
 import team8.social.Post;
 
 public class TestAdminFunctionalities {
-
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws IOException {
+		if (!Database.initialize(System.getProperty("url"), System.getProperty("user"), System.getProperty("password"))) {
+			System.out.println("Failed to connect to database!");
+			System.out.println("When you called \"mvn test\", you need to put -Durl=<your_database_url> -Duser=<your_username> -D=password=<your_password> in order to run the tests.");
+			System.out.println("\tFor example, a valid Maven test command would look like: \"mvn test -Durl=jdbc:mysql://localhost:3306/sys -Duser=root -Dpassword=password\"");
+			System.exit(0);
+		}
 		// Reset the database
 		Database.hardReset();
 
@@ -26,8 +34,15 @@ public class TestAdminFunctionalities {
 				"Did not have to go to school", "Batman");
 		Account.createAccount("someone", "abetterpassword123123", "1995-08-12", "Yuria", "Lastname", "q1", "q2", "q3",
 				"I just like rock", "Something University", "I did not have movies");
+		System.out.println("Started Testing Admin Functionalities");
 	}
-
+	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		Database.hardReset();
+		System.out.println("Finished Testing Admin Functionalities");
+	}
+	
 	@Before
 	public void deletePosts() {
 		Post.deleteAllPosts();
@@ -168,5 +183,73 @@ public class TestAdminFunctionalities {
 		String postRemovals = Post.JSONAllPosts();
 
 		assertTrue("Posts removal with non-admin allowed", postRemovals.equals(firstTwoPosts));
+	}
+	@Test
+	public void testNonAdminBlockedFromNotSeeingUserList() {
+		// Give schoi admin status. (No one else has admin status)
+		Admin.setAdminStatus("schoi", true);
+		Admin.setAdminStatus("johnny", false);
+		Admin.setAdminStatus("someone", false);
+
+		//This is what nonAdmins should see.
+		String nonAdminShouldSeeThis = new JSONObject().put("users", "stop trying to hack us").toString();
+		String nonAdminSeesThis = Admin.getAdminViewJSON("johnny");
+		
+		//The non admin should see this.
+		assertTrue("Non-Admins can see user list.", nonAdminShouldSeeThis.equals(nonAdminSeesThis));
+	}
+	@Test
+	public void testAdminCanSeeUserList() {
+		// Give schoi admin status. (No one else has admin status)
+		Admin.setAdminStatus("schoi", true);
+		Admin.setAdminStatus("johnny", false);
+		Admin.setAdminStatus("someone", false);
+
+		//This is what nonAdmins should see.
+		String nonAdminShouldSeeThis = new JSONObject().put("users", "stop trying to hack us").toString();
+		String adminSeesThis = Admin.getAdminViewJSON("schoi");
+		
+		//The admin should not see what non-admins see
+		assertFalse("Non-Admins can see user list.", nonAdminShouldSeeThis.equals(adminSeesThis));
+	}
+	@Test
+	public void testAdminBan() {
+		// Give schoi admin status. (No one else has admin status)
+		Admin.setAdminStatus("schoi", true);
+		Admin.setAdminStatus("johnny", false);
+		Admin.setAdminStatus("someone", false);
+
+		//Admin bans user.
+		Admin.banUser("schoi", "johnny", true);
+		
+		//johnny should be banned.
+		assertTrue("Non-Admins can see user list.", Account.isBanned("johnny"));
+	}
+	@Test
+	public void testAdminUnban() {
+		// Give schoi admin status. (No one else has admin status)
+		Admin.setAdminStatus("schoi", true);
+		Admin.setAdminStatus("johnny", false);
+		Admin.setAdminStatus("someone", false);
+
+		//Admin bans THEN unbans user.
+		Admin.banUser("schoi", "johnny", true);
+		Admin.banUser("schoi", "johnny", false);
+		
+		//johnny should not be banned.
+		assertFalse("Non-Admins can see user list.", Account.isBanned("johnny"));
+	}
+	@Test
+	public void testNonAdminAttemptsToBan() {
+		// Give schoi admin status. (No one else has admin status)
+		Admin.setAdminStatus("schoi", true);
+		Admin.setAdminStatus("johnny", false);
+		Admin.setAdminStatus("someone", false);
+
+		//Nonadmins attempts to bans user.
+		Admin.banUser("johnny", "schoi", true);
+		
+		//schoi should not be banned.
+		assertFalse("Non-Admins can see user list.", Account.isBanned("schoi"));
 	}
 }

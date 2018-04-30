@@ -1,0 +1,135 @@
+#titlebar {
+    width: 100%;
+    font-size: 200%;
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px ridge black;
+    margin-top: 1em;
+}
+
+#infobox {
+    margin-top: 1em;
+    background-color: LightGrey;
+    border: 1px solid DarkGrey;
+    font-size: 95%;
+    padding: 1em 0;
+    font-weight: 900;
+}
+
+td {
+    font-size: 95%;
+}
+
+td.attribute {
+    text-align: right;
+}
+
+td.value {
+    text-align: left;
+}
+
+div.inner1em {
+    margin: 0 1em auto;
+    font-weight: 100;
+}
+
+button {
+    font-size: 50%;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    border: 1px solid DarkGrey;
+}
+
+button:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+
+#biotext {
+    display: block;
+}
+
+#bioedit {
+    width: 100%;
+    resize: none;
+    height: 100px;
+    display: none;
+}
+
+#savebutton {
+    display: none;
+}
+
+#cancelbutton {
+    display: none;
+    background-color: hsl(180, 25%, 25%);
+    border: 1px solid black;
+}
+
+
+#cancelchangepasswordbutton {
+    display: none;
+    background-color: hsl(180, 25%, 25%);
+    border: 1px solid black;
+}
+
+#cancelchangepasswordbutton:hover {
+    background-color: hsl(180, 25%, 30%);
+}
+
+
+form {
+    width: 50%;
+    display: none;
+}
+
+div.formheading {
+    position: relative;
+    left: 0;
+    font-weight: bold;
+}
+
+div.formsubheading {
+    position: relative;
+    left: 1em;
+}
+
+div.formcontent {
+    position: relative;
+    margin: 0 2em auto;
+    margin-bottom: 1em;
+}
+
+div.textbox {
+    margin-bottom: 1em;
+}
+
+input[type="text"],input[type="password"] {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input[type="submit"] {
+    display: none;
+    background-color: black;
+    font-size: 50%;
+    color: white;
+    border: 1px solid DarkSlateGrey;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid black;
+}
+
+span.alert {
+    position: absolute;
+    right: 0;
+    font-size: 75%;
+    color: red;
+    font-style: italic;
+    display: none;
+}
+ 

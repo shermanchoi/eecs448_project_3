@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pages',['pages',['../classteam8_1_1social_1_1Main.html#a8ea14eeee377fc49f35ef7d198c074ec',1,'team8::social::Main']]],
-  ['post',['Post',['../classteam8_1_1social_1_1Post.html',1,'team8.social.Post'],['../classteam8_1_1social_1_1Post.html#a9315a3da5e012f829c969d8371ba14ab',1,'team8.social.Post.Post()']]]
+  ['login',['Login',['../classteam8_1_1social_1_1pages_1_1account_1_1Login.html',1,'team8.social.pages.account.Login'],['../classteam8_1_1social_1_1Account.html#a991e74d6c13416c59384dc9e25fc05c3',1,'team8.social.Account.login()']]],
+  ['logout',['Logout',['../classteam8_1_1social_1_1pages_1_1account_1_1Logout.html',1,'team8::social::pages::account']]]
 ];
