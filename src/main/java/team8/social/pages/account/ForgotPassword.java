@@ -4,6 +4,7 @@ import team8.social.Account;
 import team8.social.PageHandler;
 import team8.social.Session;
 
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -21,21 +22,43 @@ public class ForgotPassword implements PageHandler {
             username = new String(Files.readAllBytes(
                     Paths.get(getClass().getResource("/public/html/forgotPasswordUsernameInput.html").toURI())
             ));
-        }catch(Exception e){}
+        }catch(Exception e){
+        	try {
+        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordUsernameInput.html");
+        		username = new String(i.readAllBytes());
+			} catch (Exception e2) {
+				
+			}
+        }
         
         //Grab content of Security Questions page
         try{
             security = new String(Files.readAllBytes(
                     Paths.get(getClass().getResource("/public/html/forgotPasswordSecQuestion.html").toURI())
             ));
-        }catch(Exception e){}
+        }catch(Exception e){
+        	try {
+        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordSecQuestion.html");
+        		security = new String(i.readAllBytes());
+			} catch (Exception e2) {
+				
+			}
+        }
         
         //Grab content of reset password page
         try{
             password = new String(Files.readAllBytes(
                     Paths.get(getClass().getResource("/public/html/forgotPasswordReset.html").toURI())
             ));
-        }catch(Exception e){}
+        }catch(Exception e){
+        	try {
+        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordReset.html");
+        		password = new String(i.readAllBytes());
+			} catch (Exception e2) {
+				
+			}
+        	
+        }
     }
     
     public void pages() {

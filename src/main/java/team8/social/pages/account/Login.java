@@ -4,6 +4,8 @@ import team8.social.Account;
 import team8.social.PageHandler;
 import team8.social.Session;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -25,7 +27,14 @@ public class Login implements PageHandler{
             source = new String(Files.readAllBytes(
                     Paths.get(getClass().getResource("/public/html/login.html").toURI())
             ));
-        }catch (Exception e){}
+        }catch (Exception e){
+        	try {
+        		InputStream i = getClass().getResourceAsStream("/public/html/login.html");
+				source = new String(i.readAllBytes());
+			} catch (Exception e2) {
+				
+			}
+        }
     }
     public void pages(){
         /*Handles the request to login*/
