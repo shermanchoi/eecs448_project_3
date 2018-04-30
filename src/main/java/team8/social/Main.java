@@ -65,6 +65,7 @@ public class Main {
 		pages.add(new ForgotPassword());
 		pages.add(new Login());
 		pages.add(new Logout());
+		pages.add(new ManageAccount());
 
 		// All pages that pertain to posts
 		pages.add(new ViewPost());
