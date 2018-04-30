@@ -98,8 +98,7 @@ public class Main {
 				return null;
 			}
 
-			Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",
-					Integer.parseInt(req.queryParams("postID")));
+			Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), Integer.parseInt(req.queryParams("postID")));
 
 			if (p == null) {
 				res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
