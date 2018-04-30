@@ -3,6 +3,7 @@ package team8.social;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Hex;
@@ -429,8 +430,8 @@ public class Account {
 		// Statement to prepare.
 		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_accounts`(`username`,`password`,"
 				+ "`birthday`,`firstName`,`lastName`,`securityQuestion1`,`securityQuestion2`,"
-				+ "`securityQuestion3`,`securityAnswer1`,`securityAnswer2`,`securityAnswer3`)VALUES"
-				+ "(?,?,?,?,?,?,?,?,?,?,?);");
+				+ "`securityQuestion3`,`securityAnswer1`,`securityAnswer2`,`securityAnswer3`,`creationDate`)VALUES"
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?);");
 
 		try {
 			// Statement preparing.
@@ -445,6 +446,7 @@ public class Account {
 			setter.statement.setString(9, ansQ1);
 			setter.statement.setString(10, ansQ2);
 			setter.statement.setString(11, ansQ3);
+			setter.statement.setString(12, Calendar.YEAR  + "-" + Calendar.MONTH + "-" + Calendar.DAY_OF_MONTH);
 			// Execution of statement.
 			if (setter.execute()) {
 				return new Account(uname, pword, dateOfBirth, fName, lName);
