@@ -40,7 +40,7 @@ xhttpNAV.onreadystatechange = function() {
     }
 };
 
-xhttpNAV.open("GET", "", true);
+xhttpNAV.open("GET", "/api/isAdmin", true);
 xhttpNAV.send();
 
 createNavButton();
