@@ -1,14 +1,14 @@
 package team8.social.pages.account;
 
+import spark.utils.IOUtils;
 import team8.social.PageHandler;
 import team8.social.Session;
 
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static spark.Spark.get;
-import static spark.Spark.redirect;
-
 /*****
  * Object: Account
  * Description: 
@@ -21,14 +21,13 @@ public class ManageAccount implements PageHandler {
     
     public ManageAccount() {
         try {
-            page = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/createPost.html").toURI())
-            ));
+            InputStream i = getClass().getResourceAsStream("/public/html/myProfile.html");
+            page = new String(IOUtils.toByteArray(i));
         } catch (Exception e) {}
     }
     
     public void pages() {
-        get("/account", (req, res) -> {
+        get("/manageaccount", (req, res) -> {
             if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
                 res.redirect("/");
             }
