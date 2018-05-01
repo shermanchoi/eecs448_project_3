@@ -17,21 +17,21 @@ public class Admin {
 	 * @return True if everything works, false otherwise
 	 */
 	public static boolean setAdminStatus(String username, boolean setAdmin) {
-		//Does the user even exist?
+		// Does the user even exist?
 		boolean found = false;
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
 		DatabaseGetter getter = new DatabaseGetter(query);
-		
+
 		try {
-			//Prepare the statement
-			getter.statement.setString(1,username);
-			//Execute statement.
+			// Prepare the statement
+			getter.statement.setString(1, username);
+			// Execute statement.
 			getter.execute();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		ResultSet rs = getter.results;
 		try {
 			while (rs.next()) {
@@ -40,15 +40,14 @@ public class Admin {
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
-		
-		if(!found) {
+
+		if (!found) {
 			return false;
 		}
-		
-		
-		//The user exists.
+
+		// The user exists.
 		DatabaseSetter setter = new DatabaseSetter("UPDATE `social_accounts` SET `adminStatus`=? WHERE `username`=?;");
-		
+
 		// Statement preparing.
 		try {
 			setter.statement.setBoolean(1, setAdmin);
@@ -68,43 +67,38 @@ public class Admin {
 	/**
 	 * This returns information for the admin to see.
 	 * 
-	 * @param username
-	 *            THe user requesting the JSON
-	 * @return JSON to see all the information an admin may want if they are an
-	 *         admin, otherwise they get back nonsense.
+
+	 * @return JSON to see all the information an admin may want
 	 */
-	public static String getAdminViewJSON(String username) {
-		if (isAdmin(username)) {
+	public static String getAdminViewJSON() {
 
-			JSONArray users = new JSONArray();
+		JSONArray users = new JSONArray();
 
-			// Get the query ready.
-			String query = "SELECT * FROM social_accounts;";
-			DatabaseGetter getter = new DatabaseGetter(query);
+		// Get the query ready.
+		String query = "SELECT * FROM social_accounts;";
+		DatabaseGetter getter = new DatabaseGetter(query);
 
-			try {
-				getter.execute();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-
-			ResultSet rs = getter.results;
-
-			try {
-				while (rs.next()) {
-					users.put(rs.getString("username"));
-				}
-			} catch (Exception e) {
-				System.out.println("ResultSet Error:\n\t" + e.getMessage());
-			}
-
-			JSONObject adminView = new JSONObject().put("Users", users);
-
-			return adminView.toString();
-		} else {
-			return new JSONObject().put("users", "stop trying to hack us").toString();
+		try {
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+
+		ResultSet rs = getter.results;
+
+		try {
+			while (rs.next()) {
+				users.put(rs.getString("username"));
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+
+		JSONObject adminView = new JSONObject().put("Users", users);
+
+		return adminView.toString();
+
 	}
 
 	/**
@@ -144,9 +138,9 @@ public class Admin {
 
 			// Statement preparing.
 			try {
-				if(banned) {
+				if (banned) {
 					setter.statement.setInt(1, 1);
-				}else {
+				} else {
 					setter.statement.setInt(1, 0);
 				}
 				setter.statement.setString(2, who);
@@ -207,7 +201,7 @@ public class Admin {
 	/**
 	 * This method deletes a post and its replies.
 	 * 
-	 * @post 
+	 * @post
 	 * @param username
 	 *            The user trying to do the action.
 	 * @param postID
@@ -216,21 +210,21 @@ public class Admin {
 	 */
 	public static boolean removePost(String username, int postID) {
 		if (isAdmin(username)) {
-			//Look for the post in question
+			// Look for the post in question
 			boolean found = false;
 			String query = "SELECT * FROM social_posts WHERE id=?;";
 			DatabaseGetter getter = new DatabaseGetter(query);
-			
+
 			try {
-				//Prepare the statement
-				getter.statement.setInt(1,postID);
-				//Execute statement.
+				// Prepare the statement
+				getter.statement.setInt(1, postID);
+				// Execute statement.
 				getter.execute();
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
 			}
-			
+
 			ResultSet rs = getter.results;
 			try {
 				while (rs.next()) {
@@ -239,12 +233,12 @@ public class Admin {
 			} catch (Exception e) {
 				System.out.println("ResultSet Error:\n\t" + e.getMessage());
 			}
-			
-			//The post is not even found.
-			if(!found) {
+
+			// The post is not even found.
+			if (!found) {
 				return false;
 			}
-			
+
 			// Get the queries ready.
 			String queryRepliesDelete = "DELETE FROM social_posts WHERE parentPost=?;";
 			String queryPostDelete = "DELETE FROM social_posts WHERE id=?;";
