@@ -2,7 +2,7 @@ var editButton = document.getElementById("editbutton");
 var saveButton = document.getElementById("savebutton");
 var cancelButton = document.getElementById("cancelbutton");
 var changePasswordButton = document.getElementById("changepasswordbutton");
-var submitButton = document.querySelector('input[type="submit"]');
+var submitButton = document.querySelectorAll('input[type="submit"]')[1];
 var cancelChangePasswordButton = document.getElementById("cancelchangepasswordbutton");
 var bioText = document.getElementById("biotext");
 var bioTextContent = bioText.textContent;
@@ -15,6 +15,7 @@ editButton.addEventListener('click', editClick, false);
 cancelButton.addEventListener('click', cancelClick, false);
 changePasswordButton.addEventListener('click', changePasswordClick, false);
 cancelChangePasswordButton.addEventListener('click', cancelChangePasswordClick, false);
+changePasswordForm.addEventListener('submit', changePasswordValidate, false);
 
 function editClick() {
     bioText.style.display = "none";
@@ -48,7 +49,7 @@ function cancelChangePasswordClick() {
     changePasswordButton.style.display = "inline";
 }
 
-function changePasswordValidate() {
+function changePasswordValidate(e) {
     var valid = true;
     var npwd = document.querySelectorAll('input[type="password"]')[1].value;
     var cnpwd = document.querySelectorAll('input[type="password"]')[2].value;
@@ -60,7 +61,7 @@ function changePasswordValidate() {
     else {
 	document.getElementById('npwdalert').style.display = 'none';
     }
-    if (cnpwd != npwd) {
+    if (npwd.length >= 8 && cnpwd != npwd) {
 	alert('Passwords do not match');
 	document.getElementById('cnpwdalert').style.display = 'inline';
 	valid = false;
@@ -69,5 +70,7 @@ function changePasswordValidate() {
 	document.getElementById('cnpwdalert').style.display = 'none';
     }
 
-    return (valid);
+    if (!valid) {
+	e.preventDefault()
+    } 
 }
