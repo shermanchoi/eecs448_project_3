@@ -6,11 +6,7 @@ let obj = {};
 
 
 let PoR = document.getElementById("postandreplies");
-let parserClass = document.createElement("script");
-parserClass.setAttribute("src", "../js/BBCode/Parser/build/bbCodeParser.min.js");
-PoR.appendChild(parserClass);
 
-let parser = new BBCodeParser(BBCodeParser.defaultTags());
 
 let text = "";
 
@@ -38,7 +34,7 @@ function showPost(text) {
     postC.setAttribute("id", "postcontents");
         
     let content = document.createElement("p");
-    content.appendChild(parser.parseString(obj.Content));
+    content.innerHTML = obj.Content;
         
     postC.appendChild(content);
         
