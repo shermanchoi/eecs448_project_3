@@ -26,7 +26,12 @@ function showPost(text) {
     let postA = document.createElement("div");
     postA.setAttribute("id", "postauthor");
         
-    postA.innerHTML = "By: " + obj.Author;
+    postA.innerHTML = "By: ";
+    
+    let authorLink = document.createElement("a");
+    authorLink.setAttribute("href", "/profile?username="+obj.Author);
+    authorLink.innerHTML = obj.Author;
+    postA.appendChild(authorLink);
         
     post.appendChild(postA);
         
