@@ -1,6 +1,8 @@
 package team8.social.pages.account;
 
 import spark.utils.IOUtils;
+import team8.social.Account;
+import team8.social.Admin;
 import team8.social.PageHandler;
 import team8.social.Session;
 
@@ -9,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 /*****
  * Object: Account
  * Description: 
@@ -33,6 +36,17 @@ public class ManageAccount implements PageHandler {
             }
             
             return page;
+        });
+        post("/updatebio", (req,res) ->{
+        	if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
+                res.redirect("/");
+            }
+            
+            String newBio = req.queryParams("changebioform");
+            
+            Account.changeBiography(req.session().attribute("UserID"),newBio);
+            res.redirect("/manageaccount");
+            return null;
         });
     }
 }
