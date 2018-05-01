@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import spark.utils.IOUtils;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -30,7 +32,7 @@ public class Login implements PageHandler{
         }catch (Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/login.html");
-				source = new String(i.readAllBytes());
+				source = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}
@@ -69,10 +71,13 @@ public class Login implements PageHandler{
                     res.redirect("/home");
                 }else {
                     //Account does not exist.
+
+                    res.redirect("/login?error=loginError");
                     return source;
                 }
             }catch(Exception e) {
                 //Invalid input.
+            	res.redirect("/login?error=loginError");
                 return source;
             }
         
