@@ -113,33 +113,27 @@ public class Post {
 	 * @return A new Post object representing the new post is return if everything
 	 *         is valid, otherwise null
 	 */
-	public static Post createPost(String inputAuthor, String inputMessage, String inputTitle, int replyingToPostID) {
+	public static Post createPost(String inputAuthor, String inputMessage, int replyingToPostID) {
 		//Escape potentially harmful parameters.
 		inputMessage = StringEscapeUtils.escapeHtml4(inputMessage);
-		inputTitle = StringEscapeUtils.escapeHtml4(inputTitle);
 		
 		// Message cannot be null
 		if (inputMessage.length() < 1) {
 			return null;
 		}
-		// Title cannot be null
-		if (inputTitle.length() < 1) {
-			return null;
-		}
 
 		// Statement to prepare.
-		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_posts`(`author`,`message`,`title`,`parentPost`)"
-				+ "VALUES(?,?,?,?);");
+		DatabaseSetter setter = new DatabaseSetter("INSERT INTO `social_posts`(`author`,`message`,`parentPost`)"
+				+ "VALUES(?,?,?);");
 
 		try {
 			// Statement preparing.
 			setter.statement.setString(1, inputAuthor);
 			setter.statement.setString(2, inputMessage);
-			setter.statement.setString(3, "Reply");
-			setter.statement.setInt(4, replyingToPostID);
+			setter.statement.setInt(3, replyingToPostID);
 			// Execution of statement.
 			if (setter.execute()) {
-				return new Post(inputAuthor, inputMessage, inputTitle);
+				return new Post(inputAuthor, inputMessage, null);
 			} else {
 				return null;
 			}

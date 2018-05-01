@@ -83,6 +83,5 @@ public class Main {
 		for (Integer i = 0; i < pages.size(); i += 1) {
 			pages.get(i).pages();
 		}
-		
 	}
 }
