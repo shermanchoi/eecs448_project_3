@@ -55,5 +55,28 @@ public class AdminPage implements PageHandler{
             return admin;
         });
         
+        post("/admin/banUser", (req,res) ->{
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID")) || !Admin.isAdmin(req.session().attribute("UserID").toString())){
+                res.redirect("/login");
+                return null;
+            }
+            
+            String user = req.queryParams("username");
+            Admin.banUser(req.session().attribute("UserID").toString(), user,true);
+            
+            return admin;
+        });
+        
+        post("/admin/unbanUser", (req,res) ->{
+            if(!Session.validate(req.session().id(),req.session().attribute("UserID")) || !Admin.isAdmin(req.session().attribute("UserID").toString())){
+                res.redirect("/login");
+                return null;
+            }
+            
+            String user = req.queryParams("username");
+            Admin.banUser(req.session().attribute("UserID").toString(), user,false);
+            
+            return admin;
+        });
     }
 }

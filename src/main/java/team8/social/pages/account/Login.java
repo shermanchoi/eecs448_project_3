@@ -49,6 +49,9 @@ public class Login implements PageHandler{
             if(Session.validate(req.session().id(),req.session().attribute("UserID"))){
                 res.redirect("/home");
                 return null;
+            }else if(Account.isBanned(req.queryParams("username"))) {
+            	res.redirect("/login?error=banned");
+            	return null;
             }
         
             //Attempt to log in using username and password
