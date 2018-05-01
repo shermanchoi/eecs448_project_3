@@ -26,17 +26,9 @@ public class Login implements PageHandler{
     
     public Login(){
         try{
-            source = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/login.html").toURI())
-            ));
-        }catch (Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/login.html");
-				source = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/login.html");
+            source = new String(IOUtils.toByteArray(i));
+        }catch (Exception e){}
     }
     public void pages(){
         /*Handles the request to login*/
