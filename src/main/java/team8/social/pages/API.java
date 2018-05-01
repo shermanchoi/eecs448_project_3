@@ -37,12 +37,16 @@ public class API implements PageHandler{
             return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
         });
         
-        get("/api/userList", (req, res) -> {
-            return Admin.getAdminViewJSON(req.session().attribute("username"));
+        get("/api/users", (req, res) -> {
+            return Admin.getAdminViewJSON();
         });
         
         get("/api/isAdmin", (req, res) -> {
             return Admin.isAdmin(req.session().attribute("username"));
+        });
+        
+        get("/api/profilePage", (req, res) -> {
+            return Account.getProfilePageInformation(req.queryParams("user"),req.session().attribute("username"));
         });
     }
 }

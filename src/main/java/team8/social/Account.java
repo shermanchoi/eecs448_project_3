@@ -529,9 +529,10 @@ public class Account {
 	 * @pre The account with the username exists
 	 * @param username
 	 *            The username of the user in question
+	 *            @param The username of who is logged in at the moment
 	 * @return The JSON representing the user's profile information.
 	 */
-	public static String getProfilePageInformation(String username) {
+	public static String getProfilePageInformation(String username, String who) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
 		DatabaseGetter getter = new DatabaseGetter(query);
@@ -557,7 +558,9 @@ public class Account {
 						.key("lastName").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
-						.key("adminStatus").value(rs.getInt("adminStatus")) // admin status (0 or 1)
+						.key("creationDate").value(rs.getString("creationDate")) // day user joined
+						.key("postCount").value(getPostCreatedCount(username)) // how many posts this user made
+						.key("isUser").value(username.equals(who)) // is the person looking at their own page?
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
@@ -567,6 +570,34 @@ public class Account {
 		return json;
 	}
 
+	public static int getPostCreatedCount(String username) {
+		String query = "SELECT COUNT(*) FROM social_posts WHERE author=?";
+		DatabaseGetter getter = new DatabaseGetter(query);
+		int count = 0;
+		
+		try {
+			// Prepare the statement
+			getter.statement.setString(1, username);
+			// Execute statement.
+			getter.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return count;
+		}
+		
+		ResultSet rs = getter.results;
+		
+		try {
+			while (rs.next()) {
+				count = rs.getInt("COUNT(*)");
+			}
+		} catch (Exception e) {
+			System.out.println("ResultSet Error:\n\t" + e.getMessage());
+		}
+
+		return count;
+	}
+	
 	public static boolean isBanned(String username) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
