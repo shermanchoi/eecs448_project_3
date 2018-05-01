@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import spark.utils.IOUtils;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -25,7 +27,7 @@ public class ForgotPassword implements PageHandler {
         }catch(Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordUsernameInput.html");
-        		username = new String(i.readAllBytes());
+        		username = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}

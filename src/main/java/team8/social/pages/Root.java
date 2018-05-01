@@ -1,6 +1,7 @@
 package team8.social.pages;
 
 import spark.Route;
+import spark.utils.IOUtils;
 import team8.social.PageHandler;
 import team8.social.Session;
 
@@ -22,7 +23,7 @@ public class Root implements PageHandler {
         }catch(Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/main.html");
-				home = new String(i.readAllBytes());
+				home = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}

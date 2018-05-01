@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import spark.utils.IOUtils;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -22,7 +24,7 @@ public class CreatePost implements PageHandler{
         }catch(Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/createPost.html");
-        		create = new String(i.readAllBytes());
+        		create = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}
