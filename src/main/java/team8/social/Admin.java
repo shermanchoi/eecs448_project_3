@@ -67,7 +67,7 @@ public class Admin {
 	/**
 	 * This returns information for the admin to see.
 	 * 
-
+	 * 
 	 * @return JSON to see all the information an admin may want
 	 */
 	public static String getAdminViewJSON() {
@@ -89,7 +89,10 @@ public class Admin {
 
 		try {
 			while (rs.next()) {
-				users.put(rs.getString("username"));
+				JSONObject user = new JSONObject().put("username", rs.getString("username")).put("banned",
+						rs.getInt("banned"));
+
+				users.put(user);
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
@@ -129,6 +132,9 @@ public class Admin {
 	 *            The user requesting the ban
 	 * @param who
 	 *            The user who will be banned
+	 * @param banned
+	 *            if true, will ban user defined by who, if false will unban user
+	 *            defined by who.
 	 * @return True if the ban happens, false otherwise.
 	 */
 	public static boolean banUser(String username, String who, boolean banned) {

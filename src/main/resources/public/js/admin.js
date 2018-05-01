@@ -38,14 +38,7 @@ function populatePosts(text){
         deleteButtonCol.appendChild(deleteButtonForm);
         post.appendChild(deleteButtonCol);
         
-        postsTable.appendChild(post);
-        	/**
-        	 * <td class="postTitle"><a href="">Post Title</a></td>
-			    <td class="postAuthor"><a href="">Author</a></td>
-			    <td class="replyNbr">Replies</td>
-        	 */
-        
-        
+        postsTable.appendChild(post);        
     }
 }
 
@@ -58,14 +51,33 @@ function populateUsers(text){
         let user = document.createElement("tr");
         let username = document.createElement("td");
         let href = document.createElement("a");
-        let text = list["Users"][i];
+        let text = list["Users"][i].username;
         href.innerHTML = text;
+        
+        let banButtonCol = document.createElement("td");
+        let banButtonForm = document.createElement("form");
+        let banButton = document.createElement("button");
+        
+        banButtonForm.setAttribute("method","post");
+        banButton.setAttribute("type","submit");
+        banButton.setAttribute("name","username");
+        banButton.setAttribute("value",list["Users"][i].username);
+        
+        if(list["Users"][i].banned == 0){
+	        banButtonForm.setAttribute("action","/admin/banUser");
+	        banButton.innerHTML = "Ban User";
+        }else{
+    	    banButtonForm.setAttribute("action","/admin/unbanUser");
+	        banButton.innerHTML = "Unban User";
+        }
         
         username.appendChild(href);
         user.appendChild(username);
         userTable.appendChild(user);
         
-        
+        banButtonForm.appendChild(banButton);
+        banButtonCol.appendChild(banButtonForm);
+        userTable.appendChild(banButtonCol);
     }
 }
 
