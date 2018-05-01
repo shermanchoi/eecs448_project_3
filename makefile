@@ -7,6 +7,15 @@ defaultBuild:
 defaultRun:
 	sudo java -jar ./target/project-1.0-jar-with-dependencies.jar
 
+testRun:
+	sudo java -jar ./target/project-1.0-jar-with-dependencies.jar jdbc:mysql://localhost:3306/sys?useSSL=false root password
+
+adminStatusGive:
+	sudo java -jar ./target/project-1.0-jar-with-dependencies.jar -a1 ${user}
+
+adminStatusTake:
+	sudo java -jar ./target/project-1.0-jar-with-dependencies.jar -a0 ${user}
+
 specificServerTest:
 	mvn test -Durl=${url} -Duser=${user} -Dpassword=${password}
 
