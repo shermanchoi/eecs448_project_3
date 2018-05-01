@@ -41,7 +41,7 @@ public class ForgotPassword implements PageHandler {
         }catch(Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordSecQuestion.html");
-        		security = new String(i.readAllBytes());
+        		security = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}
@@ -55,7 +55,7 @@ public class ForgotPassword implements PageHandler {
         }catch(Exception e){
         	try {
         		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordReset.html");
-        		password = new String(i.readAllBytes());
+        		password = new String(IOUtils.toByteArray(i));
 			} catch (Exception e2) {
 				
 			}
