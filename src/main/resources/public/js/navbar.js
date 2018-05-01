@@ -1,14 +1,14 @@
 let nav = document.getElementById("navbar");
 function createNavButton() {
-    let myaccB = document.createElement("a");
-    myaccB.setAttribute("href", "accountMgmt.html");
-    myaccB.innerHTML = "My Account";
-    nav.appendChild(myaccB);
-
     let homeB = document.createElement("a");
-    homeB.setAttribute("href", "main.html");
+    homeB.setAttribute("href", "/home");
     homeB.innerHTML = "Home";
     nav.appendChild(homeB);
+
+    let myaccB = document.createElement("a");
+    myaccB.setAttribute("href", "/manageaccount");
+    myaccB.innerHTML = "My Account";
+    nav.appendChild(myaccB);
 
     let logOutB = document.createElement("a");
     logOutB.setAttribute("href", "/logout");
