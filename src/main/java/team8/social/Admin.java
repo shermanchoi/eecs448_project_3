@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.json.JSONArray;
-import org.json.JSONML;
 import org.json.JSONObject;
 
 public class Admin {
@@ -100,7 +99,7 @@ public class Admin {
 				System.out.println("ResultSet Error:\n\t" + e.getMessage());
 			}
 
-			JSONObject adminView = new JSONObject().put("users", users);
+			JSONObject adminView = new JSONObject().put("Users", users);
 
 			return adminView.toString();
 		} else {
