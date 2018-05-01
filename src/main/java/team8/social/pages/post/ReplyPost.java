@@ -54,7 +54,7 @@ public class ReplyPost implements PageHandler{
                 return null;
             }
         
-            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",
+            Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"),
                     Integer.parseInt(req.queryParams("postID")));
         
             if (p == null) {
