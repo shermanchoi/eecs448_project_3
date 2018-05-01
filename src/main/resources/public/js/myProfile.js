@@ -8,8 +8,7 @@ var bioText = document.getElementById("biotext");
 var bioTextContent = bioText.textContent;
 var bioEdit = document.getElementById("bioedit");
 var changePasswordForm = document.getElementById("changepasswordform");
-var npwd = document.querySelectorAll('input[type="password"]')[0].value;
-var cnpwd = document.querySelectorAll('input[type="password"]')[1].value;
+var changeBioForm = document.getElementById("changebioform");
 bioEdit.value = bioTextContent.trim();
 
 editButton.addEventListener('click', editClick, false);
@@ -20,6 +19,7 @@ cancelChangePasswordButton.addEventListener('click', cancelChangePasswordClick, 
 function editClick() {
     bioText.style.display = "none";
     editButton.style.display = "none";
+    changeBioForm.style.display = "block";
     bioEdit.style.display = "block";
     cancelButton.style.display = "inline";
     saveButton.style.display = "inline";
@@ -27,6 +27,7 @@ function editClick() {
 
 function cancelClick() {
     bioEdit.style.display = "none";
+    changeBioForm.style.display = "none";
     cancelButton.style.display = "none";
     saveButton.style.display = "none";
     bioText.style.display = "block";
@@ -49,6 +50,8 @@ function cancelChangePasswordClick() {
 
 function changePasswordValidate() {
     var valid = true;
+    var npwd = document.querySelectorAll('input[type="password"]')[1].value;
+    var cnpwd = document.querySelectorAll('input[type="password"]')[2].value;
     if (npwd.length < 8) {
 	alert('Password must be at least 8 characters in length');
 	document.getElementById('npwdalert').style.display = 'inline';
