@@ -10,10 +10,6 @@
 	<title>Create Post</title>
 	<link href="../css/page_layout.css" type="text/css" rel="stylesheet" />
 	<link href="../css/createPost.css" type="text/css" rel="stylesheet" />
-	<link rel="stylesheet" href="../js/BBCode/Editor/sceditor-2.1.2/minified/themes/default.min.css" />
-	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/sceditor.min.js"></script>
-	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/formats/bbcode.js"></script>
-	<script src="../js/BBCode/Parser/build/bbCodeParser.min.js"></script>
     </head>
     <body>
 	<header>
@@ -43,13 +39,6 @@
 			<div class="formcontent">
 			    <div class="textbox">
 				<textarea name="postcontent" id="postcontent"/></textarea>
-				<script>
-					let textA = document.getElementById("postcontent");
-					var textarea = sceditor.create(textA, {
-					    format: 'bbcode', 
- 					    style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'
-					});
-				</script>
 			    </div>
 			</div>
 			<div class="buttons">
@@ -63,15 +52,6 @@
 	    <div id="output"></div>
 	</div>
     </body>
-    <script type="text/javascript">
-	var parser = new BBCodeParser(BBCodeParser.defaultTags());
-
-	function parseInput() {
-	    var input = textA.val();
-	    var generatedHtml = parser.parseString(input);
-	    output.innerHTML = generatedHtml;
-	}
-    </script>
 </html>
 
 
