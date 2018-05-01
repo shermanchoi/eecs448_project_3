@@ -1,63 +1,53 @@
 <html>
     <head>
-        <title>You Have Control of Everything</title>
-        <link href="../css/page_layout.css" type="text/css" rel="stylesheet">
-        <link href="../css/admin_layout.css" type="text/css" rel="stylesheet">
+	<title>You Have Control of Everything</title>
+	<link href="../css/page_layout.css" type="text/css" rel="stylesheet">
+	<link href="../css/admin_layout.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-        <header>
+	<header>
 	    <img src="../banner1.png">
 	</header> 
-
-            <div class="post">
-                <form class="postForm" method="post">
-                    <div class="inputField">
-                        <input type="text" class="postTitle" id="globalPost" placeholder="Post Title" required> <br>
-                        <textarea class="postContent" id="globalContent" placeholder="Post Content"></textarea> <br>
-                    </div>
-                    <div class="submitButton">
-                        <button type="submit">Post</button>
-                    </div>
-                </form>
-
-            </div>
-        
-        <div class="bodyDiv">    
-            <div class="userList">
-                <form class="searchUser" method="post">
-                    <input type="text" class="searchBar" id="searchUser" required>
-                    <input type="submit" value="Search">
-                </form>
-
-                <table class="userTable">
-                    <tr>
-                        <td><a href="">Username</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="">Username</a></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="postsList">
-                <form class="searchPost">
-                    <input type="text" calss="searchBar" id="searchPost" required>
-                    <input type="submit" value="Search Post">
-                </form>
-
-                <table class="postsTable">                    
-                        <tr>
-                            <td class="postTitle"><a href="">Post Title</a></td>
-                            <td class="postAuthor"><a href="">Author</a></td>
-                            <td class="replyNbr">Replies</td>
-                        </tr>
-                        <tr>
-                            <td class="postTitle"><a href="">Post Title</a></td>
-                            <td class="postAuthor"><a href="">Author</a></td>
-                            <td class="replyNbr">Replies</td>
-                        </tr> 
-                </table>
-            </div>
-        </div>
+	<nav>
+	    <a href="main.html" class="other">Home</a>
+	    <a href="account.html" class="other">My Account</a>
+	    <a href="/logout" class="logout">Log Out</a>
+	</nav>
+	<div id="page">
+	    <div class="bodyDiv">    
+		<div class="userList">
+		    <form class="searchUser" method="post">
+			<input type="text" class="searchBar" id="searchUser" required>
+			<input type="submit" value="Search">
+		    </form>
+		    <table class="userTable">
+			<tr>
+			    <td><a href="">Username</a></td>
+			</tr>
+			<tr>
+			    <td><a href="">Username</a></td>
+			</tr>
+		    </table>
+		</div>
+		<div class="postsList">
+		    <form class="searchPost">
+			<input type="text" calss="searchBar" id="searchPost" required>
+			<input type="submit" value="Search Post">
+		    </form>
+		    <table class="postsTable">                    
+			<tr>
+			    <td class="postTitle"><a href="">Post Title</a></td>
+			    <td class="postAuthor"><a href="">Author</a></td>
+			    <td class="replyNbr">Replies</td>
+			</tr>
+			<tr>
+			    <td class="postTitle"><a href="">Post Title</a></td>
+			    <td class="postAuthor"><a href="">Author</a></td>
+			    <td class="replyNbr">Replies</td>
+			</tr> 
+		    </table>
+		</div>
+	    </div>
+	</div>
     </body>
 </html>
