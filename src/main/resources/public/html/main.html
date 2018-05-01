@@ -9,26 +9,7 @@
 	    <img src="../banner1.png">
 	</header>
 	<nav>
-            <!-- header buttons -->
-            <script>
-                //get this variable's value from server
-                let somebool = false;
-                if(somebool == true) {
-                    let adminButton = document.createElement("a");
-		    let adminText = document.createTextNode("Admin Mode");
-		    adminButton.appendChild(adminText);
-
-		    adminButton.classname = 'adminButton';
-			adminButton.setAttribute('href', 'admin.html');
-			adminButton.setAttribute('class', 'other');
-
-		    let nav = document.getElementsByTagName('nav')[0];
-		    nav.appendChild(adminButton);
-                }
-            </script>
-		<a href="main.html" class="other">Home</a>
-		<a href="account.html" class="other">My Account</a>
-		<a href="/logout" class="logout">Log Out</a>
+	    <script src="../js/navbar.js"></script>
 	</nav>
 
 	<div id="page">
