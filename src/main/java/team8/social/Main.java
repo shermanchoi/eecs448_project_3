@@ -8,6 +8,7 @@ package team8.social;
 
 import team8.social.pages.*;
 import team8.social.pages.account.*;
+import team8.social.pages.admin.AdminPage;
 import team8.social.pages.post.*;
 
 import java.util.Vector;
@@ -34,6 +35,14 @@ public class Main {
 			}else {
 				System.out.println("Failed to connect to database!");
 				System.out.println("Did you type in the correct information?");
+			}
+		}else if(args.length == 2 && args[0].equals("-a1")){
+			if(Admin.setAdminStatus(args[1], true)) {
+				System.out.println("Gave " + args[1] + " admin status");
+			}
+		}else if(args.length == 2 && args[0].equals("-a0")){
+			if(Admin.setAdminStatus(args[1], false)) {
+				System.out.println("Removed admin status from " + args[1]);
 			}
 		}
 	}
@@ -78,7 +87,8 @@ public class Main {
 		pages.add(new ReplyPost());
 
 		// All pages that pertain to administration
-
+		pages.add(new AdminPage());
+		
 		// Registers all of the pages
 		for (Integer i = 0; i < pages.size(); i += 1) {
 			pages.get(i).pages();

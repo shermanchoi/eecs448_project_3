@@ -1,6 +1,7 @@
 package team8.social.pages;
 
 import team8.social.Account;
+import team8.social.Admin;
 import team8.social.PageHandler;
 import team8.social.Post;
 
@@ -34,6 +35,14 @@ public class API implements PageHandler{
     
         get("/api/security", (req, res) -> {
             return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
+        });
+        
+        get("/api/userList", (req, res) -> {
+            return Admin.getAdminViewJSON(req.session().attribute("username"));
+        });
+        
+        get("/api/isAdmin", (req, res) -> {
+            return Admin.isAdmin(req.session().attribute("username"));
         });
     }
 }
