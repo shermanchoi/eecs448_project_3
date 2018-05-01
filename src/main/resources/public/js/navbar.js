@@ -28,9 +28,9 @@ function createAdminB() {
         nav.appendChild(adminButton);
 }
 
-let xhttp = new XMLHttpRequest();
+let xhttpNAV = new XMLHttpRequest();
 
-xhttp.onreadystatechange = function() {
+xhttpNAV.onreadystatechange = function() {
     if(this.readyState == 4 && this.status == 200) {
         if(this.responseText == true){
             createAdminB();
@@ -40,7 +40,7 @@ xhttp.onreadystatechange = function() {
     }
 };
 
-xhttp.open("GET", "", true);
-xhttp.send();
+xhttpNAV.open("GET", "/api/isAdmin", true);
+xhttpNAV.send();
 
 createNavButton();

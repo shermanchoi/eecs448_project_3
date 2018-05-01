@@ -54,7 +54,7 @@ button:hover {
     width: 100%;
     resize: none;
     height: 100px;
-    display: none;
+    display: hidden;
 }
 
 #savebutton {
@@ -80,8 +80,11 @@ button:hover {
 
 
 form {
-    width: 50%;
     display: none;
+}
+
+#changepasswordform {
+    width: 50%;
 }
 
 div.formheading {

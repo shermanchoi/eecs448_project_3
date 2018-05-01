@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="../js/BBCode/Editor/sceditor-2.1.2/minified/themes/default.min.css" />
 	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/sceditor.min.js"></script>
 	<script src="../js/BBCode/Editor/sceditor-2.1.2/minified/formats/bbcode.js"></script>
+	<script src="../js/BBCode/Parser/build/bbCodeParser.min.js"></script>
     </head>
     <body>
 	<header>
@@ -21,7 +22,7 @@
 	<nav id="navbar">
 	    <script src="navbar.js"></script>
 	</nav>
-	<div class="page">
+	<div id="page">
 	    <div class="form">
 		<form action="/createpost" method="post">
 		    <fieldset>
@@ -44,7 +45,7 @@
 				<textarea name="postcontent" id="postcontent"/></textarea>
 				<script>
 					let textA = document.getElementById("postcontent");
-					sceditor.create(textA, {
+					var textarea = sceditor.create(textA, {
 					    format: 'bbcode', 
  					    style: 'BBCode/Editor/sceditor-2.1.2/minified/themes/content/default.min.css'
 					});
@@ -53,13 +54,24 @@
 			</div>
 			<div class="buttons">
 			    <button type="button" onclick="window.history.back();">Cancel</button>
+			    <button type="button" onclick="parseInput()">Parse</button>
 			    <input type="submit" value="Post">
 			</div>
 		    </fieldset>
 		</form>
 	    </div>
+	    <div id="output"></div>
 	</div>
     </body>
+    <script type="text/javascript">
+	var parser = new BBCodeParser(BBCodeParser.defaultTags());
+
+	function parseInput() {
+	    var input = textA.val();
+	    var generatedHtml = parser.parseString(input);
+	    output.innerHTML = generatedHtml;
+	}
+    </script>
 </html>
 
 
