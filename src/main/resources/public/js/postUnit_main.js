@@ -80,14 +80,17 @@ function createList () {
             let authorBlock = document.createElement("div");
             //set class for author
             authorBlock.setAttribute("class", "postauthor");
+
+            let authorLink = document.createElement("a");
+            authorLink.setAttribute("href", "/profile?username="+postL.Posts[i].Author);
+            authorLink.innerHTML = postL.Posts[i].Author;
+            authorBlock.appendChild(authorLink);
         
             //create a for title
             let _postT = document.createElement("a");
         
             //set value in title
             _postT.innerHTML = postL.Posts[i].Title;
-            //set value in author
-            authorBlock.innerHTML = postL.Posts[i].Author;
         
             //set click action on title
             let postlink = "post?postID=" + postL.Posts[i].ID;
