@@ -25,17 +25,9 @@ public class ReplyPost implements PageHandler{
     
     public ReplyPost(){
         try{
-            reply = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/postViewReply.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/postViewReply.html");
-        		reply = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/postViewReply.html");
+            reply = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
     }
     
     public void pages(){

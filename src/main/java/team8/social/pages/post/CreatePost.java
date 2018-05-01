@@ -18,18 +18,9 @@ public class CreatePost implements PageHandler{
     
     public CreatePost(){
         try{
-            create = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/createPost.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/createPost.html");
-        		create = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        	
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/createPost.html");
+            create = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
     }
     
     public void pages() {
