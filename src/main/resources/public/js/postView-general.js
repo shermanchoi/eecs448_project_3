@@ -101,7 +101,7 @@ function showReply(text2) {
 
         let replyContent = document.createElement("div");
         replyContent.setAttribute("class", "replycontent");
-        replyContent.appendChild(parser.parseString(obj2.Replies[i].Content));
+        replyContent.innerHTML = obj2.Replies[i].Content;
 
         reply.appendChild(replyContent);
 
