@@ -40,7 +40,7 @@
 		    </table>
 		</div>
 		<div class="inner1em">
-		    <h3>Bio <button id="savebutton" type="button">Save</button><button id="editbutton" type="button">Edit</button><button id="cancelbutton"
+		    <h3>Bio <input type="submit" id="savebutton" form="changebioform" value="Save"><button id="editbutton" type="button">Edit</button><button id="cancelbutton"
 									 type="button">Cancel</button></h3>
 		    <div id="biotext">
 			At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
@@ -54,7 +54,9 @@
 			maiores alias consequatur aut perferendis doloribus asperiores repellat.
 			---Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 		    </div>	
-		    <textarea id="bioedit"></textarea>
+		    <form id="changebioform" action="changebio" method="post">
+			<textarea id="bioedit" name="bio"></textarea>
+		    </form>
 		</div>
 		<div class="inner1em">
 		    <h3>Password <input type="submit" form="changepasswordform" value="Change"><button
