@@ -58,18 +58,18 @@ public class TestPost {
 	public void testReplyToPost() {
 		// Reply to post.
 		assertNotNull("Valid Post Reply failed",
-				Post.createPost("schoi", "I am not sure what to say, but Hi!.", "doesnotmatter", 1));
+				Post.createPost("schoi", "doesnotmatter", 1));
 	}
 
 	@Test
 	public void testNoContentReplyToPost() {
 		// Invalid reply to post.
-		assertNull("Invalid Post Reply allowed (Content missing)", Post.createPost("schoi", "", "???", 1));
+		assertNull("Invalid Post Reply allowed (Content missing)", Post.createPost("schoi", "???", 1));
 	}
 
 	@Test
 	public void testIDDoesNotExistReplyToPost() {
 		// Invalid reply to post.
-		assertNull("Invalid Post Reply allowed (ID does not exist)", Post.createPost("schoi", "", "???", 2879182));
+		assertNull("Invalid Post Reply allowed (ID does not exist)", Post.createPost("schoi", "???", 2879182));
 	}
 }

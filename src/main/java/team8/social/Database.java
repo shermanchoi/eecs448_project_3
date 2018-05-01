@@ -45,9 +45,27 @@ public class Database {
 		try {
 			// Generate tables if they do not exist.
 			isSuccessful = isSuccessful && Database.querySQLSet(
-					"CREATE TABLE IF NOT EXISTS `social_accounts` ( `username` varchar(255) NOT NULL, `password` varchar(255) NOT NULL, `birthday` date NOT NULL, `firstName` varchar(255) NOT NULL, `lastName` varchar(255) NOT NULL, `securityQuestion1` longtext NOT NULL, `securityQuestion2` longtext NOT NULL, `securityQuestion3` longtext NOT NULL, `securityAnswer1` longtext NOT NULL, `securityAnswer2` longtext NOT NULL, `securityAnswer3` longtext NOT NULL, `adminStatus` int(11) DEFAULT '0', `banned` tinyint(1) DEFAULT '0', `biography` longtext, PRIMARY KEY (`username`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			isSuccessful = isSuccessful && Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
-					+ "  `message` longtext NOT NULL,  `title` longtext NOT NULL,"
+					"CREATE TABLE IF NOT EXISTS `social_accounts` (" + 
+					"  `username` varchar(255) NOT NULL," + 
+					"  `password` varchar(255) NOT NULL," + 
+					"  `birthday` date NOT NULL," + 
+					"  `firstName` varchar(255) NOT NULL," + 
+					"  `lastName` varchar(255) NOT NULL," + 
+					"  `securityQuestion1` longtext NOT NULL," + 
+					"  `securityQuestion2` longtext NOT NULL," + 
+					"  `securityQuestion3` longtext NOT NULL," + 
+					"  `securityAnswer1` longtext NOT NULL," + 
+					"  `securityAnswer2` longtext NOT NULL," + 
+					"  `securityAnswer3` longtext NOT NULL," + 
+					"  `adminStatus` int(11) DEFAULT '0'," + 
+					"  `banned` tinyint(1) DEFAULT '0'," + 
+					"  `biography` longtext," + 
+					"  `creationDate` date NOT NULL," + 
+					"  PRIMARY KEY (`username`)" + 
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+					
+					isSuccessful = isSuccessful && Database.querySQLSet("CREATE TABLE IF NOT EXISTS `social_posts` (  `author` varchar(255) NOT NULL,"
+					+ "  `message` longtext NOT NULL,  `title` longtext,"
 					+ "  `id` int(11) NOT NULL AUTO_INCREMENT,  `dateCreated` datetime DEFAULT NULL,"
 					+ "  `parentPost` int(11) DEFAULT NULL,  PRIMARY KEY (`id`),"
 					+ "  KEY `author` (`author`),  KEY `fk_Posts_1_idx` (`parentPost`),"
