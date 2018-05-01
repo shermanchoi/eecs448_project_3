@@ -90,7 +90,7 @@ function createList () {
             authorBlock.innerHTML = postL.Posts[i].Author;
         
             //set click action on title
-            let postlink = "postView.html?postID=" + postL.Posts[i].ID;
+            let postlink = "post?postID=" + postL.Posts[i].ID;
             _postT.setAttribute("href", postlink);//go to post detail page
         
             //insert the title link to div
