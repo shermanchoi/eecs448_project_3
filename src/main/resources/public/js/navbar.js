@@ -1,4 +1,4 @@
-let nav = document.getElementById("navbar");
+let nav = document.getElementsByTagName("nav")[0];
 function createNavButton() {
     let homeB = document.createElement("a");
     homeB.setAttribute("href", "/home");
