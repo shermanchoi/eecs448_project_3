@@ -185,34 +185,6 @@ public class TestAdminFunctionalities {
 		assertTrue("Posts removal with non-admin allowed", postRemovals.equals(firstTwoPosts));
 	}
 	@Test
-	public void testNonAdminBlockedFromNotSeeingUserList() {
-		// Give schoi admin status. (No one else has admin status)
-		Admin.setAdminStatus("schoi", true);
-		Admin.setAdminStatus("johnny", false);
-		Admin.setAdminStatus("someone", false);
-
-		//This is what nonAdmins should see.
-		String nonAdminShouldSeeThis = new JSONObject().put("users", "stop trying to hack us").toString();
-		String nonAdminSeesThis = Admin.getAdminViewJSON("johnny");
-		
-		//The non admin should see this.
-		assertTrue("Non-Admins can see user list.", nonAdminShouldSeeThis.equals(nonAdminSeesThis));
-	}
-	@Test
-	public void testAdminCanSeeUserList() {
-		// Give schoi admin status. (No one else has admin status)
-		Admin.setAdminStatus("schoi", true);
-		Admin.setAdminStatus("johnny", false);
-		Admin.setAdminStatus("someone", false);
-
-		//This is what nonAdmins should see.
-		String nonAdminShouldSeeThis = new JSONObject().put("users", "stop trying to hack us").toString();
-		String adminSeesThis = Admin.getAdminViewJSON("schoi");
-		
-		//The admin should not see what non-admins see
-		assertFalse("Non-Admins can see user list.", nonAdminShouldSeeThis.equals(adminSeesThis));
-	}
-	@Test
 	public void testAdminBan() {
 		// Give schoi admin status. (No one else has admin status)
 		Admin.setAdminStatus("schoi", true);
