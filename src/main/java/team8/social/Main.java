@@ -74,6 +74,7 @@ public class Main {
 		// All pages that pertain to posts
 		pages.add(new ViewPost());
 		pages.add(new CreatePost());
+		pages.add(new ReplyPost());
 
 		// All pages that pertain to administration
 
@@ -82,34 +83,7 @@ public class Main {
 			pages.get(i).pages();
 		}
 
-		get("/postViewReply", (req, res) -> {
-			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
-				res.redirect("/login");
-				return null;
-			}
-
-			res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-
-			return null;
-		});
-
-		post("/postViewReply", (req, res) -> {
-			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
-				res.redirect("/login");
-				return null;
-			}
-
-			Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), "Reply",
-					Integer.parseInt(req.queryParams("postID")));
-
-			if (p == null) {
-				res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-			} else {
-				res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-			}
-
-			return null;
-		});
+		
 
 		get("/api/posts", (req, res) -> {
 			return Post.JSONAllPosts();
