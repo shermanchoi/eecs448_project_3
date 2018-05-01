@@ -18,17 +18,9 @@ public class CreateAccount implements PageHandler{
     
     public CreateAccount(){
         try{
-            create = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/createAccount.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/createAccount.html");
-        		create = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/createAccount.html");
+            create = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
     }
     
     public void pages(){
