@@ -63,6 +63,7 @@ public class Main {
 		Vector<PageHandler> pages = new Vector<PageHandler>();
 
 		pages.add(new Root());
+		pages.add(new API());
 
 		// All pages that pertain to accounts
 		pages.add(new CreateAccount());
@@ -82,23 +83,6 @@ public class Main {
 		for (Integer i = 0; i < pages.size(); i += 1) {
 			pages.get(i).pages();
 		}
-
 		
-
-		get("/api/posts", (req, res) -> {
-			return Post.JSONAllPosts();
-		});
-
-		get("/api/post", (req, res) -> {
-			return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
-		});
-
-		get("/api/postReply", (req, res) -> {
-			return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
-		});
-
-		get("/api/security", (req, res) -> {
-			return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
-		});
 	}
 }
