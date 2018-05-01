@@ -17,17 +17,9 @@ public class Root implements PageHandler {
     private static String home = "";
     public Root(){
         try{
-            home = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/main.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/main.html");
-				home = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/main.html");
+            home = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
     }
     
     public void pages(){

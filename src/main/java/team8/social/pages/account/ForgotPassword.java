@@ -21,46 +21,21 @@ public class ForgotPassword implements PageHandler {
     public ForgotPassword(){
         //Grab content of Username page
         try {
-            username = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/forgotPasswordUsernameInput.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordUsernameInput.html");
-        		username = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordUsernameInput.html");
+            username = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
         
         //Grab content of Security Questions page
         try{
-            security = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/forgotPasswordSecQuestion.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordSecQuestion.html");
-        		security = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordSecQuestion.html");
+            security = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
         
         //Grab content of reset password page
         try{
-            password = new String(Files.readAllBytes(
-                    Paths.get(getClass().getResource("/public/html/forgotPasswordReset.html").toURI())
-            ));
-        }catch(Exception e){
-        	try {
-        		InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordReset.html");
-        		password = new String(IOUtils.toByteArray(i));
-			} catch (Exception e2) {
-				
-			}
-        	
-        }
+            InputStream i = getClass().getResourceAsStream("/public/html/forgotPasswordReset.html");
+            password = new String(IOUtils.toByteArray(i));
+        }catch(Exception e){}
     }
     
     public void pages() {
