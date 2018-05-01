@@ -22,7 +22,7 @@ function createAdminB() {
         adminButton.appendChild(adminText);
 
         adminButton.classname = 'adminButton';
-        adminButton.setAttribute('href', 'admin.html');
+        adminButton.setAttribute('href', '/admin');
         adminButton.setAttribute('class', 'other');
 
         nav.appendChild(adminButton);
@@ -32,7 +32,7 @@ let xhttpNAV = new XMLHttpRequest();
 
 xhttpNAV.onreadystatechange = function() {
     if(this.readyState == 4 && this.status == 200) {
-        if(this.responseText == true){
+        if(this.responseText == 1){
             createAdminB();
         }
     } else {
@@ -42,5 +42,7 @@ xhttpNAV.onreadystatechange = function() {
 
 xhttpNAV.open("GET", "/api/isAdmin", true);
 xhttpNAV.send();
+
+
 
 createNavButton();

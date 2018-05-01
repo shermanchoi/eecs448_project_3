@@ -62,9 +62,18 @@ public class AdminPage implements PageHandler{
             }
             
             String user = req.queryParams("username");
-            Admin.banUser(req.session().attribute("UserID").toString(), user,true);
             
-            return admin;
+            if(user.equals(req.session().attribute("UserID").toString())) {
+            	res.redirect("/admin?banError=yourself");
+            }else if(Admin.banUser(req.session().attribute("UserID").toString(), user,true)) {
+            	res.redirect("/admin");
+            }else{
+            	res.redirect("/admin?banError=notFound");
+            }
+            
+            
+            
+            return null;
         });
         
         post("/admin/unbanUser", (req,res) ->{
@@ -74,7 +83,12 @@ public class AdminPage implements PageHandler{
             }
             
             String user = req.queryParams("username");
-            Admin.banUser(req.session().attribute("UserID").toString(), user,false);
+            
+            if(Admin.banUser(req.session().attribute("UserID").toString(), user,false)) {
+            	res.redirect("/admin");
+            }else{
+            	res.redirect("/admin?banError=notFound");
+            }
             
             return admin;
         });

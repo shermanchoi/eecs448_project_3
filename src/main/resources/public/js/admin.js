@@ -1,4 +1,11 @@
- 
+let error = parent.document.URL.substring(parent.document.URL.indexOf('?banError='), parent.document.URL.length);
+error = error.slice(10);
+
+if(error == "yourself"){
+	alert("You should not and cannot ban yourself.");
+}else if(error = ""){
+	alert("The user you attempted to ban could not be found.");
+}
 
 function populatePosts(text){
 	let postL = JSON.parse(text);

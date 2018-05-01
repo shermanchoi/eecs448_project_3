@@ -153,6 +153,11 @@ public class Admin {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			if(username.equals(who)) {
+				//Seriously, don't ban yourself.
+				return false;
+			}
 
 			// Execution of statement.
 			if (setter.execute()) {
