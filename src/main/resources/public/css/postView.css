@@ -1,10 +1,9 @@
 #postandreplies {
     background-color: hsl(0,0%,80%);
-    border-width: 0 2px;
+    border-width: 2px;
     border-style: ridge;
     border-color: black;
     padding: 1em;
-    border-bottom: 2px ridge black;
 }
 
 #post {
