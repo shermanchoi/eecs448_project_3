@@ -63,16 +63,19 @@ public class Main {
 		Vector<PageHandler> pages = new Vector<PageHandler>();
 
 		pages.add(new Root());
+		pages.add(new API());
 
 		// All pages that pertain to accounts
 		pages.add(new CreateAccount());
 		pages.add(new ForgotPassword());
 		pages.add(new Login());
 		pages.add(new Logout());
+		pages.add(new ManageAccount());
 
 		// All pages that pertain to posts
 		pages.add(new ViewPost());
 		pages.add(new CreatePost());
+		pages.add(new ReplyPost());
 
 		// All pages that pertain to administration
 
@@ -80,49 +83,5 @@ public class Main {
 		for (Integer i = 0; i < pages.size(); i += 1) {
 			pages.get(i).pages();
 		}
-
-		get("/postViewReply", (req, res) -> {
-			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
-				res.redirect("/login");
-				return null;
-			}
-
-			res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-
-			return null;
-		});
-
-		post("/postViewReply", (req, res) -> {
-			if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
-				res.redirect("/login");
-				return null;
-			}
-
-			Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("replycontent"), Integer.parseInt(req.queryParams("postID")));
-
-			if (p == null) {
-				res.redirect("/html/postViewReply.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-			} else {
-				res.redirect("/html/postView.html?postID=" + Integer.parseInt(req.queryParams("postID")));
-			}
-
-			return null;
-		});
-
-		get("/api/posts", (req, res) -> {
-			return Post.JSONAllPosts();
-		});
-
-		get("/api/post", (req, res) -> {
-			return Post.getPostByID(Integer.parseInt(req.queryParams("postID")));
-		});
-
-		get("/api/postReply", (req, res) -> {
-			return Post.JSONAllPostReplies(Integer.parseInt(req.queryParams("postID")));
-		});
-
-		get("/api/security", (req, res) -> {
-			return Account.getSecurityQuestions(req.session().attribute("forgot-username"));
-		});
 	}
 }
