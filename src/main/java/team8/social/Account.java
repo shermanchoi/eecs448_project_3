@@ -187,6 +187,7 @@ public class Account {
 
 	/**
 	 * THis method allows an user to modify their biography.
+	 * 
 	 * @pre User exists.
 	 * @param uname
 	 *            The user in question
@@ -435,7 +436,7 @@ public class Account {
 
 		try {
 			Calendar calendar = Calendar.getInstance();
-			
+
 			// Statement preparing.
 			setter.statement.setString(1, uname);
 			setter.statement.setString(2, pword);
@@ -448,7 +449,8 @@ public class Account {
 			setter.statement.setString(9, ansQ1);
 			setter.statement.setString(10, ansQ2);
 			setter.statement.setString(11, ansQ3);
-			setter.statement.setString(12, calendar.get(Calendar.YEAR)  + "-" + calendar.get(calendar.MONTH) + "-" + calendar.get(calendar.DAY_OF_MONTH));
+			setter.statement.setString(12, calendar.get(Calendar.YEAR) + "-" + calendar.get(calendar.MONTH) + "-"
+					+ calendar.get(calendar.DAY_OF_MONTH));
 			// Execution of statement.
 			if (setter.execute()) {
 				return new Account(uname, pword, dateOfBirth, fName, lName);
@@ -531,10 +533,11 @@ public class Account {
 	 * @pre The account with the username exists
 	 * @param username
 	 *            The username of the user in question
-	 *            @param The username of who is logged in at the moment
+	 * @param loginedInUser
+	 *            username of who is logged in at the moment
 	 * @return The JSON representing the user's profile information.
 	 */
-	public static String getProfilePageInformation(String username, String who) {
+	public static String getProfilePageInformation(String username, String loginedInUser) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
 		DatabaseGetter getter = new DatabaseGetter(query);
@@ -562,7 +565,7 @@ public class Account {
 						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("creationDate").value(rs.getString("creationDate")) // day user joined
 						.key("postCount").value(getPostCreatedCount(username)) // how many posts this user made
-						.key("isUser").value(username.equals(who)) // is the person looking at their own page?
+						.key("isUser").value(username.equals(loginedInUser)) // is the person looking at their own page?
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
@@ -576,7 +579,7 @@ public class Account {
 		String query = "SELECT COUNT(*) FROM social_posts WHERE author=?";
 		DatabaseGetter getter = new DatabaseGetter(query);
 		int count = 0;
-		
+
 		try {
 			// Prepare the statement
 			getter.statement.setString(1, username);
@@ -586,9 +589,9 @@ public class Account {
 			e.printStackTrace();
 			return count;
 		}
-		
+
 		ResultSet rs = getter.results;
-		
+
 		try {
 			while (rs.next()) {
 				count = rs.getInt("COUNT(*)");
@@ -599,7 +602,7 @@ public class Account {
 
 		return count;
 	}
-	
+
 	public static boolean isBanned(String username) {
 		// Get the query ready.
 		String query = "SELECT * FROM social_accounts WHERE username=?;";
