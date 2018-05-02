@@ -658,7 +658,7 @@ public class Account {
 				json = new JSONStringer().object() // Start object
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
-						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.key("birthday").value(rs.getString("birthday").substring(4)) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // security
 																														// question
