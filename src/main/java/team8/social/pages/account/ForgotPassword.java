@@ -63,7 +63,7 @@ public class ForgotPassword implements PageHandler {
                 String user = req.queryParams("uname");
                 if(Account.getSecurityQuestions(user) == null){
                     req.session().attribute("forgot-state", "identify");
-                    res.redirect("/forgotpassword");
+                    res.redirect("/forgotpassword?error=notFound");
                 }else{
                     req.session().attribute("forgot-state", "security");
                     req.session().attribute("forgot-username", user);
