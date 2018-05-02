@@ -118,7 +118,9 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     bioBox.innerHTML = "Bio";
     inner2.appendChild(bioBox);
 
-    inner2.appendChild(document.createElement("p").innerHTML = biostr);
+    let p = document.createElement("p");
+    p.innerHTML = biostr
+    inner2.appendChild(p);
     
     infoBox.appendChild(inner2);
 
