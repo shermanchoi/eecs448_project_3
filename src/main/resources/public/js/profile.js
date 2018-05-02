@@ -295,6 +295,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let changePWForm = document.createElement("form");
     changePWForm.setAttribute("id", "changepasswordform");
     changePWForm.setAttribute("action", "/updatepassword");
+    chengePWForm.setAttribute("method", "post");
     changePWForm.setAttribute("onsubmit", "return changePasswordValidate()");
     changePWForm.addEventListener('submit', changePasswordValidate, false);
 
@@ -321,7 +322,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     textBox2.setAttribute("class", "textbox");
 
     let lable2 = document.createElement("lable");
-    lable2.innerHTML = "New Password";
+    lable2.innerHTML = "New Password ";
     textBox2.appendChild(lable2);
 
     let span1 = document.createElement("span");
@@ -351,7 +352,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     textBox3.setAttribute("class", "textbox");
 
     let lable3 = document.createElement("lable");
-    lable3.innerHTML = "Confirm Password";
+    lable3.innerHTML = "Confirm Password ";
     textBox3.appendChild(lable3);
 
     let span3 = document.createElement("span");
