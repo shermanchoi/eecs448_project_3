@@ -272,12 +272,12 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     changePWB.setAttribute("type", "submit");
     changePWB.setAttribute("form", "changepasswordform");
     changePWB.setAttribute("value", "Change");
-    changePWB.addEventListener('click', changePasswordClick, false);
     passCBox.appendChild(changePWB);
 
     let changePWOpB = document.createElement("button");
     changePWOpB.setAttribute("id", "changepasswordbutton");
     changePWOpB.setAttribute("type", "button");
+    changePWOpB.addEventListener('click', changePasswordClick, false);
     changePWOpB.innerHTML = "Change Password";
     passCBox.appendChild(changePWOpB);
 
