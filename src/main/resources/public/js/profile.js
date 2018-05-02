@@ -116,10 +116,10 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let bioBox = document.createElement("h3");
     bioBox.innerHTML = "Bio";
-    
-    inner2.innerHTML = biostr;
     inner2.appendChild(bioBox);
 
+    inner2.innerHTML = biostr;
+    
     infoBox.appendChild(inner2);
 
     mainDiv.appendChild(infoBox);
@@ -128,7 +128,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 }
 
 function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
-    if(biostr == "") {}
+    if(biostr == "") { biostr = "Write something about yourself";}
     let myProfileCSS = document.createElement("link");
     myProfileCSS.setAttribute("href", "../css/myProfile.css");
     myProfileCSS.setAttribute("type", "text/css");
@@ -235,6 +235,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let cancelB = document.createElement("button");
     cancelB.setAttribute("id", "cancelbutton");
     cancelB.setAttribute("type", "button");
+    cancelB.innerHTML = "Cancel";
     cancelB.addEventListener('click', cancelClick, false);
     myBioBox.appendChild(cancelB);
 
@@ -259,7 +260,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     myInner2.appendChild(bioForm);
 
-    myMainDiv.appendChild(myInner2);
+    myInfoBox.appendChild(myInner2);
 
     let myInner3 = document.createElement("div");
     myInner3.setAttribute("class", "inner1em");
@@ -376,7 +377,8 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     formContent.appendChild(textBox3);
     changePWForm.appendChild(formContent);
     myInner3.appendChild(changePWForm);
-    myMainDiv.appendChild(myInner3);
+    myInfoBox.appendChild(myInner3);
+    myMainDiv.appendChild(myInfoBox);
     body.appendChild(myMainDiv);
 
 
