@@ -62,7 +62,7 @@ public class CreateAccount implements PageHandler{
             
                 if(pword.length() < 8) {
                     //The password was not long enough.
-                    res.redirect("/createaccount");
+                    res.redirect("/createaccount?error=shortPassword");
                 }
             
                 //Attempt account creation
@@ -79,7 +79,7 @@ public class CreateAccount implements PageHandler{
                 }
             }finally{
                 //Something did not happen correctly
-                res.redirect("/createaccount");
+                res.redirect("/createaccount?error=failure");
             }
         
         
