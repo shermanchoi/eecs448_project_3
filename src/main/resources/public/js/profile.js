@@ -417,19 +417,19 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
         var cnpwd = document.querySelectorAll('input[type="password"]')[2].value;
         if (npwd.length < 8) {
         alert('Password must be at least 8 characters in length');
-        document.getElementById('npwdalert').style.display = 'inline';
+        span2.style.display = 'inline';
         valid = false;
         }
         else {
-        document.getElementById('npwdalert').style.display = 'none';
+            span2.style.display = 'none';
         }
         if (npwd.length >= 8 && cnpwd != npwd) {
         alert('Passwords do not match');
-        document.getElementById('cnpwdalert').style.display = 'inline';
+        span4.style.display = 'inline';
         valid = false;
         }
         else {
-        document.getElementById('cnpwdalert').style.display = 'none';
+            span4.style.display = 'none';
         }
     
         if (!valid) {
