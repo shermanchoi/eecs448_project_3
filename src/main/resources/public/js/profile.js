@@ -456,11 +456,8 @@ xhttp.onreadystatechange = function () {
     }
 };
 
-if(ID == "") {
-    xhttp.open("GET", "/api/profilePage", true);
-} else {
-    xhttp.open("GET", "/api/profilePage?user=" + ID, true);
-}
+
+xhttp.open("GET", "/api/profilePage?user=" + ID, true);
 xhttp.send();
 
 //{"isUser": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "createionDate": "joindate", "birthday": "birthday", "biography": "bio", "postCount": "#"}
