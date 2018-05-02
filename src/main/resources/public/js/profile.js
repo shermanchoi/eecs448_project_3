@@ -400,7 +400,7 @@ xhttp.onreadystatechange = function () {
 };
 
 if(ID == "") {
-    xhttp.open("GET", "/api/profilrPage", true);
+    xhttp.open("GET", "/api/profilePage", true);
 } else {
     xhttp.open("GET", "/api/profilePage?user=" + ID, true);
 }
