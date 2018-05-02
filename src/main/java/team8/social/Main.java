@@ -88,6 +88,7 @@ public class Main {
 		pages.add(new Login());
 		pages.add(new Logout());
 		pages.add(new ManageAccount());
+		pages.add(new Profile());
 
 		// All pages that pertain to posts
 		pages.add(new ViewPost());
