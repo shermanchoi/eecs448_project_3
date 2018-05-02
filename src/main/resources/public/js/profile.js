@@ -1,3 +1,6 @@
+let preID = parent.document.URL.substring(parent.document.URL.indexOf('?username='), parent.document.URL.length);
+let ID = preID.slice(10);
+
 let html = document.getElementsByTagName("html");
 
 let head = document.createElement("head");
