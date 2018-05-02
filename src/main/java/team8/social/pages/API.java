@@ -42,14 +42,14 @@ public class API implements PageHandler{
         });
         
         get("/api/isAdmin", (req, res) -> {
-            return Admin.isAdmin(req.session().attribute("username")) ? 0 : 1;
+            return (Admin.isAdmin(req.session().attribute("UserID")) ? "1" : "0");
         });
         
         get("/api/profilePage", (req, res) -> {
             String user = req.session().attribute("UserID");
             String profile = req.queryParams("user");
             
-            if(req.queryParams("user").toString() != "") {
+            if(!req.queryParams("user").equals("")) {
                 return Account.getProfilePageInformation(profile, user);
             }else{
                 return Account.getProfilePageInformation(user, user);
