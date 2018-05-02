@@ -42,7 +42,7 @@ public class API implements PageHandler{
         });
         
         get("/api/isAdmin", (req, res) -> {
-            return Admin.isAdmin(req.session().attribute("username"));
+            return Admin.isAdmin(req.session().attribute("username")) ? 0 : 1;
         });
         
         get("/api/profilePage", (req, res) -> {
