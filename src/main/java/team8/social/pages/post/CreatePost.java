@@ -42,7 +42,7 @@ public class CreatePost implements PageHandler{
         
             Post p = Post.createPost(req.session().attribute("UserID"), req.queryParams("postcontent"), req.queryParams("posttitle"));
             if(p == null){
-                res.redirect("/createpost");
+                res.redirect("/createpost?error=invalid");
             }else{
                 res.redirect("/home");
             }
