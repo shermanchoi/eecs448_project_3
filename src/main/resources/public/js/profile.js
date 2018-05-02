@@ -54,7 +54,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let table = document.createElement("table");
 
-    let fristTR = document.createElement("tr");
+    let firstTR = document.createElement("tr");
 
     let name = document.createElement("td");
     name.setAttribute("class", "attribute");
@@ -154,7 +154,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let myTable = document.createElement("table");
 
-    let myFristTR = document.createElement("tr");
+    let myFirstTR = document.createElement("tr");
 
     let myName = document.createElement("td");
     myName.setAttribute("class", "attribute");
