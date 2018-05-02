@@ -98,11 +98,12 @@ function populateUsers(text){
         
         username.appendChild(href);
         user.appendChild(username);
-        userTable.appendChild(user);
         
         banButtonForm.appendChild(banButton);
         banButtonCol.appendChild(banButtonForm);
-        userTable.appendChild(banButtonCol);
+        user.appendChild(banButtonCol);
+        
+        userTable.appendChild(user);
     }
 }
 
