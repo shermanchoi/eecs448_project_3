@@ -27,6 +27,7 @@ body.appendChild(navbar);
 
 
 function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
+    if(biostr=="") {biostr = "This user has not written a biography yet...";}
     let profileCSS = document.createElement("link");
     profileCSS.setAttribute("href", "../css/profilePage.css");
     profileCSS.setAttribute("type", "text/css");
@@ -61,10 +62,10 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     name.innerHTML = "Name:";
     firstTR.appendChild(name);
 
-    let username = document.createElement("tr");
-    username.setAttribute("class", "value");
-    username.innerHTML = uname;
-    firstTR.appendChild(username);
+    let realname = document.createElement("tr");
+    realname.setAttribute("class", "value");
+    realname.innerHTML = fname +" " + lname;
+    firstTR.appendChild(realname);
     table.appendChild(firstTR);
 
     let secTR = document.createElement("tr");
@@ -117,8 +118,10 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     bioBox.innerHTML = "Bio";
     inner2.appendChild(bioBox);
 
-    inner2.innerHTML = biostr;
-
+    let p = document.createElement("p");
+    p.innerHTML = biostr
+    inner2.appendChild(p);
+    
     infoBox.appendChild(inner2);
 
     mainDiv.appendChild(infoBox);
@@ -127,6 +130,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 }
 
 function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
+    if(biostr == "") { biostr = "Write something about yourself";}
     let myProfileCSS = document.createElement("link");
     myProfileCSS.setAttribute("href", "../css/myProfile.css");
     myProfileCSS.setAttribute("type", "text/css");
@@ -161,10 +165,10 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myName.innerHTML = "Name:";
     myFirstTR.appendChild(myName);
 
-    let myUsername = document.createElement("tr");
-    myUsername.setAttribute("class", "value");
-    myUsername.innerHTML = uname;
-    myFirstTR.appendChild(myUsername);
+    let myRealname = document.createElement("tr");
+    myRealname.setAttribute("class", "value");
+    myRealname.innerHTML = fname + " " + lname;
+    myFirstTR.appendChild(myRealname);
     myTable.appendChild(myFirstTR);
 
     let mySecTR = document.createElement("tr");
@@ -233,14 +237,14 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let cancelB = document.createElement("button");
     cancelB.setAttribute("id", "cancelbutton");
     cancelB.setAttribute("type", "button");
+    cancelB.innerHTML = "Cancel";
     cancelB.addEventListener('click', cancelClick, false);
     myBioBox.appendChild(cancelB);
-
-    myInner2.appendChild(myBioBox);
 
     let bioText = document.createElement("div");
     bioText.setAttribute("id", "biotext");
     bioText.innerHTML = biostr;
+    myInner2.appendChild(myBioBox);
 
     myInner2.appendChild(bioText);
 
@@ -253,11 +257,12 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let editArea = document.createElement("textarea");
     editArea.setAttribute("id", "bioedit");
     editArea.setAttribute("name", "bioedit");
+    editArea.setAttribute("placeholder", biostr);
     bioForm.appendChild(editArea);
 
     myInner2.appendChild(bioForm);
 
-    myMainDiv.appendChild(myInner2);
+    myInfoBox.appendChild(myInner2);
 
     let myInner3 = document.createElement("div");
     myInner3.setAttribute("class", "inner1em");
@@ -269,12 +274,12 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     changePWB.setAttribute("type", "submit");
     changePWB.setAttribute("form", "changepasswordform");
     changePWB.setAttribute("value", "Change");
-    changePWB.addEventListener('click', changePasswordClick, false);
     passCBox.appendChild(changePWB);
 
     let changePWOpB = document.createElement("button");
     changePWOpB.setAttribute("id", "changepasswordbutton");
     changePWOpB.setAttribute("type", "button");
+    changePWOpB.addEventListener('click', changePasswordClick, false);
     changePWOpB.innerHTML = "Change Password";
     passCBox.appendChild(changePWOpB);
 
@@ -374,7 +379,8 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     formContent.appendChild(textBox3);
     changePWForm.appendChild(formContent);
     myInner3.appendChild(changePWForm);
-    myMainDiv.appendChild(myInner3);
+    myInfoBox.appendChild(myInner3);
+    myMainDiv.appendChild(myInfoBox);
     body.appendChild(myMainDiv);
 
 
