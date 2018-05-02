@@ -12,17 +12,17 @@ Creation of the JAR file ("project-1.0-jar-with-dependencies.jar") is done with 
 This server is built using Java and uses Maven to handle dependencies. To build the application follow the steps below.
 1. Install Maven and Java. Instructions will vary based on your operating system.
 2. Clone the GitHub Repository:
- - URL: https://github.com/SChoiGitHub/eecs448_project_3
- - Clone with SSH: git@github.com:SChoiGitHub/eecs448_project_3.git
+   - URL: https://github.com/SChoiGitHub/eecs448_project_3
+   - Clone with SSH: git@github.com:SChoiGitHub/eecs448_project_3.git
 3. Using the makefile build the application.
- - The command ‘make defaultBuild’ will test and build the JAR file using the server specifications:
-   - Database URL: jdbc:mysql://localhost:3306/sys?useSSL=false -
-   - Database User: root
-   - Database Password: password
- - The command ‘make specificServerBuild’ will test and build the JAR file using a given server, but it requires three parameters:
-   - url=<your database url here>
-   - user=<your username for the database here>
-   - password=<your password for the database here>
+   - The command ‘make defaultBuild’ will test and build the JAR file using the server specifications:
+     - Database URL: jdbc:mysql://localhost:3306/sys?useSSL=false -
+     - Database User: root
+     - Database Password: password
+   - The command ‘make specificServerBuild’ will test and build the JAR file using a given server, but it requires three parameters:
+     - url=<your database url here>
+     - user=<your username for the database here>
+     - password=<your password for the database here>
 
 **Usage of Jar**
 You can run the JAR file using the ‘makefile’ provided in the GitHub Repository.
