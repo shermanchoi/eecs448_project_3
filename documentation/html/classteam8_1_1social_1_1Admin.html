@@ -74,20 +74,20 @@ $(function() {
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac315021b53185f8bb333b90c36e8cb61"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#ac315021b53185f8bb333b90c36e8cb61">setAdminStatus</a> (String username, boolean setAdmin)</td></tr>
 <tr class="separator:ac315021b53185f8bb333b90c36e8cb61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af12eb6ba1bbb9025b40e2217cad31427"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#af12eb6ba1bbb9025b40e2217cad31427">getAdminViewJSON</a> (String username)</td></tr>
-<tr class="separator:af12eb6ba1bbb9025b40e2217cad31427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d8d3001da4aa01bd60e568892c6709"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#a75d8d3001da4aa01bd60e568892c6709">getAdminViewJSON</a> ()</td></tr>
+<tr class="separator:a75d8d3001da4aa01bd60e568892c6709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac90a93d5f5cff77fc5728bc8ce8bec8f"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#ac90a93d5f5cff77fc5728bc8ce8bec8f">changeOtherPassword</a> (String username, String who, String newPassword)</td></tr>
 <tr class="separator:ac90a93d5f5cff77fc5728bc8ce8bec8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87c7e65c579b9e87c4ed1dec916a8c37"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#a87c7e65c579b9e87c4ed1dec916a8c37">banUser</a> (String username, String who)</td></tr>
-<tr class="separator:a87c7e65c579b9e87c4ed1dec916a8c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a2ea567003b00f1dd080f6fd5e6db90"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#a7a2ea567003b00f1dd080f6fd5e6db90">banUser</a> (String username, String who, boolean banned)</td></tr>
+<tr class="separator:a7a2ea567003b00f1dd080f6fd5e6db90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8c0409024f0538a88b14f1fa62690ae"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#ad8c0409024f0538a88b14f1fa62690ae">isAdmin</a> (String username)</td></tr>
 <tr class="separator:ad8c0409024f0538a88b14f1fa62690ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a031eebbe846dd2fec112af3e1b5074ac"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Admin.html#a031eebbe846dd2fec112af3e1b5074ac">removePost</a> (String username, int postID)</td></tr>
 <tr class="separator:a031eebbe846dd2fec112af3e1b5074ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a87c7e65c579b9e87c4ed1dec916a8c37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87c7e65c579b9e87c4ed1dec916a8c37">&#9670;&nbsp;</a></span>banUser()</h2>
+<a id="a7a2ea567003b00f1dd080f6fd5e6db90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a2ea567003b00f1dd080f6fd5e6db90">&#9670;&nbsp;</a></span>banUser()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -105,7 +105,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>who</em>&#160;</td>
+          <td class="paramname"><em>who</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>banned</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -124,6 +130,7 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">username</td><td>The user requesting the ban </td></tr>
     <tr><td class="paramname">who</td><td>The user who will be banned </td></tr>
+    <tr><td class="paramname">banned</td><td>if true, will ban user defined by who, if false will unban user defined by who. </td></tr>
   </table>
   </dd>
 </dl>
@@ -183,8 +190,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af12eb6ba1bbb9025b40e2217cad31427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af12eb6ba1bbb9025b40e2217cad31427">&#9670;&nbsp;</a></span>getAdminViewJSON()</h2>
+<a id="a75d8d3001da4aa01bd60e568892c6709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d8d3001da4aa01bd60e568892c6709">&#9670;&nbsp;</a></span>getAdminViewJSON()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,8 +202,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static String team8.social.Admin.getAdminViewJSON </td>
           <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>username</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -207,13 +213,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>This returns information for the admin to see.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">username</td><td>THe user requesting the JSON </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>JSON to see all the information an admin may want if they are an admin, otherwise they get back nonsense. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON to see all the information an admin may want </dd></dl>
 
 </div>
 </div>

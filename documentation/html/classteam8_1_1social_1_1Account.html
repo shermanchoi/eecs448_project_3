@@ -102,8 +102,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:afaa44831f8b3ebb16f346608a2b867de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a991e74d6c13416c59384dc9e25fc05c3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classteam8_1_1social_1_1Account.html">Account</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a991e74d6c13416c59384dc9e25fc05c3">login</a> (String username, String password)</td></tr>
 <tr class="separator:a991e74d6c13416c59384dc9e25fc05c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a8a130cb203adc8f5292133c9d9f0ce65">getProfilePageInformation</a> (String username)</td></tr>
-<tr class="separator:a8a130cb203adc8f5292133c9d9f0ce65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a995859d81ec05dad54369278afd74319"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteam8_1_1social_1_1Account.html#a995859d81ec05dad54369278afd74319">getProfilePageInformation</a> (String username, String loginedInUser)</td></tr>
+<tr class="separator:a995859d81ec05dad54369278afd74319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7020bc5586f096ed192b8a773a52e3f5"><td class="memItemLeft" align="right" valign="top"><a id="a7020bc5586f096ed192b8a773a52e3f5"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>getPostCreatedCount</b> (String username)</td></tr>
+<tr class="separator:a7020bc5586f096ed192b8a773a52e3f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36a65d27e061c7db4d2a27815a6b3427"><td class="memItemLeft" align="right" valign="top"><a id="a36a65d27e061c7db4d2a27815a6b3427"></a>
 static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b> (String username)</td></tr>
 <tr class="separator:a36a65d27e061c7db4d2a27815a6b3427"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +213,8 @@ static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b
   </tr>
 </table>
 </div><div class="memdoc">
-<p>THis method allows an user to modify their biography. </p><dl class="section pre"><dt>Precondition</dt><dd>User exists. </dd></dl>
+<p>THis method allows an user to modify their biography.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>User exists. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uname</td><td>The user in question </td></tr>
@@ -647,8 +651,8 @@ static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b
 
 </div>
 </div>
-<a id="a8a130cb203adc8f5292133c9d9f0ce65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a130cb203adc8f5292133c9d9f0ce65">&#9670;&nbsp;</a></span>getProfilePageInformation()</h2>
+<a id="a995859d81ec05dad54369278afd74319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a995859d81ec05dad54369278afd74319">&#9670;&nbsp;</a></span>getProfilePageInformation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -660,8 +664,18 @@ static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b
           <td class="memname">static String team8.social.Account.getProfilePageInformation </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>username</em></td><td>)</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>loginedInUser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -675,6 +689,7 @@ static boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isBanned</b
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">username</td><td>The username of the user in question </td></tr>
+    <tr><td class="paramname">loginedInUser</td><td>username of who is logged in at the moment </td></tr>
   </table>
   </dd>
 </dl>
