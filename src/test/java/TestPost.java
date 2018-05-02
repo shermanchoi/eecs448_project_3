@@ -64,7 +64,7 @@ public class TestPost {
 	@Test
 	public void testNoContentReplyToPost() {
 		// Invalid reply to post.
-		assertNull("Invalid Post Reply allowed (Content missing)", Post.createPost("schoi", "???", 1));
+		assertNull("Invalid Post Reply allowed (Content missing)", Post.createPost("schoi", "", 1));
 	}
 
 	@Test
