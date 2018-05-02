@@ -1,6 +1,6 @@
 let xhttp = new XMLHttpRequest();
 
-
+let postL = {};
 
                 
 
@@ -52,77 +52,219 @@ function createList () {
 
     let text = "";
 
-    function createPostBlock(text) {
-        let postL = JSON.parse(text);
+    function createPostBlock(postL) {
         //start create post blocks
-        for(let i = 0; i < postL.Posts.length; i++) {
+        for(let i = 0; i < 20; i++) {
             //create tr
-            let post = document.createElement("tr");
-            let oore = document.createAttribute("class");
+            let post[i] = document.createElement("tr");
+            let oore[i] = document.createAttribute("class");
             if(i%2 == 0) {
-                oore.value = "odd";
+                oore[i].value = "odd";
             } else {
-                oore.value = "even";
+                oore[i].value = "even";
             }
             //set tr's class
-            post.setAttributeNode(oore);
+            post[i].setAttributeNode(oore);
         
             //create td for title and author name
-            let mainBlock = document.createElement("td");
+            let mainBlock[i] = document.createElement("td");
             //set td's class
-            mainBlock.setAttribute("class", "mainpostinfo");
+            mainBlock[i].setAttribute("class", "mainpostinfo");
         
             //create div's for title and author
-            let titleBlock = document.createElement("div");
+            let titleBlock[i] = document.createElement("div");
             //set class for title
-            titleBlock.setAttribute("class", "posttitle");
+            titleBlock[i].setAttribute("class", "posttitle");
         
-            let authorBlock = document.createElement("div");
+            let authorBlock[i] = document.createElement("div");
             //set class for author
-            authorBlock.setAttribute("class", "postauthor");
+            authorBlock[i].setAttribute("class", "postauthor");
 
-            let authorLink = document.createElement("a");
-            authorLink.setAttribute("href", "/profile?username="+postL.Posts[i].Author);
-            authorLink.innerHTML = postL.Posts[i].Author;
-            authorBlock.appendChild(authorLink);
+            let authorLink[i] = document.createElement("a");
+            authorLink[i].setAttribute("href", "/profile?username="+postL.Posts[i].Author);
+            authorLink[i].innerHTML = postL.Posts[i].Author;
+            authorBlock[i].appendChild(authorLink);
         
             //create a for title
-            let _postT = document.createElement("a");
+            let _postT[i] = document.createElement("a");
         
             //set value in title
-            _postT.innerHTML = postL.Posts[i].Title;
+            _postT[i].innerHTML = postL.Posts[i].Title;
         
             //set click action on title
-            let postlink = "post?postID=" + postL.Posts[i].ID;
-            _postT.setAttribute("href", postlink);//go to post detail page
+            let postlink[i] = "post?postID=" + postL.Posts[i].ID;
+            _postT[i].setAttribute("href", postlink);//go to post detail page
         
             //insert the title link to div
-            titleBlock.appendChild(_postT);
+            titleBlock[i].appendChild(_postT[i]);
         
             //insert title and author to td
-            mainBlock.appendChild(titleBlock);
-            mainBlock.appendChild(authorBlock);
+            mainBlock[i].appendChild(titleBlock[i]);
+            mainBlock[i].appendChild(authorBlock[i]);
         
             //create td for replies
-            let replieBlock = document.createElement("td");
+            let replieBlock[i] = document.createElement("td");
             //set class for replies
-            replieBlock.setAttribute("class", "replies");
+            replieBlock[i].setAttribute("class", "replies");
         
             //set value for replies
-            replieBlock.innerHTML = postL.Posts[i].Reply;
+            replieBlock[i].innerHTML = postL.Posts[i].Reply;
         
             //insert main block td into tr
-            post.appendChild(mainBlock);
+            post[i].appendChild(mainBlock[i]);
             //insert reply block td into tr
-            post.appendChild(replieBlock);
+            post[i].appendChild(replieBlock[i]);
             //insert tr into tbody
-            postBody.appendChild(post);
+            postBody.appendChild(post[i]);
+        }
+    }
+
+    function indexBar(currentPg, totalPg) {
+        const PROXIMATE = 3;
+        const LEFT_NUM = 1;
+        const RIGHT_NUM = totalPg;
+        var current_page = currentPg; //TODO: Determine a way to get the current page
+    
+        var indexBar = document.getElementById("indexbar"); //Get the indexbar div
+    
+        /*
+        * MAIN COMPONENT CONSTRUCTION
+        */
+    
+        var leftArrowAnchor = document.createElement("a");
+        leftArrowAnchor.setAttribute('id', 'leftarrowanchor');
+        leftArrowAnchor.setAttribute('onclick', 'updatePostBlock(postL, '+(current_page-1)+');'); 
+        leftArrowAnchor.innerHTML = "<<";
+    
+        var rightArrowAnchor = document.createElement("a");
+        rightArrowAnchor.setAttribute('id', 'rightarrowanchor');
+        rightArrowAnchor.setAttribute('onclick', 'updatePostBlock(postL, '+(current_page+1)+');'); 
+        rightArrowAnchor.innerHTML = ">>";
+    
+        var leftNumber = document.createElement("a");
+        leftNumber.setAttribute('id', 'leftnumber');
+        leftNumber.setAttribute('href', 'updatePostBlcok(postL, 1);');
+        leftNumber.innerHTML = LEFT_NUM;
+    
+        var rightNumber = document.createElement("a");
+        rightNumber.setAttribute('id', 'rightnumber');
+        rightNumber.setAttribute('href', 'updatePostBlock(postL, '+RIGHT_NUM+');');
+        rightNumber.innerHTML = RIGHT_NUM;
+    
+        var leftDotsSpan = document.createElement("span");
+        leftDotsSpan.setAttribute('id', 'leftdotsspan');
+        leftDotsSpan.innerHTML = "...";
+    
+        var rightDotsSpan = document.createElement("span");
+        rightDotsSpan.setAttribute('id', 'rightdotsspan');
+        rightDotsSpan.innerHTML = "...";
+    
+        var currentSpan = document.createElement("span"); //Span with current page number; corresponds to current page anchor above
+        currentSpan.setAttribute('id', 'currentspan');
+        currentSpan.innerHTML = current_page;
+    
+        /*
+        * COMPONENT ATTACHMENT
+        */ 
+    
+        indexBar.appendChild(leftArrowAnchor);
+        indexBar.appendChild(leftNumber);
+        indexBar.appendChild(leftDotsSpan);
+    
+        for (var i = (current_page - PROXIMATE); i < current_page; ++i) { //Put in left proximate anchors
+            var proximate_anchor = document.createElement("a");
+            proximate_anchor.setAttribute('class', 'leftproximate');
+            proximate_anchor.setAttribute('onclick', 'updatePostBlock(postL, '+(current_page-i)+');');
+            proximate_anchor.innerHTML = i;
+            indexBar.appendChild(proximate_anchor);
+        }
+    
+        indexBar.appendChild(currentSpan);
+    
+        for (var i = (current_page + 1); i <= (current_page + PROXIMATE); ++i) { //Put in right proximate anchors
+            var proximate_anchor = document.createElement("a");
+            proximate_anchor.setAttribute('class', 'rightproximate');
+            proximate_anchor.setAttribute('onclick', 'updatePostBlock(postL, '+(current_page+i)+');');
+            proximate_anchor.innerHTML = i;
+            indexBar.appendChild(proximate_anchor);
+        }
+    
+        indexBar.appendChild(rightDotsSpan);
+        indexBar.appendChild(rightNumber);
+        indexBar.appendChild(rightArrowAnchor);
+    
+        var leftProximateAnchors = document.querySelectorAll('a.leftproximate');
+        var rightProximateAnchors = document.querySelectorAll('a.rightproximate');
+        /*
+        * COMPONENT HIDING/SHOWING (ALGORITHM)
+        */
+    
+        if (RIGHT_NUM == 1) {
+            leftArrowAnchor.style.display = "none";
+            leftNumber.style.display = "none";
+            leftDotsSpan.style.display = "none";
+            currentSpan.style.display = "inline";
+            rightDotsSpan.style.display = "none";
+            rightNumber.style.display = "none";
+            rightArrowAnchor.style.display = "none";
+            var j = 0;
+            for (var i = (current_page - PROXIMATE); i < current_page; ++i) {
+            if (i <= LEFT_NUM) {
+                leftProximateAnchors[j].style.display = "none";
+            }
+            ++j;
+            }
+            j = 0; //Used to keep track of the rightProximateAnchors array
+            for (var i = (current_page + 1); i <= (current_page + PROXIMATE); ++i) {
+            if (i >= RIGHT_NUM) {
+                rightProximateAnchors[j].style.display = "none";
+            }
+            ++j;
+            }
+        }
+        else {
+            if ((current_page - PROXIMATE) <= (LEFT_NUM + 1)) {
+            leftDotsSpan.style.display = "none";
+            }
+            if ((current_page + PROXIMATE) >= (RIGHT_NUM - 1)) {
+            rightDotsSpan.style.display = "none";
+            }
+            if (current_page == LEFT_NUM) {
+            leftArrowAnchor.style.display = "none";
+            leftNumber.style.display = "none";
+            }
+            else if (current_page == RIGHT_NUM) {
+            rightArrowAnchor.style.display = "none";
+            rightNumber.style.display = "none";
+            }
+            var j = 0;
+            for (var i = (current_page - PROXIMATE); i < current_page; ++i) {
+            if (i <= LEFT_NUM) {
+                leftProximateAnchors[j].style.display = "none";
+            }
+            ++j;
+            }
+            j = 0; //Used to keep track of the rightProximateAnchors array
+            for (var i = (current_page + 1); i <= (current_page + PROXIMATE); ++i) {
+            if (i >= RIGHT_NUM) {
+                rightProximateAnchors[j].style.display = "none";
+            }
+            ++j;
+            }
+        }
+    }
+
+    function updatepostBlock(postL, pageNum) {
+        for(let i = 0; i < 20; i++) {
+            authorLink[i].setAttribute("href", "/profile?username="+postL.Posts[(pageNum-1)*20+i].Author);
+            _postT[i].innerHTML = postL.Posts[(pageNum-1)*20+i].Title;
         }
     }
 
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            createPostBlock(this.responseText);
+            postL = JSON.parse(this.responseText);
+            createPostBlock(postL);
         }
     };
     
