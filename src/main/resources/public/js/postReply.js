@@ -45,7 +45,7 @@ function formGenerate() {
     formBody.setAttribute("id", "replyform");
 
     let form = document.createElement("form");
-    form.setAttribute("action", "/postViewReply");
+    form.setAttribute("action", "/replypost");
     form.setAttribute("method", "post");
 
     let fieldSet = document.createElement("fieldset");
