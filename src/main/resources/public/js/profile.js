@@ -115,9 +115,9 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let bioBox = document.createElement("h3");
     bioBox.innerHTML = "Bio";
-    inner2.appendChild(bioBox);
-
+    
     inner2.innerHTML = biostr;
+    inner2.appendChild(bioBox);
 
     infoBox.appendChild(inner2);
 
@@ -236,11 +236,10 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     cancelB.addEventListener('click', cancelClick, false);
     myBioBox.appendChild(cancelB);
 
-    myInner2.appendChild(myBioBox);
-
     let bioText = document.createElement("div");
     bioText.setAttribute("id", "biotext");
     bioText.innerHTML = biostr;
+    myInner2.appendChild(myBioBox);
 
     myInner2.appendChild(bioText);
 
@@ -253,6 +252,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let editArea = document.createElement("textarea");
     editArea.setAttribute("id", "bioedit");
     editArea.setAttribute("name", "bioedit");
+    editArea.setAttribute("placeholder", biostr);
     bioForm.appendChild(editArea);
 
     myInner2.appendChild(bioForm);
