@@ -226,12 +226,14 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let editB = document.createElement("button");
     editB.setAttribute("id", "editbutton");
     editB.setAttribute("type", "button");
+    editB.addEventListener('click', editClick, false);
     editB.innerHTML = "Edit";
     myBioBox.appendChild(editB);
 
     let cancelB = document.createElement("button");
     cancelB.setAttribute("id", "cancelbutton");
     cancelB.setAttribute("type", "button");
+    cancelB.addEventListener('click', cancelClick, false);
     myBioBox.appendChild(cancelB);
 
     myInner2.appendChild(myBioBox);
@@ -250,6 +252,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
  
     let editArea = document.createElement("textarea");
     editArea.setAttribute("id", "bioedit");
+    editArea.setAttribute("name", "bioedit");
     bioForm.appendChild(editArea);
 
     myInner2.appendChild(bioForm);
@@ -266,6 +269,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     changePWB.setAttribute("type", "submit");
     changePWB.setAttribute("form", "changepasswordform");
     changePWB.setAttribute("value", "Change");
+    changePWB.addEventListener('click', changePasswordClick, false);
     passCBox.appendChild(changePWB);
 
     let changePWOpB = document.createElement("button");
@@ -278,14 +282,16 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     changePWCancB.setAttribute("id", "cancelchangepasswordbutton");
     changePWCancB.setAttribute("type", "button");
     changePWCancB.innerHTML = "Cancel";
+    changePWCancB.addEventListener('click', cancelChangePasswordClick, false);
     passCBox.appendChild(changePWCancB);
 
     myInner3.appendChild(passCBox);
 
-    let changePWFrom = document.createElement("form");
-    changePWFrom.setAttribute("id", "changepasswordform");
-    changePWFrom.setAttribute("action", "/updatepassword");
-    changePWFrom.setAttribute("onsubmit", "return changePasswordValidate()");
+    let changePWForm = document.createElement("form");
+    changePWForm.setAttribute("id", "changepasswordform");
+    changePWForm.setAttribute("action", "/updatepassword");
+    changePWForm.setAttribute("onsubmit", "return changePasswordValidate()");
+    changePWForm.addEventListener('submit', changePasswordValidate, false);
 
     let formContent = document.createElement("div");
     formContent.setAttribute("class", "formcontent");
@@ -366,14 +372,71 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     textBox3.appendChild(span4);
 
     formContent.appendChild(textBox3);
-    changePWFrom.appendChild(formContent);
-    myInner3.appendChild(changePWFrom);
+    changePWForm.appendChild(formContent);
+    myInner3.appendChild(changePWForm);
     myMainDiv.appendChild(myInner3);
     body.appendChild(myMainDiv);
 
-    let ctrScript = document.createElement("script");
-    ctrScript.setAttribute("src", "../js/myProfile.js");
-    body.appendChild(ctrScript);
+
+    var submitButton = document.querySelectorAll('input[type="submit"]')[1];
+    function editClick() {
+        bioText.style.display = "none";
+        editB.style.display = "none";
+        bioForm.style.display = "block";
+        editArea.style.display = "block";
+        cancelB.style.display = "inline";
+        saveB.style.display = "inline";
+    }
+    
+    function cancelClick() {
+        editArea.style.display = "none";
+        bioForm.style.display = "none";
+        cancelB.style.display = "none";
+        saveB.style.display = "none";
+        bioText.style.display = "block";
+        editB.style.display = "inline";
+    }
+    
+    function changePasswordClick() {
+        changePWOpB.style.display = "none";
+        submitButton.style.display = "inline";
+        changePWCancB.style.display="inline";
+        changePWForm.style.display="block";
+    }
+    
+    function cancelChangePasswordClick() {
+        changePWForm.style.display = "none";
+        changePWCancB.style.display = "none";
+        submitButton.style.display = "none";
+        changePWOpB.style.display = "inline";
+    }
+    
+    function changePasswordValidate(e) {
+        var valid = true;
+        var npwd = document.querySelectorAll('input[type="password"]')[1].value;
+        var cnpwd = document.querySelectorAll('input[type="password"]')[2].value;
+        if (npwd.length < 8) {
+        alert('Password must be at least 8 characters in length');
+        document.getElementById('npwdalert').style.display = 'inline';
+        valid = false;
+        }
+        else {
+        document.getElementById('npwdalert').style.display = 'none';
+        }
+        if (npwd.length >= 8 && cnpwd != npwd) {
+        alert('Passwords do not match');
+        document.getElementById('cnpwdalert').style.display = 'inline';
+        valid = false;
+        }
+        else {
+        document.getElementById('cnpwdalert').style.display = 'none';
+        }
+    
+        if (!valid) {
+        e.preventDefault()
+        } 
+    }
+    
 }
 
 let xhttp = new XMLHttpRequest();
