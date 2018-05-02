@@ -37,11 +37,19 @@ public class Main {
 				System.out.println("Did you type in the correct information?");
 			}
 		}else if(args.length == 2 && args[0].equals("-a1")){
-			if(Admin.setAdminStatus(args[1], true)) {
+			if(configure() && Admin.setAdminStatus(args[1], true)) {
 				System.out.println("Gave " + args[1] + " admin status");
 			}
 		}else if(args.length == 2 && args[0].equals("-a0")){
-			if(Admin.setAdminStatus(args[1], false)) {
+			if(configure() && Admin.setAdminStatus(args[1], false)) {
+				System.out.println("Removed admin status from " + args[1]);
+			}
+		}else if(args.length == 5 && args[0].equals("-a1")){
+			if(configure(args[0],args[1],args[2]) && Admin.setAdminStatus(args[1], true)) {
+				System.out.println("Gave " + args[1] + " admin status");
+			}
+		}else if(args.length == 5 && args[0].equals("-a0")){
+			if(configure(args[0],args[1],args[2]) && Admin.setAdminStatus(args[1], false)) {
 				System.out.println("Removed admin status from " + args[1]);
 			}
 		}
