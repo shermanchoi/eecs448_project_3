@@ -170,16 +170,21 @@ public class Post {
 			// Construct the post array.
 			while (rs.next()) {
 				totalPosts++;
-				jsonArr.put(new JSONObject().put("ID", rs.getInt("id")).put("Title", rs.getString("title"))
-						.put("Author", rs.getString("author")).put("Reply", getParentCount(rs.getInt("id"))));
+				jsonArr.put(new JSONObject().put("ID", rs.getInt("id"))
+						.put("Title", rs.getString("title"))
+						.put("Author", rs.getString("author"))
+						.put("Reply", getParentCount(rs.getInt("id"))));
 
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
 		}
 
-		JSONStringer json = (JSONStringer) new JSONStringer().object().key("Posts").value(jsonArr).key("currentP")
-				.value(1).key("totalP").value(Math.max(1, totalPosts / 10)).endObject();
+		JSONStringer json = (JSONStringer) new JSONStringer().object()
+				.key("Posts").value(jsonArr)
+				.key("currentP").value(1)
+				.key("totalP").value(Math.max(1, totalPosts / 10))
+				.endObject();
 
 		return json.toString();
 	}
