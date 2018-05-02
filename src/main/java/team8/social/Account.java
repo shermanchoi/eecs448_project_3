@@ -434,6 +434,8 @@ public class Account {
 				+ "(?,?,?,?,?,?,?,?,?,?,?,?);");
 
 		try {
+			Calendar calendar = Calendar.getInstance();
+			
 			// Statement preparing.
 			setter.statement.setString(1, uname);
 			setter.statement.setString(2, pword);
@@ -446,7 +448,7 @@ public class Account {
 			setter.statement.setString(9, ansQ1);
 			setter.statement.setString(10, ansQ2);
 			setter.statement.setString(11, ansQ3);
-			setter.statement.setString(12, Calendar.YEAR  + "-" + Calendar.MONTH + "-" + Calendar.DAY_OF_MONTH);
+			setter.statement.setString(12, calendar.get(Calendar.YEAR)  + "-" + calendar.get(calendar.MONTH) + "-" + calendar.get(calendar.DAY_OF_MONTH));
 			// Execution of statement.
 			if (setter.execute()) {
 				return new Account(uname, pword, dateOfBirth, fName, lName);
@@ -656,7 +658,7 @@ public class Account {
 				json = new JSONStringer().object() // Start object
 						.key("firstName").value(rs.getString("firstName")) // First name
 						.key("lastName").value(rs.getString("lastName")) // Last name
-						.key("birthday").value(rs.getString("birthday")) // Birthday of user
+						.key("birthday").value(rs.getString("birthday").substring(4)) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("securityQuestion1").value(questionNumberToQuestion(rs.getString("securityQuestion1"))) // security
 																														// question
