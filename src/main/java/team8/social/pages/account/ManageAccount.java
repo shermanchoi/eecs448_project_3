@@ -24,7 +24,7 @@ public class ManageAccount implements PageHandler {
     
     public ManageAccount() {
         try {
-            InputStream i = getClass().getResourceAsStream("/public/html/myProfile.html");
+            InputStream i = getClass().getResourceAsStream("/public/html/profile.html");
             page = new String(IOUtils.toByteArray(i));
         } catch (Exception e) {}
     }
@@ -45,6 +45,37 @@ public class ManageAccount implements PageHandler {
             String newBio = req.queryParams("changebioform");
             
             Account.changeBiography(req.session().attribute("UserID"),newBio);
+            res.redirect("/manageaccount");
+            return null;
+        });
+    
+        post("/modifybio", (req, res)->{
+            if(!Session.validate(req.session().id(), req.session().attribute("UserID"))){
+                res.redirect("/login");
+                return null;
+            }
+        
+            Account.changeBiography(req.session().attribute("UserID"), req.queryParams("bio"));
+            res.redirect("/manageaccount");
+            return null;
+        });
+        
+        post("/changepassword", (req, res)->{
+            if(!Session.validate(req.session().id(), req.session().attribute("UserID"))){
+                res.redirect("/login");
+                return null;
+            }
+    
+            if(!req.queryParams("npwd").equals(req.queryParams("cnpwd"))){
+                System.out.print("Failure");
+                System.out.println(req.queryParams("pword") + " " + req.queryParams("cpword"));
+        
+                res.redirect("/manageaccount");
+            }
+            
+            if(Account.changePassword(req.session().attribute("UserID"), req.queryParams("cpwd"), req.queryParams("npwd"))){
+                System.out.println("Password Changed");
+            }
             res.redirect("/manageaccount");
             return null;
         });
