@@ -58,7 +58,7 @@ function showPost(text) {
     let rHeaderButton = document.createElement("button");
     rHeaderButton.setAttribute("type", "button");
     rHeaderButton.setAttribute("class", "reply");
-    let link = "'/postViewReply?postID=" + ID + "'";
+    let link = "'/replypost?postID=" + ID + "'";
     let replyLink = "window.location="+link;
     rHeaderButton.setAttribute("onclick", replyLink);
     rHeaderButton.innerHTML = "Write a Reply";
