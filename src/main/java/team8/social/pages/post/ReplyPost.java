@@ -60,7 +60,7 @@ public class ReplyPost implements PageHandler{
             if (p == null) {
                 res.redirect("/replypost?postID=" + Integer.parseInt(req.queryParams("postID")));
             } else {
-                res.redirect("/viewpost?postID=" + Integer.parseInt(req.queryParams("postID")));
+                res.redirect("/post?postID=" + Integer.parseInt(req.queryParams("postID")));
             }
         
             return null;
