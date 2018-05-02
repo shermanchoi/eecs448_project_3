@@ -445,6 +445,7 @@ xhttp.onreadystatechange = function () {
     if(this.readyState == 4 && this.status == 200) {
         console.log("4, 200");
         let obj = JSON.parse(this.responseText);
+        if(obj.biography == null) {obj.biography = "";}
         if(obj.isUser == 1) {
             generateMyProfile(obj.username, obj.firstname, obj.lastname, obj.creationDate, obj.birthday, obj.biography, obj.postCount);
         } else {
