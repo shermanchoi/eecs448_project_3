@@ -382,7 +382,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 let xhttp = new XMLHttpRequest();
 
 xhttp.onreadystatechange = function () {
-    if(this.readystate == 4 && this.status == 200) {
+    if(this.readyState == 4 && this.status == 200) {
         let obj = JSON.parse(this.responseText);
         if(obj.isUser == 1) {
             generateMyProfile(obj.username, obj.firstname, obj.lastname, obj.creationDate, obj.birthday, obj.biography, obj.postCount);
@@ -390,7 +390,7 @@ xhttp.onreadystatechange = function () {
             generateProfile(obj.username, obj.firstname, obj.lastname, obj.creationDate, obj.birthday, obj.biography, obj.postCount);
         }
     } else {
-        console.log(this.readystate + ", " + this.status);
+        console.log(this.readyState + ", " + this.status);
     }
 };
 
