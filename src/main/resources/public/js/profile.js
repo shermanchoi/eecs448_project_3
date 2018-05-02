@@ -4,6 +4,19 @@ if(preID.includes("?")) {
     ID = preID.slice(10);
 }
 
+let preID = parent.document.URL.substring(parent.document.URL.indexOf('?passwordChange='), parent.document.URL.length);
+let ID = "";
+if(preID.includes("?")) {
+    ID = preID.slice('?passwordChange='.length);
+    if(ID == "nonMatching"){
+    	alert("Your password and confirm password do not match.")
+    }else if(ID == "success"){
+    	alert("Your password has been changed.")
+    }else if(ID == "fail"){
+    	alert("Your password could not be changed.")
+    }
+}
+
 let head = document.getElementById("head");
 let generalLink = document.createElement("link");
 generalLink.setAttribute("href", "../css/page_layout.css");
