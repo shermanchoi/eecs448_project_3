@@ -87,7 +87,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     BirthD.innerHTML = "Birthday:";
     thirdTR.appendChild(BirthD);
 
-    let birth = documment.createElement("td");
+    let birth = document.createElement("td");
     birth.setAttribute("class", "value");
     birth.innerHTML = bird;
     thirdTR.appendChild(birth);
@@ -187,7 +187,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myBirth.innerHTML = "Birthday:";
     myThirdTR.appendChild(myBirth);
 
-    let myBirthDay = documment.createElement("td");
+    let myBirthDay = document.createElement("td");
     myBirthDay.setAttribute("class", "value");
     myBirthDay.innerHTML = bird;
     thirdTR.appendChild(myBirthDay);
