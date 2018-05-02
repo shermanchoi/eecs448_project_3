@@ -1,5 +1,10 @@
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?username='), parent.document.URL.length);
-let ID = preID.slice(10);
+if(preID != ""); {
+    let ID = preID.slice(10);
+} else {
+    let ID = "";
+}
+
 
 let html = document.getElementsByTagName("html");
 
@@ -394,7 +399,11 @@ xhttp.onreadystatechange = function () {
     }
 };
 
-xhttp.open("GET", "/api/profilePage?user=" + ID, true);
+if(ID == "") {
+    xhttp.open("GET", "/api/profilrPage", true);
+} else {
+    xhttp.open("GET", "/api/profilePage?user=" + ID, true);
+}
 xhttp.send();
 //{"heself": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "joindate": "joindate", "birthday": "birthday", "biography": "bio", "postNum": "#"}
 //(uname, fname, lname, joinD, bird, biostr, posts)
