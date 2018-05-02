@@ -18,7 +18,14 @@ public class ViewPost implements PageHandler {
         try{
             InputStream i = getClass().getResourceAsStream("/public/html/postView.html");
             view = new String(IOUtils.toByteArray(i));
-        }catch(Exception e){}
+        }catch(Exception e){
+        	try {
+        		InputStream i = getClass().getResourceAsStream("/public/html/postView.html");
+        		view = new String(IOUtils.toByteArray(i));
+			} catch (Exception e2) {
+				
+			}
+        }
     }
     
     public void pages() {
