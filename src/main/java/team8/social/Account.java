@@ -565,7 +565,7 @@ public class Account {
 						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("creationDate").value(rs.getString("creationDate")) // day user joined
 						.key("postCount").value(getPostCreatedCount(username)) // how many posts this user made
-						.key("isUser").value(username.equals(loginedInUser)) // is the person looking at their own page?
+						.key("isUser").value(username.equals(loginedInUser) ? 0 : 1) // is the person looking at their own page?
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
