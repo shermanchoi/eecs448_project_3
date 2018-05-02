@@ -1,6 +1,6 @@
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?username='), parent.document.URL.length);
 let ID = "";
-if(preID != "") {
+if(preID.includes("?")) {
     ID = preID.slice(10);
 }
 
@@ -399,5 +399,5 @@ if(ID == "") {
 }
 xhttp.send();
 
-//{"heself": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "joindate": "joindate", "birthday": "birthday", "biography": "bio", "postNum": "#"}
+//{"isUser": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "createionDate": "joindate", "birthday": "birthday", "biography": "bio", "postCount": "#"}
 //(uname, fname, lname, joinD, bird, biostr, posts)
