@@ -204,9 +204,9 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myNumVal.setAttribute("class", "value");
     myNumVal.innerHTML = posts;
     myFourthTR.appendChild(myNumVal);
-    myTable.appendChild(fourthTR);
+    myTable.appendChild(myFourthTR);
 
-    myInner1.appendChild(table);
+    myInner1.appendChild(myTable);
 
     myInfoBox.appendChild(myInner1);
 
@@ -246,7 +246,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     bioForm.setAttribute("id", "changebioform");
     bioForm.setAttribute("name", "changebioform");
     bioForm.setAttribute("action", "/updatebio");
-    bioFrom.setAttribute("method", "post");
+    bioForm.setAttribute("method", "post");
  
     let editArea = document.createElement("textarea");
     editArea.setAttribute("id", "bioedit");
@@ -274,7 +274,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     changePWOpB.innerHTML = "Change Password";
     passCBox.appendChild(changePWOpB);
 
-    let changePWCancB = socument.createElement("button");
+    let changePWCancB = document.createElement("button");
     changePWCancB.setAttribute("id", "cancelchangepasswordbutton");
     changePWCancB.setAttribute("type", "button");
     changePWCancB.innerHTML = "Cancel";
@@ -319,7 +319,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     textBox2.appendChild(span1);
 
     let breackpoint2 = document.createElement("br");
-    textBox2.appendChild(breackPoint2);
+    textBox2.appendChild(breackpoint2);
 
     let input2 = document.createElement("input");
     input2.setAttribute("type", "password");
@@ -327,7 +327,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     textBox2.appendChild(input2);
 
     let breackpoint3 = document.createElement("br");
-    textBox2.appendChild(breackPoint3);
+    textBox2.appendChild(breackpoint3);
 
     let span2 = document.createElement("span");
     span2.setAttribute("class", "alert");
@@ -397,5 +397,6 @@ if(ID == "") {
     xhttp.open("GET", "/api/profilePage?user=" + ID, true);
 }
 xhttp.send();
+
 //{"heself": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "joindate": "joindate", "birthday": "birthday", "biography": "bio", "postNum": "#"}
 //(uname, fname, lname, joinD, bird, biostr, posts)
