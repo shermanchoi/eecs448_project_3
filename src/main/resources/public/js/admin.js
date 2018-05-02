@@ -3,7 +3,7 @@ error = error.slice(10);
 
 if(error == "yourself"){
 	alert("You should not and cannot ban yourself.");
-}else if(error = ""){
+}else if(error == "notFound"){
 	alert("The user you attempted to ban could not be found.");
 }
 
@@ -77,6 +77,24 @@ function populateUsers(text){
     	    banButtonForm.setAttribute("action","/admin/unbanUser");
 	        banButton.innerHTML = "Unban User";
         }
+        
+        
+        //Change password functionality?
+        /**
+        let changePasswordCol = document.createElement("td");
+        let changePasswordButtonForm = document.createElement("form");
+        let changePasswordButton = document.createElement("button");
+        let changePasswordText = document.createElement("input");
+        
+        changePasswordButtonForm.setAttribute("method","post");
+        changePasswordButton.setAttribute("type","submit");
+        changePasswordButton.setAttribute("name","username");
+        changePasswordButton.setAttribute("value",list["Users"][i].username);
+        changePasswordText.setAttribute("type","text");
+        changePasswordText.setAttribute("name","password");
+        changePasswordButton.setAttribute("action","/admin/changePassword");
+        changePasswordButton.innerHTML = "Change";
+        **/
         
         username.appendChild(href);
         user.appendChild(username);
