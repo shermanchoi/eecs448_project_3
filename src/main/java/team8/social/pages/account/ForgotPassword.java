@@ -70,7 +70,7 @@ public class ForgotPassword implements PageHandler {
                     return security;
                 }
             }else if(state == "security" && userid != null){
-                if(Account.securityQuestionCheck(userid, req.queryParams("sa1"), req.queryParams("sa2"), req.queryParams("sa2"))){
+                if(Account.securityQuestionCheck(userid, req.queryParams("sa1"), req.queryParams("sa2"), req.queryParams("sa3"))){
                     req.session().attribute("forgot-validated", "true");
                     req.session().attribute("forgot-state", "reset");
                     return password;
