@@ -11,12 +11,12 @@ This server is built using Java and uses Maven to handle dependencies. To build 
 2. Clone the GitHub Repository:
    - URL: https://github.com/SChoiGitHub/eecs448_project_3
    - Clone with SSH: git@github.com:SChoiGitHub/eecs448_project_3.git
-3. Using the makefile build the application.
+3. Using the makefile test and build the application.
    - The command ‘make defaultBuild’ will test and build the JAR file using the server specifications:
      - Database URL: jdbc:mysql://localhost:3306/sys?useSSL=false -
      - Database User: root
      - Database Password: password
-   - The command ‘make specificServerBuild’ will test and build the JAR file using a given server, but it requires three parameters:
+   - The command ‘make specificServerBuild’ will test and build the JAR file using a given server, but it requires three parameters. Please note that testing will result in the destruction of any data that pretains to this program, so use a different database than the one that currently is being used to test or you may lose data.
      - url= your database url here
      - user= your username for the database here
      - password=your password for the database here
