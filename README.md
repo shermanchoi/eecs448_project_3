@@ -34,10 +34,9 @@ You can run the JAR file using the ‘makefile’ provided in the GitHub Reposit
 Admin status is also managed by the JAR file.
 - You can make users admin using ‘defaultAdminStatusGive’.
 - You can remove a user’s admin status using ‘defaultAdminStatusTake’.
-For both of these commands, you need one arguement:
- - forumUser=<the username of the user affected>
+  - For both of these commands, you need one arguement: forumUser (the username of the user affected)
 If you are running your own server, you need to use ‘specificServerAdminStatusGive’ and ‘specificServerAdminStatusTake’ and have four parameters:
-- url=<your database url here>
-- user=<your username for the database here>
-- password=<your password for the database here>
-- forumUser=<the username of the user affected>
+- url=your database url here
+- user=your username for the database here
+- password=your password for the database here
+- forumUser=the username of the user affected
