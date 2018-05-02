@@ -559,13 +559,13 @@ public class Account {
 			while (rs.next()) {
 				json = new JSONStringer().object() // Start object
 						.key("username").value(rs.getString("username")) // Username
-						.key("firstName").value(rs.getString("firstName")) // First name
-						.key("lastName").value(rs.getString("lastName")) // Last name
+						.key("firstname").value(rs.getString("firstName")) // First name
+						.key("lastname").value(rs.getString("lastName")) // Last name
 						.key("birthday").value(rs.getString("birthday")) // Birthday of user
 						.key("biography").value(rs.getString("biography")) // biography of user
 						.key("creationDate").value(rs.getString("creationDate")) // day user joined
 						.key("postCount").value(getPostCreatedCount(username)) // how many posts this user made
-						.key("isUser").value(username.equals(loginedInUser) ? 0 : 1) // is the person looking at their own page?
+						.key("isUser").value(username.equals(loginedInUser) ? "1" : "0") // is the person looking at their own page?
 						.endObject().toString(); // End object.
 			}
 		} catch (Exception e) {
