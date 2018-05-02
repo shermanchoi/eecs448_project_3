@@ -27,6 +27,7 @@ body.appendChild(navbar);
 
 
 function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
+    if(biostr=="") {biostr = "This user has not written a biography yet...";}
     let profileCSS = document.createElement("link");
     profileCSS.setAttribute("href", "../css/profilePage.css");
     profileCSS.setAttribute("type", "text/css");
@@ -61,10 +62,10 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     name.innerHTML = "Name:";
     firstTR.appendChild(name);
 
-    let username = document.createElement("tr");
-    username.setAttribute("class", "value");
-    username.innerHTML = uname;
-    firstTR.appendChild(username);
+    let realname = document.createElement("tr");
+    realname.setAttribute("class", "value");
+    realname.innerHTML = fname +" " + lname;
+    firstTR.appendChild(realname);
     table.appendChild(firstTR);
 
     let secTR = document.createElement("tr");
@@ -127,6 +128,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 }
 
 function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
+    if(biostr == "") {}
     let myProfileCSS = document.createElement("link");
     myProfileCSS.setAttribute("href", "../css/myProfile.css");
     myProfileCSS.setAttribute("type", "text/css");
@@ -161,10 +163,10 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myName.innerHTML = "Name:";
     myFirstTR.appendChild(myName);
 
-    let myUsername = document.createElement("tr");
-    myUsername.setAttribute("class", "value");
-    myUsername.innerHTML = uname;
-    myFirstTR.appendChild(myUsername);
+    let myRealname = document.createElement("tr");
+    myRealname.setAttribute("class", "value");
+    myRealname.innerHTML = fname + " " + lname;
+    myFirstTR.appendChild(myRealname);
     myTable.appendChild(myFirstTR);
 
     let mySecTR = document.createElement("tr");
