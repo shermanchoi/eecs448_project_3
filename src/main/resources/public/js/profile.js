@@ -1,8 +1,7 @@
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?username='), parent.document.URL.length);
+let ID = "";
 if(preID != "") {
-    let ID = preID.slice(10);
-} else {
-    let ID = "";
+    ID = preID.slice(10);
 }
 
 
