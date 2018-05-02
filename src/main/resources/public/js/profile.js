@@ -191,7 +191,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myBirthDay.setAttribute("class", "value");
     myBirthDay.innerHTML = bird;
     myThirdTR.appendChild(myBirthDay);
-    myTable.appendChild(thirdTR);
+    myTable.appendChild(myThirdTR);
 
     let myFourthTR = document.createElement("tr");
 
