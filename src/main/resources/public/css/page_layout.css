@@ -22,6 +22,7 @@ header {
 header>img {
     position: relative;
     width: 27%;
+    height: 100%;
     margin: 0 auto;
     z-index: 1;
 }
