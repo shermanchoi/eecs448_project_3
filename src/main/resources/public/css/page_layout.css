@@ -5,6 +5,7 @@ html {
 body {
     background-color: GainsBoro;
     width: 100%;
+    min-width: 960px;
     height: 100%;
     margin: 0 auto;
     font-family: Helvetica, sans-serif;
@@ -57,5 +58,31 @@ nav>a:hover {
     min-width: 10%;
     height: 100%;
     margin: 0 auto;
+}
+
+#indexbar {
+    position: relative;
+    font-size: 80%;
+    text-align: right;
+    font-weight: lighter;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#indexbar>span {
+    margin-left: 0.5em;
+}
+
+#indexbar>a {
+    color: DarkBlue;
+    margin-left: 0.5em;
+}
+
+#indexbar>a.leftproximate, #indexbar>a.rightproximate {
+    display: inline;
+}
+
+#indexbar>a:hover {
+    text-decoration: underline;
+    color: purple;
 }
 
