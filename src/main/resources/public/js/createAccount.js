@@ -1,3 +1,12 @@
+let error = parent.document.URL.substring(parent.document.URL.indexOf('?error='), parent.document.URL.length);
+error = error.slice('?error='.length);
+
+if(error == "failure"){
+	alert("Account creation failure. One of these things happened:\n-Your username was already taken. Select another one.\n-You tried to make an account with invalid information. Please check your information and follow directions.");
+}else if(error = "shortPassword"){
+	alert("Your password was too short.");
+}
+
 function generateDates() {
     var today = new Date();
     var year = today.getFullYear();
