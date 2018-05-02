@@ -83,15 +83,15 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let thirdTR = document.createElement("tr");
 
-    let postNum = docuemnt.createElement("td");
-    postNum.setAttribute("class", "attribute");
-    postNum.innerHTML = "Birthday:";
-    thirdTR.appendChild(postNum);
+    let BirthD = docuemnt.createElement("td");
+    BirthD.setAttribute("class", "attribute");
+    BirthD.innerHTML = "Birthday:";
+    thirdTR.appendChild(BirthD);
 
-    let birthDay = documment.createElement("td");
-    birthDay.setAttribute("class", "value");
-    birthDay.innerHTML = bird;
-    thirdTR.appendChild(birthDay);
+    let birth = documment.createElement("td");
+    birth.setAttribute("class", "value");
+    birth.innerHTML = bird;
+    thirdTR.appendChild(birth);
     table.appendChild(thirdTR);
 
     let fourthTR = document.createElement("tr");
