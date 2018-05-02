@@ -5,7 +5,7 @@ if(preID != "") {
 }
 
 
-let html = document.getElementsByTagName("html");
+let pageHtml = document.getElementsByTagName("html");
 
 let head = document.createElement("head");
 let generalLink = document.createElement("link");
@@ -40,7 +40,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     pageTitle.innerHTML = uname + "'s Profile";
     head.appendChild(pageTitle);
 
-    html.appendChild(head);
+    pageHtml.appendChild(head);
 
     let mainDiv = document.createElement("div");
     mainDiv.setAttribute("id", "page");
@@ -129,6 +129,8 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     mainDiv.appendChild(infoBox);
 
     body.appendChild(mainDiv);
+
+    pageHtml.appendChild(body);
 }
 
 function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
@@ -142,7 +144,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myPageTitle.innerHTML = "My Profile";
     head.appendChild(myPageTitle);
 
-    html.appendChild(head);
+    pageHtml.appendChild(head);
 
     let myMainDiv = document.createElement("div");
     myMainDiv.setAttribute("id", "page");
@@ -377,10 +379,11 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myInner3.appendChild(changePWFrom);
     myMainDiv.appendChild(myInner3);
     body.appendChild(myMainDiv);
+    pageHtml.appendChild(body);
 
     let ctrScript = document.createElement("script");
     ctrScript.setAttribute("src", "../js/myProfile.js");
-    html.appendChild(ctrScript);
+    pageHtml.appendChild(ctrScript);
 }
 
 let xhttp = new XMLHttpRequest();
