@@ -56,7 +56,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let fristTR = document.createElement("tr");
 
-    let name = docuemnt.createElement("td");
+    let name = document.createElement("td");
     name.setAttribute("class", "attribute");
     name.innerHTML = "Name:";
     firstTR.appendChild(name);
@@ -69,7 +69,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let secTR = document.createElement("tr");
 
-    let joined = docuemnt.createElement("td");
+    let joined = document.createElement("td");
     joined.setAttribute("class", "attribute");
     joined.innerHTML = "Joined:";
     secTR.appendChild(joined);
@@ -82,7 +82,7 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let thirdTR = document.createElement("tr");
 
-    let BirthD = docuemnt.createElement("td");
+    let BirthD = document.createElement("td");
     BirthD.setAttribute("class", "attribute");
     BirthD.innerHTML = "Birthday:";
     thirdTR.appendChild(BirthD);
@@ -156,7 +156,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let myFristTR = document.createElement("tr");
 
-    let myName = docuemnt.createElement("td");
+    let myName = document.createElement("td");
     myName.setAttribute("class", "attribute");
     myName.innerHTML = "Name:";
     myFirstTR.appendChild(myName);
@@ -169,7 +169,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let mySecTR = document.createElement("tr");
 
-    let iJoined = docuemnt.createElement("td");
+    let iJoined = document.createElement("td");
     iJoined.setAttribute("class", "attribute");
     iJoined.innerHTML = "Joined:";
     mySecTR.appendChild(iJoined);
@@ -182,7 +182,7 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let myThirdTR = document.createElement("tr");
 
-    let myBirth = docuemnt.createElement("td");
+    let myBirth = document.createElement("td");
     myBirth.setAttribute("class", "attribute");
     myBirth.innerHTML = "Birthday:";
     myThirdTR.appendChild(myBirth);
