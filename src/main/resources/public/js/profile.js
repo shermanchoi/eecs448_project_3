@@ -4,17 +4,14 @@ if(preID != "") {
     ID = preID.slice(10);
 }
 
-
-let pageHtml = document.getElementsByTagName("html");
-
-let head = document.createElement("head");
+let head = document.getElementsByTagName("head");
 let generalLink = document.createElement("link");
 generalLink.setAttribute("href", "../css/page_layout.css");
 generalLink.setAttribute("type", "text/css");
 generalLink.setAttribute("rel", "stylesheet");
 head.appendChild(generalLink);
 
-let body = document.createElement("body");
+let body = document.getElementsByTagName("body");
 
 let header = document.createElement("header");
 let headerImg = document.createElement("img");
@@ -39,8 +36,6 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let pageTitle = document.createElement("title");
     pageTitle.innerHTML = uname + "'s Profile";
     head.appendChild(pageTitle);
-
-    pageHtml.appendChild(head);
 
     let mainDiv = document.createElement("div");
     mainDiv.setAttribute("id", "page");
@@ -129,8 +124,6 @@ function generateProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     mainDiv.appendChild(infoBox);
 
     body.appendChild(mainDiv);
-
-    pageHtml.appendChild(body);
 }
 
 function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
@@ -143,8 +136,6 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     let myPageTitle = document.createElement("title");
     myPageTitle.innerHTML = "My Profile";
     head.appendChild(myPageTitle);
-
-    pageHtml.appendChild(head);
 
     let myMainDiv = document.createElement("div");
     myMainDiv.setAttribute("id", "page");
@@ -379,11 +370,10 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
     myInner3.appendChild(changePWFrom);
     myMainDiv.appendChild(myInner3);
     body.appendChild(myMainDiv);
-    pageHtml.appendChild(body);
 
     let ctrScript = document.createElement("script");
     ctrScript.setAttribute("src", "../js/myProfile.js");
-    pageHtml.appendChild(ctrScript);
+    body.appendChild(ctrScript);
 }
 
 let xhttp = new XMLHttpRequest();
