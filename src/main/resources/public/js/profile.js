@@ -384,17 +384,17 @@ let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
     if(this.readystate == 4 && this.status == 200) {
         let obj = JSON.parse(this.responseText);
-        if(obj.heself == 1) {
-            generateMyProfile(obj.username, obj.firstname, obj.lastname, obj.joindate, obj.birthday, obj.biography, obj.posts);
+        if(obj.isUser == 1) {
+            generateMyProfile(obj.username, obj.firstname, obj.lastname, obj.creationDate, obj.birthday, obj.biography, obj.postCount);
         } else {
-            generateProfile(obj.username, obj.firstname, obj.lastname, obj.joindate, obj.birthday, obj.biography, obj.posts);
+            generateProfile(obj.username, obj.firstname, obj.lastname, obj.creationDate, obj.birthday, obj.biography, obj.postCount);
         }
     } else {
         console.log(this.readystate + ", " + this.status);
     }
 };
 
-xhttp.open("GET", "/api/profilepage?user=" + ID, true);
+xhttp.open("GET", "/api/profilePage?user=" + ID, true);
 xhttp.send();
 //{"heself": "0/1", "username": "usrname", "firstname": "frtname", "lastname": "lastname", "joindate": "joindate", "birthday": "birthday", "biography": "bio", "postNum": "#"}
 //(uname, fname, lname, joinD, bird, biostr, posts)
