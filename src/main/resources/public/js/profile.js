@@ -4,14 +4,14 @@ if(preID != "") {
     ID = preID.slice(10);
 }
 
-let head = document.getElementsByTagName("head");
+let head = document.getElementsById("head");
 let generalLink = document.createElement("link");
 generalLink.setAttribute("href", "../css/page_layout.css");
 generalLink.setAttribute("type", "text/css");
 generalLink.setAttribute("rel", "stylesheet");
 head.appendChild(generalLink);
 
-let body = document.getElementsByTagName("body");
+let body = document.getElementsById("body");
 
 let header = document.createElement("header");
 let headerImg = document.createElement("img");
