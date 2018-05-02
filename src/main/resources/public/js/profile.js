@@ -294,8 +294,8 @@ function generateMyProfile (uname, fname, lname, joinD, bird, biostr, posts) {
 
     let changePWForm = document.createElement("form");
     changePWForm.setAttribute("id", "changepasswordform");
-    changePWForm.setAttribute("action", "/updatepassword");
-    chengePWForm.setAttribute("method", "post");
+    changePWForm.setAttribute("action", "/changepassword");
+    changePWForm.setAttribute("method", "post");
     changePWForm.setAttribute("onsubmit", "return changePasswordValidate()");
     changePWForm.addEventListener('submit', changePasswordValidate, false);
 
