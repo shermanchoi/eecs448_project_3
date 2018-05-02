@@ -46,7 +46,14 @@ public class API implements PageHandler{
         });
         
         get("/api/profilePage", (req, res) -> {
-            return Account.getProfilePageInformation(req.queryParams("user"),req.session().attribute("username"));
+            String user = req.session().attribute("UserID");
+            String profile = req.queryParams("user");
+            
+            if(req.queryParams("user").toString() != "") {
+                return Account.getProfilePageInformation(profile, user);
+            }else{
+                return Account.getProfilePageInformation(user, user);
+            }
         });
     }
 }
