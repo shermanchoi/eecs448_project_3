@@ -304,8 +304,6 @@ public class Post {
 						.key("Author").value(rs.getString("author")) //Author of post.
 						.key("Content").value(rs.getString("message")) //message inside post.
 						.endObject().toString(); //end object
-
-				System.out.println(rs.getString("message"));
 			}
 		} catch (Exception e) {
 			System.out.println("ResultSet Error:\n\t" + e.getMessage());
