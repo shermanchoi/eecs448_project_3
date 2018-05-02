@@ -40,22 +40,10 @@ public class ManageAccount implements PageHandler {
         post("/updatebio", (req,res) ->{
         	if (!Session.validate(req.session().id(), req.session().attribute("UserID"))) {
                 res.redirect("/");
-            }
-            
-            String newBio = req.queryParams("changebioform");
-            
-            Account.changeBiography(req.session().attribute("UserID"),newBio);
-            res.redirect("/manageaccount");
-            return null;
-        });
-    
-        post("/modifybio", (req, res)->{
-            if(!Session.validate(req.session().id(), req.session().attribute("UserID"))){
-                res.redirect("/login");
                 return null;
             }
-        
-            Account.changeBiography(req.session().attribute("UserID"), req.queryParams("bio"));
+            
+            Account.changeBiography(req.session().attribute("UserID"),req.queryParams("bioedit"));
             res.redirect("/manageaccount");
             return null;
         });
