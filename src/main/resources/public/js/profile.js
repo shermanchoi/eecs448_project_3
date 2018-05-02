@@ -4,6 +4,7 @@ if(preID.includes("?")) {
     ID = preID.slice(10);
 }
 
+/**
 let preID = parent.document.URL.substring(parent.document.URL.indexOf('?passwordChange='), parent.document.URL.length);
 let ID = "";
 if(preID.includes("?")) {
@@ -16,6 +17,7 @@ if(preID.includes("?")) {
     	alert("Your password could not be changed.")
     }
 }
+**/
 
 let head = document.getElementById("head");
 let generalLink = document.createElement("link");
