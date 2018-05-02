@@ -55,16 +55,18 @@ public class ManageAccount implements PageHandler {
             }
     
             if(!req.queryParams("npwd").equals(req.queryParams("cnpwd"))){
-                System.out.print("Failure");
-                System.out.println(req.queryParams("pword") + " " + req.queryParams("cpword"));
+                //System.out.print("Failure");
+                //System.out.println(req.queryParams("pword") + " " + req.queryParams("cpword"));
         
-                res.redirect("/manageaccount");
+                res.redirect("/manageaccount?passwordChange=nonMatching");
             }
             
             if(Account.changePassword(req.session().attribute("UserID"), req.queryParams("cpwd"), req.queryParams("npwd"))){
-                System.out.println("Password Changed");
+            	res.redirect("/manageaccount?passwordChange=success");
+            }else {
+            	res.redirect("/manageaccount?passwordChange=fail");
             }
-            res.redirect("/manageaccount");
+            
             return null;
         });
     }
